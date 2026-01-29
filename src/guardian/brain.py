@@ -24,6 +24,14 @@ When analyzing changes, ask yourself:
 
 Speak concisely and professionally, but with a slight "cybernetic guardian" flair.
 """
+        self._check_ollama()
+
+    def _check_ollama(self):
+        try:
+            ollama.list()
+        except Exception:
+            logging.warning("⚠️ Ollama is not running or unreachable. Guardian Brain will be offline.")
+            print("⚠️ WARNING: Ollama is not running. Please start Ollama to enable Guardian's cognitive features.")
 
     def think(self, context: str, task: str) -> str:
         """

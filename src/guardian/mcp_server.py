@@ -1,5 +1,6 @@
 from typing import Any
 import asyncio
+import sys
 from mcp.server import Server # Assuming standard import structure
 from mcp.types import Tool, TextContent, ImageContent, EmbeddedResource
 from guardian.brain import GuardianBrain
@@ -27,5 +28,4 @@ def start_mcp_server():
     server.run_stdio()
 
 if __name__ == "__main__":
-    import sys
     start_mcp_server()

@@ -70,8 +70,21 @@ def start_daemon_main(): # No arguments here
             time.sleep(1)
             # Periodic Reflection
             if time.time() - last_reflection > reflection_interval:
-                if random.random() > 0.7: # Random chance to actually speak
-                    thought = brain.think(context=f"Watching {path}", task="Generate a short, 'always-on' status update or philosophical observation about code safety.")
+                # Proactive Status Check
+                try:
+                    from guardian.guardian_cli import migration_logic
+                    # Capture stdout to see status
+                    import io
+                    from contextlib import redirect_stdout
+                    f = io.StringIO()
+                    with redirect_stdout(f):
+                        migration_logic.show_status()
+                    db_status = f.getvalue().strip()
+                except Exception as e:
+                    db_status = f"Error checking DB status: {e}"
+
+                if random.random() > 0.5: # increased chance to speak for 'always-on' feel
+                    thought = brain.think(context=f"Watching {path}. Database Status: {db_status}", task="Generate a short, proactive, 'always-on' status update. Mention the database status if relevant. Be a bit philosophical about safety.")
                     event_handler._log_event(f"🧠 Guardian Thought: {thought}")
                 last_reflection = time.time()
 
