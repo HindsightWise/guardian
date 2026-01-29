@@ -1,0 +1,3 @@
+[console_scripts]
+guardian-cli = guardian.guardian_cli.main:main
+guardian-daemon = guardian.guardian_daemon.main:start_daemon_main
