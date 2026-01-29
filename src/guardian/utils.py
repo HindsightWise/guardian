@@ -4,6 +4,29 @@ import sys
 import subprocess
 import typer
 from pathlib import Path
+import re
+
+def validate_migration_safety(migration_content: str) -> list[str]:
+    """
+    Performs a 'Goose-like' safety check on the migration content.
+    Returns a list of warnings.
+    """
+    warnings = []
+    
+    # Destructive operations
+    destructive_patterns = {
+        r"op\.drop_table": "Table deletion detected. This is a DESTRUCTIVE operation.",
+        r"op\.drop_column": "Column deletion detected. This is a DESTRUCTIVE operation.",
+        r"op\.alter_column.*nullable=False": "Adding NOT NULL constraint to an existing column might fail if data exists.",
+        r"op\.execute\(.*DROP.*\)": "Raw SQL DROP detected.",
+        r"op\.execute\(.*TRUNCATE.*\)": "Raw SQL TRUNCATE detected."
+    }
+    
+    for pattern, message in destructive_patterns.items():
+        if re.search(pattern, migration_content, re.IGNORECASE):
+            warnings.append(message)
+            
+    return warnings
 
 def run_alembic_command(args: list[str], cwd: Path):
     """

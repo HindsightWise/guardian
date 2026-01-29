@@ -2,7 +2,7 @@
 import os
 import typer
 from pathlib import Path
-from guardian.utils import run_alembic_command
+from guardian.utils import run_alembic_command, validate_migration_safety
 import git # New import for GitPython
 from guardian.brain import GuardianBrain
 
@@ -15,17 +15,27 @@ def _handle_git_workflow(migration_file_abs_path: Path, repo_root: Path):
     """
     typer.echo(f"Git workflow: Processing migration file {migration_file_abs_path} in repository {repo_root}...")
     
-    # --- Brain Review ---
-    typer.echo("Guardian Brain: Reviewing generated migration for safety...")
+    # --- Brain & Static Review ---
+    typer.echo("Guardian: Performing safety validation...")
     try:
         with open(migration_file_abs_path, 'r') as f:
             migration_code = f.read()
         
-        review = brain.review_migration(migration_code)
-        typer.echo(f"Guardian Brain Review:\n{review}")
+        static_warnings = validate_migration_safety(migration_code)
+        brain_review = brain.review_migration(migration_code)
+        
+        full_review = "--- Static Safety Check ---\n"
+        if static_warnings:
+            full_review += "\n".join([f"⚠️ {w}" for w in static_warnings])
+        else:
+            full_review += "✅ No destructive operations detected by static analysis."
+            
+        full_review += f"\n\n--- AI Brain Review ---\n{brain_review}"
+        
+        typer.echo(full_review)
     except Exception as e:
-        typer.echo(f"Guardian Brain failed to review: {e}")
-        review = "Automated review failed."
+        typer.echo(f"Safety validation failed: {e}")
+        full_review = "Validation failed."
 
     try:
         repo = git.Repo(repo_root) # Initialize repo with the correct root
@@ -59,7 +69,7 @@ def _handle_git_workflow(migration_file_abs_path: Path, repo_root: Path):
     repo.index.add([str(migration_file_repo_rel_path)])
 
     # Commit the changes
-    commit_message = f"feat(migration): {migration_file_abs_path.stem}\n\nGuardian Review:\n{review}"
+    commit_message = f"feat(migration): {migration_file_abs_path.stem}\n\nGuardian Safety Review:\n{full_review}"
     typer.echo(f"Committing changes with message: '{commit_message}'")
     repo.index.commit(commit_message)
 
