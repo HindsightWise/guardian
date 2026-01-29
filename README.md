@@ -24,7 +24,11 @@ It also functions as a **Model Context Protocol (MCP)** server, exposing its cap
 ## Requirements
 
 - Python 3.11+
-- [Ollama](https://ollama.ai/) running locally (default model: `llama3`).
+- [Ollama](https://ollama.ai/) running locally.
+- A local LLM pulled (default: `llama3`).
+  ```bash
+  ollama pull llama3
+  ```
 - Git repository.
 
 ## Installation
@@ -35,9 +39,17 @@ pip install -e .
 
 ## Usage
 
-Start the daemon:
-```bash
-guardian-daemon
-```
+1. **Start Ollama**:
+   Ensure the Ollama server is running (usually a menu bar app or `ollama serve`).
+2. **Start the Guardian Daemon**:
+   ```bash
+   guardian-daemon .
+   ```
+   The daemon will monitor the current directory and its subdirectories.
+3. **Use the CLI**:
+   ```bash
+   guardian-cli status
+   guardian-cli up
+   ```
 
 *This project was forged by the Ralph/Gemini agent.*

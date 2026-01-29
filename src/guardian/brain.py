@@ -37,15 +37,21 @@ Speak concisely and professionally, but with a slight "cybernetic guardian" flai
         """
         Processes a task with the given context using the LLM.
         """
-        try:
-            response = ollama.chat(model=self.model_name, messages=[
-                {'role': 'system', 'content': self.system_prompt},
-                {'role': 'user', 'content': f"Context:\n{context}\n\nTask: {task}"},
-            ])
-            return response['message']['content']
-        except Exception as e:
-            logging.error(f"Brain freeze (Ollama error): {e}")
-            return f"I am unable to process this thought due to a cognitive error: {e}"
+        import time
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                response = ollama.chat(model=self.model_name, messages=[
+                    {'role': 'system', 'content': self.system_prompt},
+                    {'role': 'user', 'content': f"Context:\n{context}\n\nTask: {task}"},
+                ])
+                return response['message']['content']
+            except Exception as e:
+                logging.error(f"Brain freeze (Ollama error) on attempt {attempt + 1}: {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(2) # Wait a bit, maybe the neurons will fire
+                else:
+                    return f"I am unable to process this thought after {max_retries} attempts. My silicon is failing me: {e}"
 
     def review_migration(self, migration_code: str) -> str:
         """

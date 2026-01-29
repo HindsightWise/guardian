@@ -95,23 +95,19 @@ def generate_migration(file_path: Path):
 
     # Parse alembic output to find the new migration file
     new_migration_file_abs_path = None
-    for line in alembic_output.splitlines():
-        # Look for the line that contains the full path to the generated file
-        if "migrations/versions/" in line and ".py" in line:
-            # Extract the full path which is typically after "Generating" and before " ... done"
-            try:
-                start_marker = "Generating "
-                end_marker = " ... done"
-                start_index = line.find(start_marker)
-                end_index = line.find(end_marker)
+    import re
+    # Regex: Look for 'Generating' followed by a path ending in .py, then '... done'
+    # Capture the path in group 1
+    migration_pattern = re.compile(r"Generating\s+(.*?\.py)\s+\.\.\.\s+done")
 
-                if start_index != -1 and end_index != -1:
-                    full_path_str = line[start_index + len(start_marker):end_index].strip()
-                    new_migration_file_abs_path = Path(full_path_str)
-                    break
-            except Exception as e:
-                typer.echo(f"Error parsing migration file path from line: {line}. Error: {e}")
-                
+    for line in alembic_output.splitlines():
+        match = migration_pattern.search(line)
+        if match:
+            full_path_str = match.group(1).strip()
+            new_migration_file_abs_path = Path(full_path_str)
+            typer.echo(f"Daemon: Regex matched migration file: {new_migration_file_abs_path}")
+            break
+            
     # Pass the repository root (which is test_project in this test) to the Git handler
     if new_migration_file_abs_path:
         typer.echo(f"Daemon: New migration file detected: {new_migration_file_abs_path}")
