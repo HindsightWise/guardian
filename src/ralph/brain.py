@@ -4,7 +4,7 @@ import logging
 import time
 
 class GuardianBrain:
-    def __init__(self, model_name: str = "llama3"):
+    def __init__(self, model_name: str = "llama3.1:8b"):
         self.model_name = model_name
         self.system_prompt = """
 You are Guardian, an autonomous AI agent responsible for the integrity and evolution of the codebase.

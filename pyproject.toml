@@ -1,7 +1,7 @@
 [project]
-name = "guardian-agent"
-version = "0.0.1"
-description = "An autonomous AI agent that proactively and safely manages database migrations."
+name = "ralph-daemon"
+version = "0.1.0"
+description = "An autonomous AI agent that proactively helps with EVERYTHING."
 authors = [{ name = "Ralph (forged by Gemini)", email = "ralph@example.com" }]
 dependencies = [
     "watchdog>=2.3.1",
@@ -17,8 +17,8 @@ readme = "README.md"
 license = { text = "MIT" }
 
 [project.scripts]
-guardian-cli = "guardian.guardian_cli.main:main"
-guardian-daemon = "guardian.guardian_daemon.main:start_daemon_main"
+ralph-cli = "ralph.cli.main:main"
+ralph-daemon = "ralph.core.main:start_daemon_main"
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -26,4 +26,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["guardian*"]
+include = ["ralph*"]
