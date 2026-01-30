@@ -1,28 +1,39 @@
 from pathlib import Path
 import typer
-import subprocess
+import requests
 import json
 import logging
 
+BRAVE_API_KEY = "BSADiH8SakVAWOzRng0173ZFs6OPKVu"
+
 def brave_search(query: str) -> str:
     """
-    Calls the Brave Search MCP server via 'mcp-proxy' or direct command.
+    Calls the Brave Search API to get real-world information.
     """
-    # NOTE: Since we don't have a full python MCP client library set up for the daemon yet,
-    # we will use subprocess to call the node MCP server directly via `npx` or `pnpm dlx` as a one-off.
-    # Actually, simpler: We will use the 'brave-search' python package wrapper I saw in npm list? 
-    # No, that was npm. 
-    # Let's use `curl` or `requests` to the Brave API if we had a key, but the prompt implies using the MCP server.
-    # The MCP server talks via stdio. That's hard to script in a one-off without a client.
+    url = "https://api.search.brave.com/res/v1/web/search"
+    headers = {
+        "Accept": "application/json",
+        "X-Subscription-Token": BRAVE_API_KEY
+    }
+    params = {"q": query, "count": 5}
     
-    # ALTERNATIVE: For this iteration, we will use the Brain to SIMULATE the research by asking its internal knowledge 
-    # or by using a simple 'ollama' query if the info is general.
-    # BUT, the goal is to use MCP. 
-    # Let's write a simple MCP client wrapper in Python.
-    
-    # Actually, let's defer the full MCP StdIO implementation to the next "Rick" iteration.
-    # For now, we will use a placeholder that *says* it would search.
-    return f"[MOCK SEARCH RESULTS FOR: {query}] (MCP Integration Pending Refactor)"
+    try:
+        response = requests.get(url, headers=headers, params=params)
+        response.raise_for_status()
+        data = response.json()
+        
+        results = data.get("web", {}).get("results", [])
+        if not results:
+            return "No search results found."
+            
+        summary = []
+        for res in results:
+            summary.append(f"- {res['title']}: {res['description']} ({res['url']})")
+            
+        return "\n".join(summary)
+    except Exception as e:
+        logging.error(f"Brave Search Error: {e}")
+        return f"Search failed: {e}"
 
 def analyze_note(file_path: Path):
     """
@@ -34,19 +45,40 @@ def analyze_note(file_path: Path):
         with open(file_path, "r") as f:
             content = f.read()
             
-        # 1. Detection
-        if "???" in content: # Explicit trigger for now
-            question_block = content.split("???")[1].split("\n")[0].strip()
-            typer.echo(f"Researcher: Question detected: '{question_block}'")
-            
-            # 2. Research (Mocked for now)
-            answer = brave_search(question_block)
-            
-            # 3. Write Back
-            with open(file_path, "a") as f:
-                f.write(f"\n\n--- 🕵️ Ralph's Research ---\n{answer}\n---------------------------\n")
-            
-            typer.echo("Researcher: Answer appended.")
+        # Trigger: Check for lines ending in ???
+        # We look for the LAST occurrence of ??? to avoid infinite loops if it appends to itself
+        if "???" in content:
+            # Simple parsing: Get the text before the last ??? on that line
+            lines = content.splitlines()
+            for line in reversed(lines):
+                if "???" in line:
+                    question = line.replace("???", "").strip()
+                    if not question: continue
+                    
+                    typer.echo(f"Researcher: Question detected: '{question}'")
+                    
+                    # 2. Research
+                    search_results = brave_search(question)
+                    
+                    # 3. Synthesize with Brain (Optional but better)
+                    from ralph.brain import GuardianBrain
+                    brain = GuardianBrain()
+                    synthesized_answer = brain.think(
+                        context=f"Search Results for '{question}':\n{search_results}",
+                        task=f"Summarize these search results for the user in your 'sarcastic nerd' persona. Be concise but informative."
+                    )
+                    
+                    # 4. Write Back
+                    # To prevent infinite loops, we'll check if we already answered this specific question
+                    if f"Analysis for: {question}" in content:
+                        typer.echo("Researcher: Already answered this question. Skipping.")
+                        return
+
+                    with open(file_path, "a") as f:
+                        f.write(f"\n\n--- 🕵️ Ralph's Research: {question} ---\n{synthesized_answer}\n\nSources:\n{search_results}\n---------------------------\n")
+                    
+                    typer.echo("Researcher: Answer appended.")
+                    break # Only handle one question per modification for safety
             
     except Exception as e:
         typer.echo(f"Researcher Error: {e}")

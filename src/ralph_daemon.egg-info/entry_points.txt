@@ -1,0 +1,3 @@
+[console_scripts]
+ralph-cli = ralph.cli.main:main
+ralph-daemon = ralph.core.main:start_daemon_main
