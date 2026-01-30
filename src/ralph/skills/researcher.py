@@ -3,17 +3,20 @@ import typer
 import requests
 import json
 import logging
-
-BRAVE_API_KEY = "BSADiH8SakVAWOzRng0173ZFs6OPKVu"
+from ralph.core import secrets
 
 def brave_search(query: str) -> str:
     """
     Calls the Brave Search API to get real-world information.
     """
+    api_key = secrets.brave_key()
+    if not api_key:
+        return "Brave API key not found in .env"
+
     url = "https://api.search.brave.com/res/v1/web/search"
     headers = {
         "Accept": "application/json",
-        "X-Subscription-Token": BRAVE_API_KEY
+        "X-Subscription-Token": api_key
     }
     params = {"q": query, "count": 5}
     
