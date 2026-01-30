@@ -5,8 +5,16 @@ import sys
 from pathlib import Path
 from . import init_logic
 from . import migration_logic
+from . import chat_logic
 
 app = typer.Typer()
+
+@app.command()
+def chat():
+    """
+    Start an interactive chat session with Ralph.
+    """
+    chat_logic.start_chat_session()
 
 @app.command()
 def init():
