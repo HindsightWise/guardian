@@ -6,6 +6,7 @@ from watchdog.observers.polling import PollingObserver as Observer # Explicitly 
 from watchdog.events import FileSystemEventHandler
 from pathlib import Path
 from guardian import daemon_logic # Corrected import
+from guardian import notes_logic
 from guardian.brain import GuardianBrain
 import random
 
@@ -43,11 +44,19 @@ class ChangeEventHandler(FileSystemEventHandler):
 
     def on_modified(self, event):
         super().on_modified(event)
+        path = Path(event.src_path)
+        
         # Check if the modified file is a Python file
-        if Path(event.src_path).suffix == ".py":
+        if path.suffix == ".py":
             self._log_event(f"Python file modified: {event.src_path}. Triggering migration generation.")
             # Call daemon_logic to generate migration
-            daemon_logic.generate_migration(Path(event.src_path)) # Re-enabled
+            daemon_logic.generate_migration(path) # Re-enabled
+            
+        # Check for Notes
+        elif path.name == "My_notes.md":
+            self._log_event(f"Notes modified: {event.src_path}. Ralph is reading...")
+            notes_logic.handle_notes_update(path)
+            
         else:
             self._log_event(f"Modified: {event.src_path}")
 

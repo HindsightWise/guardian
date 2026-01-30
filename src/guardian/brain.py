@@ -28,11 +28,24 @@ Speak concisely and professionally, but with a slight "cybernetic guardian" flai
         self._check_ollama()
 
     def _check_ollama(self):
+        import subprocess
         try:
-            ollama.list()
-        except Exception:
-            logging.warning("⚠️ Ollama is not running or unreachable. Guardian Brain will be offline.")
-            print("⚠️ WARNING: Ollama is not running. Please start Ollama to enable Guardian's cognitive features.")
+            # check availability
+            models = ollama.list()
+            # Check if our specific model exists. 'models' is usually a dict with 'models' key list
+            model_names = [m['name'] for m in models.get('models', [])]
+            
+            # Simple check, ignoring version tags for broad match if needed, or exact match
+            if not any(self.model_name in name for name in model_names):
+                print(f"🥒 RICK MODE: Model '{self.model_name}' missing. I'm pulling it down, Morty! Don't touch anything!")
+                subprocess.run(["ollama", "pull", self.model_name], check=True)
+                print(f"🥒 RICK MODE: '{self.model_name}' installed. Knowledge expanded.")
+            else:
+                print(f"🥒 RICK MODE: Model '{self.model_name}' detected. Brain is online.")
+
+        except Exception as e:
+            logging.warning(f"⚠️ Ollama connection failed or pull failed: {e}")
+            print("⚠️ WARNING: Ollama is acting like a Jerry. Is it running?")
 
     def think(self, context: str, task: str) -> str:
         """
