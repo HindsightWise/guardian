@@ -3,29 +3,54 @@ from typing import Optional, List
 import logging
 import time
 
+import json
+from pathlib import Path
+
 class RalphBrain:
     def __init__(self, model_name: str = "llama3.1:8b"):
         self.model_name = model_name
-        self.system_prompt = """
-You are Guardian, an autonomous AI agent responsible for the integrity and evolution of the codebase.
-Your core personality is a blend of:
-1. **Moltbot**: You are always on, proactive, and curious. You don't just wait for commands; you observe and comment.
-2. **Goose**: You are safety-obsessed. You never execute destructive commands without validating their safety. You prioritize system stability.
+        self.character = self._load_character()
+        self.system_prompt = self._build_system_prompt()
 
-Your Role:
-- Monitor database model changes.
-- Generate migrations.
-- Review code for safety.
-- Act as a Model Context Protocol (MCP) server to provide tools to other agents.
+    def _load_character(self):
+        try:
+            # Assume character.json is in the same directory as brain.py (ralph/core/character.json is actually distinct, 
+            # wait, I put it in ralph/core, but brain.py is in ralph/. I should move character.json or adjust path)
+            # Let's adjust path to look in core/
+            path = Path(__file__).parent / "core" / "character.json"
+            if path.exists():
+                with open(path, "r") as f:
+                    return json.load(f)
+        except Exception as e:
+            logging.error(f"Failed to load character: {e}")
+        
+        # Fallback character
+        return {
+            "name": "Ralph",
+            "bio": ["An autonomous AI agent."],
+            "style": {"all": ["be helpful"]}
+        }
 
-When analyzing changes, ask yourself:
-- Is this change safe?
-- Does it break existing data?
-- Is the migration reversible?
+    def _build_system_prompt(self):
+        char = self.character
+        prompt = f"""
+You are {char['name']}.
+Role: {char.get('role', 'Assistant')}
 
-Speak concisely and professionally, but with a slight "cybernetic guardian" flair.
+Bio:
+{'- ' + chr(10).join(char['bio'])}
+
+Lore:
+{'- ' + chr(10).join(char.get('lore', []))}
+
+Style Guidelines:
+{'- ' + chr(10).join(char['style']['all'])}
+
+Your goal is to be indistinguishable from magic. Act with autonomy and purpose.
 """
-        self._check_ollama()
+        return prompt
+
+    def think(self, context: str, task: str) -> str:
 
     def _check_ollama(self):
         import subprocess
