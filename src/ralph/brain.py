@@ -3,7 +3,7 @@ from typing import Optional, List
 import logging
 import time
 
-class GuardianBrain:
+class RalphBrain:
     def __init__(self, model_name: str = "llama3.1:8b"):
         self.model_name = model_name
         self.system_prompt = """

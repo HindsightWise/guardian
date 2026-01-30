@@ -2,7 +2,7 @@ import os
 import sys
 import typer
 from pathlib import Path
-from guardian.utils import run_alembic_command
+from ralph.utils import run_alembic_command
 
 def show_status():
     """

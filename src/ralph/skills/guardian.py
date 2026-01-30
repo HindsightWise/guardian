@@ -2,12 +2,12 @@
 import os
 import typer
 from pathlib import Path
-from guardian.utils import run_alembic_command, validate_migration_safety
+from ralph.utils import run_alembic_command, validate_migration_safety
 import git # New import for GitPython
-from guardian.brain import GuardianBrain
+from ralph.brain import RalphBrain
 
 # Initialize the Brain
-brain = GuardianBrain()
+brain = RalphBrain()
 
 def _handle_git_workflow(migration_file_abs_path: Path, repo_root: Path):
     """

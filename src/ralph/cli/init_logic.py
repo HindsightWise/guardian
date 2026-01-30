@@ -5,7 +5,7 @@ import typer
 from pathlib import Path
 
 def _create_alembic_ini(alembic_ini_path: Path):
-    content = """# A generic alembic configuration file for Guardian.
+    content = """# A generic alembic configuration file for Ralph.
 [alembic]
 script_location = migrations
 sqlalchemy.url = sqlite:///app.db

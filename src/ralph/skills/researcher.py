@@ -61,8 +61,8 @@ def analyze_note(file_path: Path):
                     search_results = brave_search(question)
                     
                     # 3. Synthesize with Brain (Optional but better)
-                    from ralph.brain import GuardianBrain
-                    brain = GuardianBrain()
+                    from ralph.brain import RalphBrain
+                    brain = RalphBrain()
                     synthesized_answer = brain.think(
                         context=f"Search Results for '{question}':\n{search_results}",
                         task=f"Summarize these search results for the user in your 'sarcastic nerd' persona. Be concise but informative."

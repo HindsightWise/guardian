@@ -3,12 +3,12 @@ import asyncio
 import sys
 from mcp.server import Server # Assuming standard import structure
 from mcp.types import Tool, TextContent, ImageContent, EmbeddedResource
-from guardian.brain import GuardianBrain
-import guardian.daemon_logic as logic
+from ralph.brain import RalphBrain
+import ralph.skills.guardian as logic
 from pathlib import Path
 
 # Initialize
-brain = GuardianBrain()
+brain = RalphBrain()
 server = Server("guardian-mcp")
 
 @server.tool()

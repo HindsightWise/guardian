@@ -6,12 +6,12 @@ import random
 from watchdog.observers.polling import PollingObserver as Observer
 from watchdog.events import FileSystemEventHandler
 from pathlib import Path
-from ralph.brain import GuardianBrain
+from ralph.brain import RalphBrain
 from ralph.skills import guardian, researcher # Import skills
 
 # Use the project root for logging
 LOG_FILE = Path(os.getcwd()) / "ralph_debug.log"
-brain = GuardianBrain()
+brain = RalphBrain()
 
 class RalphEventHandler(FileSystemEventHandler):
     """The central nervous system of Ralph's event processing."""
