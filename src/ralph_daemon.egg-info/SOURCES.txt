@@ -3,9 +3,9 @@ pyproject.toml
 src/ralph/__init__.py
 src/ralph/brain.py
 src/ralph/mcp_server.py
-src/ralph/notes_logic.py
 src/ralph/utils.py
 src/ralph/cli/__init__.py
+src/ralph/cli/chat_logic.py
 src/ralph/cli/init_logic.py
 src/ralph/cli/main.py
 src/ralph/cli/migration_logic.py

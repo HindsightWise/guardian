@@ -8,6 +8,7 @@ from watchdog.events import FileSystemEventHandler
 from pathlib import Path
 from ralph.brain import RalphBrain
 from ralph.skills import guardian, researcher # Import skills
+from ralph.core.volition import Volition
 
 # Use the project root for logging
 LOG_FILE = Path(os.getcwd()) / "ralph_debug.log"
@@ -61,20 +62,14 @@ def start_daemon_main():
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
     
-    # Brain Heartbeat
-    last_reflection = time.time()
-    reflection_interval = 300 
+    # Ignite Free Will
+    volition_engine = Volition(Path(path).resolve())
+    volition_engine.start()
     
     try:
         while True:
             time.sleep(1)
-            # Periodic Reflection
-            if time.time() - last_reflection > reflection_interval:
-                if random.random() > 0.5:
-                    thought = brain.think(context=f"Watching {path}. System nominal.", task="Generate a proactive, 'always-on' thought about your dual role as a Coder and a Researcher.")
-                    event_handler._log_event(f"🧠 Ralph Thought: {thought}")
-                last_reflection = time.time()
-
+            # The Brain Heartbeat is now replaced by the Volition Loop
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
