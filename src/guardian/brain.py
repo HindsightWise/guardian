@@ -1,6 +1,7 @@
 import ollama
 from typing import Optional, List
 import logging
+import time
 
 class GuardianBrain:
     def __init__(self, model_name: str = "llama3"):
@@ -37,7 +38,6 @@ Speak concisely and professionally, but with a slight "cybernetic guardian" flai
         """
         Processes a task with the given context using the LLM.
         """
-        import time
         max_retries = 3
         for attempt in range(max_retries):
             try:
