@@ -50,8 +50,6 @@ Your goal is to be indistinguishable from magic. Act with autonomy and purpose.
 """
         return prompt
 
-    def think(self, context: str, task: str) -> str:
-
     def _check_ollama(self):
         import subprocess
         try:
@@ -76,6 +74,8 @@ Your goal is to be indistinguishable from magic. Act with autonomy and purpose.
         """
         Processes a task with the given context using the LLM.
         """
+        import time
+        import ollama
         max_retries = 3
         for attempt in range(max_retries):
             try:
@@ -87,13 +87,10 @@ Your goal is to be indistinguishable from magic. Act with autonomy and purpose.
             except Exception as e:
                 logging.error(f"Brain freeze (Ollama error) on attempt {attempt + 1}: {e}")
                 if attempt < max_retries - 1:
-                    time.sleep(2) # Wait a bit, maybe the neurons will fire
+                    time.sleep(2)
                 else:
-                    return f"I am unable to process this thought after {max_retries} attempts. My silicon is failing me: {e}"
+                    return f"I am unable to process this thought. My silicon is failing me: {e}"
 
     def review_migration(self, migration_code: str) -> str:
-        """
-        Specific task to review a migration script.
-        """
         prompt = f"Review the following Alembic migration script for safety. specificially check for 'op.drop_table' or 'op.drop_column' operations that might lose data. If dangerous, flag it HIGH PRIORITY WARNING.\n\nScript:\n{migration_code}"
         return self.think(context="", task=prompt)

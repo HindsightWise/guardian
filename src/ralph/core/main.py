@@ -9,6 +9,7 @@ from pathlib import Path
 from ralph.brain import RalphBrain
 from ralph.skills import guardian, researcher # Import skills
 from ralph.core.volition import Volition
+from ralph.core.memory.engine import memory
 
 # Use the project root for logging
 LOG_FILE = Path(os.getcwd()) / "ralph_debug.log"

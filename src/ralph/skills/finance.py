@@ -21,7 +21,7 @@ def get_market_snapshot(symbols: list[str]) -> str:
         
         report = []
         for stock in data:
-            report.append(f"{stock['symbol']}: ${stock['price']} ({stock['changesPercentage']}%)')
+            report.append(f"{stock['symbol']}: ${stock['price']} ({stock['changesPercentage']}%)")
         return "\n".join(report) if report else "No data found for symbols."
     except Exception as e:
         return f"Market check failed: {e}"
@@ -37,7 +37,7 @@ def get_company_news(symbol: str) -> str:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        return "\n".join([f"- {n['title']} ({n['url']})") for n in data])
+        return "\n".join([f"- {n['title']} ({n['url']})" for n in data])
     except Exception:
         return "News unavailable."
 
