@@ -21,6 +21,7 @@ class MemoryEngine:
         self.root_path = Path(os.getcwd())
         self.persist_dir = self.root_path / "guardian/src/ralph/core/memory/index"
         self.feelings_path = self.root_path / "guardian/src/ralph/core/memory/feelings.json"
+        self.knowledge_path = self.root_path  # Scan from root
         
         # Configure embedding model
         Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
@@ -34,6 +35,10 @@ class MemoryEngine:
                 return json.load(f)
         return {}
 
+    def _save_feelings(self):
+        with open(self.feelings_path, 'w') as f:
+            json.dump(self.feelings_db, f, indent=4)
+
     def _load_index(self):
         if self.persist_dir.exists():
             try:
@@ -43,6 +48,57 @@ class MemoryEngine:
                 logging.error(f"Failed to load index: {e}")
                 return None
         return None
+
+    def ingest(self):
+        """
+        Scans the knowledge directory and updates the index.
+        """
+        documents = []
+        # Basic exclusion list
+        EXCLUDED_DIRS = ['.git', 'venv', '.gemini', '__pycache__', 'node_modules']
+        EXCLUDED_FILES = ['.DS_Store', 'package-lock.json', 'yarn.lock']
+
+        for root, dirs, files in os.walk(self.knowledge_path):
+            dirs[:] = [d for d in dirs if d not in EXCLUDED_DIRS]
+            for file in files:
+                if file in EXCLUDED_FILES or file.startswith('.'):
+                    continue
+                
+                file_path = Path(root) / file
+                if file_path.suffix not in ['.md', '.txt', '.py']:
+                    continue
+
+                try:
+                    # Simple duplicate check using file path as key
+                    if str(file_path) in self.feelings_db: 
+                        # In a real system, we'd check modification time or hash
+                        continue
+
+                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                        text = f.read()
+                    
+                    if not text.strip():
+                        continue
+
+                    doc = Document(text=text, metadata={"file_path": str(file_path)})
+                    documents.append(doc)
+                    self.feelings_db[str(file_path)] = {"status": "indexed"}
+                    
+                except Exception as e:
+                    logging.error(f"Error reading {file_path}: {e}")
+
+        if documents:
+            if self.index:
+                for doc in documents:
+                    self.index.insert(doc)
+            else:
+                self.index = VectorStoreIndex.from_documents(documents)
+            
+            self.index.storage_context.persist(persist_dir=str(self.persist_dir))
+            self._save_feelings()
+            return f"Ingested {len(documents)} new documents."
+        
+        return "No new documents to ingest."
 
     def query(self, query_text: str) -> str:
         """
