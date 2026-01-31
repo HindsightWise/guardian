@@ -23,7 +23,7 @@ logging.basicConfig(
     ]
 )
 
-brain = Mind()
+# brain = Mind() # Moved to lazy init
 
 class AionEventHandler(FileSystemEventHandler):
     """The central nervous system of AION's event processing."""
