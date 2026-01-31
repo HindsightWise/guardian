@@ -1,25 +1,25 @@
-# Guardian Agent
+# Aion (Ralph Daemon)
 
 ## Overview
 
-Guardian is an autonomous AI agent designed to proactively and safely manage database migrations. It combines the always-on, watchful nature of an active monitoring system with the safety and reliability of a transactional database migration tool.
+Aion is an autonomous AI agent designed to proactively and safely manage database migrations. It combines the always-on, watchful nature of an active monitoring system with the safety and reliability of a transactional database migration tool.
 
-Guardian watches your codebase for changes to data models (e.g., SQLAlchemy classes). When it detects a change, it automatically generates the corresponding SQL migration script, validates it against safety rules using its **AI Brain**, and opens a pull request with the proposed change.
+Aion watches your codebase for changes to data models (e.g., SQLAlchemy classes). When it detects a change, it automatically generates the corresponding SQL migration script, validates it against safety rules using its **AI Brain**, and opens a pull request with the proposed change.
 
 It also functions as a **Model Context Protocol (MCP)** server, exposing its capabilities to other AI agents.
 
 ## Core Principles
 
-- **Proactive:** Guardian runs as a background service (`guardian-daemon`), constantly watching for changes.
+- **Proactive:** Aion runs as a background service (`aion-daemon`), constantly watching for changes.
 - **Cognitive:** It uses a local LLM (via **Ollama**) to "think" about changes, review code for safety, and generate meaningful commit messages.
 - **Autonomous:** It independently analyzes changes, generates code, and manages its own Git workflow.
 - **Safe:** It validates all generated migrations to prevent destructive operations and relies on a `goose`-inspired CLI for transactional, human-approved execution.
 
 ## Components
 
-- `guardian_daemon`: The always-on service that monitors the filesystem and orchestrates the agent's workflow. It features a "Brain Heartbeat" that periodically reflects on the system state.
-- `guardian-cli`: A command-line tool for managing and applying migrations safely.
-- **MCP Server:** Guardian exposes tools like `review_migration` and `generate_migration` via the Model Context Protocol.
+- `aion_daemon`: The always-on service that monitors the filesystem and orchestrates the agent's workflow. It features a "Brain Heartbeat" that periodically reflects on the system state.
+- `aion-cli`: A command-line tool for managing and applying migrations safely.
+- **MCP Server:** Aion exposes tools like `review_migration` and `generate_migration` via the Model Context Protocol.
 
 ## Requirements
 
@@ -41,15 +41,15 @@ pip install -e .
 
 1. **Start Ollama**:
    Ensure the Ollama server is running (usually a menu bar app or `ollama serve`).
-2. **Start the Guardian Daemon**:
+2. **Start the Aion Daemon**:
    ```bash
-   guardian-daemon .
+   aion-daemon .
    ```
    The daemon will monitor the current directory and its subdirectories.
 3. **Use the CLI**:
    ```bash
-   guardian-cli status
-   guardian-cli up
+   aion-cli status
+   aion-cli up
    ```
 
 *This project was forged by the Ralph/Gemini agent.*

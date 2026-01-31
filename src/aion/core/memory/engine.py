@@ -23,8 +23,8 @@ class MemoryEngine:
     """
     def __init__(self):
         self.root_path = Path(os.getcwd())
-        self.persist_dir = self.root_path / "guardian/src/aion/core/memory/index"
-        self.feelings_path = self.root_path / "guardian/src/aion/core/memory/feelings.json"
+        self.persist_dir = self.root_path / "Aion/src/aion/core/memory/index"
+        self.feelings_path = self.root_path / "Aion/src/aion/core/memory/feelings.json"
         self.knowledge_path = self.root_path
         
         # Optimized embedding model for local performance
@@ -63,7 +63,7 @@ class MemoryEngine:
         Background-aware ingestion of new documents.
         """
         documents = []
-        EXCLUDED_DIRS = ['.git', 'venv', '.gemini', '__pycache__', 'node_modules', 'guardian/src/aion/core/memory/index']
+        EXCLUDED_DIRS = ['.git', 'venv', '.gemini', '__pycache__', 'node_modules', 'Aion/src/aion/core/memory/index']
         
         for root, dirs, files in os.walk(self.knowledge_path):
             dirs[:] = [d for d in dirs if d not in EXCLUDED_DIRS and not d.startswith('.')] # noqa
