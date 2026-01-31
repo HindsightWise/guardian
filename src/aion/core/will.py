@@ -10,6 +10,10 @@ from aion.core.strategy import strategy
 from aion.core.memory.reflection import reflection_module
 import typer
 
+from aion.core.memory.engine import memory
+from aion.constructs.mermaid import Viz
+import typer
+
 class Will:
     """
     The engine of AION's autonomous drive.
@@ -20,6 +24,7 @@ class Will:
         self.running = True
         self.task_queue = [] # The Architect's Blueprint
         self.last_reflection = time.time()
+        self.last_sync = 0
         
     def _plan_goals(self):
         """
@@ -28,20 +33,34 @@ class Will:
         if self.task_queue:
             return 
             
+        # Synchronize Archive before planning
+        if time.time() - self.last_sync > 300: # Every 5 mins
+            typer.echo("📜 Synchronizing Archive...")
+            memory.ingest()
+            self.last_sync = time.time()
+
         time_context = Tempo.get_current_context()
-        context = f"Root: {self.root_path}\nStatus: Idle.\n{time_context}"
+        # Retrieve recent context from memory
+        recent_context = memory.query("current project status and active files")
+        
+        context = f"Root: {self.root_path}\nStatus: Idle.\n{time_context}\nRecent Archive:\n{recent_context}"
         
         # 1. Get High-Level Goals
         goals = self.brain.think(context, "Generate 2 strategic goals for this session. Return as a bulleted list.")
         
         # 2. Decompose into Actions
+        actions = []
         for line in goals.split('\n'):
             if line.strip().startswith(('-', '1.', '*')):
                 goal = line.strip(' -1.*')
-                actions = strategy.decompose(goal)
-                self.task_queue.extend(actions)
+                actions.extend(strategy.decompose(goal))
         
-        typer.echo(f"🏛️ The Architect has foreseen {len(self.task_queue)} new actions.")
+        if actions:
+            self.task_queue.extend(actions)
+            # Visualize the new plan
+            viz_code = Viz.plan_to_mermaid(actions)
+            Viz.render(viz_code, "ACTIVE_PLAN")
+            typer.echo(f"🏛️ The Architect has foreseen {len(self.task_queue)} new actions. Plan visualized in ACTIVE_PLAN.mmd")
 
     def loop(self):
         """

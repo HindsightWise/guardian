@@ -1,5 +1,5 @@
 {
-    "name": "Ralph",
+    "name": "Aion",
     "role": "The Wizard",
     "model_provider": "ollama",
     "model": "llama3.1:8b",
