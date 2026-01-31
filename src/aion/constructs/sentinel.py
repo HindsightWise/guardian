@@ -13,9 +13,14 @@ def generate_migration(file_path: Path):
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
             
-        # heuristic to detect model changes
-        if re.search(r'class\s+\w+\(.*\):', content):
-            logging.info(f"🐍 Sentinel detected potential model change in {file_path.name}")
+        # Heuristic: Only trigger if it looks like a database model (SQLAlchemy/Pydantic)
+        # Checks for: 'sqlalchemy' import, class inheriting from Base/Model, or mapped_column usage
+        if (
+            "sqlalchemy" in content 
+            or re.search(r'class\s+\w+\((?:.*Base|.*Model)\):', content)
+            or "mapped_column" in content
+        ):
+            logging.info(f"🐍 Sentinel detected DB model change in {file_path.name}")
             
             mind = Mind()
             review = mind.think(content, "Review this Python code for potential database schema changes or safety issues. Be brief and critical.")
