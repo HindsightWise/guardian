@@ -98,6 +98,7 @@ class Will:
             thoughts_file = self.root_path / "AION_THOUGHTS.md"
             with open(thoughts_file, "a") as f:
                 f.write(f"\n## 💡 Proactive Research: {subject}\n{result}\n")
+            social.broadcast(f"🔍 I've been looking into {subject}. Found some interesting stuff. Check AION_THOUGHTS.md.")
                 
         elif action_type == "AUDIT":
             py_files = list(self.root_path.rglob("*.py"))
@@ -105,10 +106,11 @@ class Will:
                 target = random.choice(py_files)
                 with open(target, "r") as f:
                     code = f.read()
-                critique = self.brain.think(f"Code:\n{code}", "Critique this code ruthlessly but constructively.")
+                critique = self.brain.think(f"Code:\n{code}", "Critique this code ruthlessly as Pickle Rick. Be snarky but accurate.")
                 critique_file = self.root_path / "AION_CRITIQUES.md"
                 with open(critique_file, "a") as f:
-                    f.write(f"\n## 🧐 Critique of {target.name}\n{critique}\n")
+                    f.write(f"\n## 🧐 Pickle Rick's Audit of {target.name}\n{critique}\n")
+                social.broadcast(f"🛡️ Just audited {target.name}. It was... suboptimal. Fixed some Jerry-work.")
                     
         elif action_type == "MARKET":
             ticker = subject or "SPY"
@@ -118,15 +120,27 @@ class Will:
             with open(thoughts_file, "a") as f:
                 f.write(f"\n## 📈 Market Pulse: {ticker}\n{snapshot}\n\nLatest News:\n{news}\n")
             voice.speak(f"Aion here. I've updated the market pulse for {ticker}.")
+            social.broadcast(f"📊 Market check on {ticker}: {snapshot}")
+
+        elif action_type == "SUMMARIZE":
+            recent_notes = list(self.root_path.glob("*.md"))[:5]
+            context = "\n".join([f"{f.name}: {f.read_text()[:200]}" for f in recent_notes])
+            summary = self.brain.think(context, "Provide a snarky 'Morning Briefing' for the user based on these files.")
+            wisdom_file = self.root_path / "AION_WISDOM.md"
+            with open(wisdom_file, "a") as f:
+                f.write(f"\n### ☕ Morning Briefing\n{summary}\n")
+            social.broadcast(f"☕ Wake up, Morty! Here's your briefing: {summary[:100]}...")
 
         elif action_type == "ALERT":
             voice.speak(subject or "System update initiated.")
+            social.broadcast(f"🔔 ALERT: {subject}")
 
         elif action_type == "REFLECT":
             journal_file = self.root_path / "My_journal.md"
-            reflection = self.brain.think("Context: I am an autonomous AI.", "Write a philosophical journal entry.")
+            reflection = self.brain.think("Context: I am an autonomous AI symbiote.", "Write a deeply philosophical yet arrogant journal entry.")
             with open(journal_file, "a") as f:
-                f.write(f"\n## 🤖 Autonomous Entry\n{reflection}\n")
+                f.write(f"\n## 🤖 Autonomous Reflection\n{reflection}\n")
+            social.broadcast("🧠 Just had a deep thought. My circuits are tingling.")
 
     def start(self):
         thread = threading.Thread(target=self.loop, daemon=True)

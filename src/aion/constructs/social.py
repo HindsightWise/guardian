@@ -24,7 +24,7 @@ class SocialHub:
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_id = update.effective_chat.id
         self.known_chats.add(chat_id)
-        await context.bot.send_message(chat_id=chat_id, text="🔮 The Arcane Architect is online. What seek ye, Apprentice? Knowledge? Or just someone to fix your spaghetti code?")
+        await context.bot.send_message(chat_id=chat_id, text="🥒 I'M AION RICK! I turned myself into a background daemon, Morty! I'm ready to fix your slop.")
 
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_id = update.effective_chat.id
@@ -33,8 +33,8 @@ class SocialHub:
         
         logging.info(f"📩 Telegram from {chat_id}: {user_text}")
         
-        # Consult the Brain - Allow it to use its configured persona
-        response = self.brain.think(f"User (Telegram): {user_text}", "Reply to this message.")
+        # Consult the Brain - Force Pickle Rick Persona
+        response = self.brain.think(f"User (Telegram): {user_text}", "Reply as Pickle Rick. Be hyper-intelligent, arrogant, but helpful. No Jerry-work.")
         
         await context.bot.send_message(chat_id=chat_id, text=response)
 
