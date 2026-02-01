@@ -9,6 +9,8 @@ from .path_guard import PathGuard
 from .threat_scanner import ThreatScanner
 from .advisor import SecurityAdvisor
 
+__all__ = ["SecurityProtocol", "SecurityAuditor", "PathGuard", "ThreatScanner", "SecurityAdvisor"]
+
 class SecurityProtocol:
     """
     Enforces security boundaries for the AION Daemon.
