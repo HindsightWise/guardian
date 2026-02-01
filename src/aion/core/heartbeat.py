@@ -7,7 +7,8 @@ from watchdog.observers.polling import PollingObserver as Observer
 from watchdog.events import FileSystemEventHandler
 from pathlib import Path
 from aion.core.mind import Mind
-from aion.constructs import sentinel, seeker
+from aion.core.security import SecurityProtocol
+from aion.constructs import sentinel, seeker, social
 from aion.core.will import Will
 from aion.core.memory.engine import memory
 
@@ -48,10 +49,18 @@ class AionEventHandler(FileSystemEventHandler):
 
 def start_daemon_main():
     path = sys.argv[1] if len(sys.argv) > 1 else "."
+    resolved_path = Path(path).resolve()
+    
+    # 0. SECURITY CHECK & AUDIT
+    SecurityProtocol.ensure_secure_connection(resolved_path)
     
     logging.info(f"🏛️ AION: Active on '{path}'")
     logging.info("   - Sentinel Construct: ONLINE")
     logging.info("   - Seeker Construct: ONLINE")
+    
+    # Ignite Social Hub
+    social.ignite()
+    logging.info("   - Social Hub: IGNITED (Telegram: Dr_Clawed_Bot)")
     
     event_handler = AionEventHandler()
     observer = Observer()
@@ -68,3 +77,6 @@ def start_daemon_main():
         observer.stop()
     observer.join()
     logging.info("Aion: Dormant.")
+
+if __name__ == "__main__":
+    start_daemon_main()

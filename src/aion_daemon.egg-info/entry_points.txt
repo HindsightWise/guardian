@@ -1,3 +1,0 @@
-[console_scripts]
-aion-cli = aion.interface.cli:app
-aion-daemon = aion.core.heartbeat:start_daemon_main
