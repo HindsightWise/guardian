@@ -10,9 +10,8 @@ from aion.core.mind import Mind
 
 class SocialHub:
     """
-    The Social Interface for Aion (Ralph).
+    The Social Interface for Aion.
     Handles Telegram (Dr_Clawed_Bot) and tracks WhatsApp contacts.
-    "I'm proactive, Morty! I'm reaching out!"
     """
     def __init__(self):
         self.token = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -25,7 +24,7 @@ class SocialHub:
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_id = update.effective_chat.id
         self.known_chats.add(chat_id)
-        await context.bot.send_message(chat_id=chat_id, text="🥒 Wubba Lubba Dub Dub! Aion is online. I'm listening.")
+        await context.bot.send_message(chat_id=chat_id, text="🔮 The Arcane Architect is online. What seek ye, Apprentice? Knowledge? Or just someone to fix your spaghetti code?")
 
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_id = update.effective_chat.id
@@ -34,8 +33,8 @@ class SocialHub:
         
         logging.info(f"📩 Telegram from {chat_id}: {user_text}")
         
-        # Consult the Brain
-        response = self.brain.think(f"User (Telegram): {user_text}", "Reply as Pickle Rick. Be helpful but snarky.")
+        # Consult the Brain - Allow it to use its configured persona
+        response = self.brain.think(f"User (Telegram): {user_text}", "Reply to this message.")
         
         await context.bot.send_message(chat_id=chat_id, text=response)
 
@@ -53,7 +52,8 @@ class SocialHub:
         self.app.add_handler(echo_handler)
         
         logging.info("📡 SocialHub: Connecting to Telegram (Dr_Clawed_Bot)...")
-        self.app.run_polling()
+        # stop_signals=None prevents the library from trying to handle signals in a thread
+        self.app.run_polling(stop_signals=None)
 
     def ignite(self):
         """Starts the social daemon in a background thread."""
@@ -72,4 +72,12 @@ class SocialHub:
         # Placeholder: Real proactive sending requires persistent chat_id storage
         # and async injection.
 
-social = SocialHub()
+# Singleton Instance
+hub = SocialHub()
+
+# Module-level convenience functions to match other constructs
+def ignite():
+    hub.ignite()
+
+def broadcast(message: str):
+    hub.broadcast(message)

@@ -36,7 +36,7 @@ class ThreatScanner:
         # Critical filesystem destruction patterns
         ThreatPattern(
             "rm_rf_root",
-            r"rm\s+(-[rf]*[rf][rf]*|--recursive|--force).*[/\]",
+            r"rm\s+(-[rf]*[rf][rf]*|--recursive|--force).*[/\\]",
             "Recursive file deletion with rm -rf",
             RiskLevel.HIGH
         ),
@@ -54,7 +54,7 @@ class ThreatScanner:
         ),
         ThreatPattern(
             "format_drive",
-            r"(format|mkfs\.[a-z]+)\s+[/\]dev[/\][sh]d[a-z]",
+            r"(format|mkfs\.[a-z]+)\s+[/\\]dev[/\\][sh]d[a-z]",
             "Formatting system drives",
             RiskLevel.CRITICAL
         ),
@@ -99,7 +99,7 @@ class ThreatScanner:
         ),
         ThreatPattern(
             "reverse_shell",
-            r"(nc|netcat|bash|sh).* -e\s*(bash|sh|/bin/bash|/bin/sh)",
+            r"(nc|netcat|bash|sh).*-e\s*(bash|sh|/bin/bash|/bin/sh)",
             "Reverse shell creation",
             RiskLevel.CRITICAL
         ),
@@ -113,10 +113,12 @@ class ThreatScanner:
     ]
 
     def __init__(self):
-        self._compiled_patterns = {
-            p.name: (re.compile(p.pattern, re.IGNORECASE), p)
-            for p in self.PATTERNS
-        }
+        self._compiled_patterns = {}
+        for p in self.PATTERNS:
+            try:
+                self._compiled_patterns[p.name] = (re.compile(p.pattern, re.IGNORECASE), p)
+            except re.error as e:
+                logging.error(f"Failed to compile pattern '{p.name}': {e} (Pattern: {p.pattern})")
 
     def scan(self, text: str) -> List[ThreatMatch]:
         matches = []

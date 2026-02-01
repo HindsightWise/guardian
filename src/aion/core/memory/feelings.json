@@ -238,5 +238,53 @@
     },
     "/Users/zerbytheboss/Desktop/google_cli/WritingPro/writing_references/Scientific_Curriculum_Status.md": {
         "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/security/threat_scanner.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/security/advisor.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/security/__init__.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/security/auditor.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/security/path_guard.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/science.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/AION_CRITIQUES.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/AION_THOUGHTS.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/AION_WISDOM.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/RALPH_CORE.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/interface/mcp_server.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/writing_references/CONSOLIDATED_POETRY_PERSONA.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/writing_references/CONSOLIDATED_BIO_SCIENCE.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/writing_references/CONSOLIDATED_ART_PSYCH.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/writing_references/CONSOLIDATED_MUSIC.md": {
+        "status": "indexed"
     }
 }

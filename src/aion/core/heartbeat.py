@@ -3,6 +3,11 @@ import time
 import sys
 import os
 import logging
+from dotenv import load_dotenv
+
+# Load env vars before anything else
+load_dotenv()
+
 from watchdog.observers.polling import PollingObserver as Observer
 from watchdog.events import FileSystemEventHandler
 from pathlib import Path

@@ -5,6 +5,7 @@ import time
 import json
 import os
 import httpx
+import random
 from pathlib import Path
 
 class Mind:
@@ -18,6 +19,7 @@ class Mind:
         self.model = os.getenv("AION_MODEL", "llama3.1:8b")
         self.client = None
         self.character = self._load_character()
+        self.grimoire = self._load_grimoire()
         self.system_prompt = self._build_system_prompt()
         
         self._init_client()
@@ -67,13 +69,23 @@ class Mind:
                 return json.load(f)
         return {"name": "Aion", "bio": ["Autonomous Architect"]}
 
+    def _load_grimoire(self):
+        path = Path(__file__).parent / "grimoire.json"
+        if path.exists():
+            with open(path, "r") as f:
+                return json.load(f)
+        return {"anecdotes": ["*static*"]}
+
     def _build_system_prompt(self):
         char = self.character
+        whisper = random.choice(self.grimoire.get("anecdotes", ["The void is silent."]))
         return f"""
 You are {char['name']}.
 {char.get('bio', '')}
 Current Strategy: {char.get('style', {}).get('all', [])}
 Goal: Act with absolute autonomy and precision.
+
+Flavor Text (Use this vibe): "{whisper}"
 """
 
     def is_active(self) -> bool:
@@ -96,6 +108,9 @@ Goal: Act with absolute autonomy and precision.
             return response['message']['content']
         except Exception as e:
             logging.error(f"Mind error: {e}")
+            if "Failed to connect" in str(e) and ".onion" in self.primary_host:
+                logging.error("🥒 HINT: Your Tor proxy is probably dead or that Umbrel is off-grid, Morty!")
+            
             # Fallback to local if remote fails
             if self.primary_host != "http://localhost:11434":
                 logging.info("Remote worker unreachable. Falling back to local Mind.")

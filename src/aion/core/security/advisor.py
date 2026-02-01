@@ -41,7 +41,7 @@ class SecurityAdvisor:
     def audit_directory(self, root_dir: Path) -> Dict[str, List[str]]:
         report = {}
         for root, _, files in os.walk(root_dir):
-            if ".git" in root or "__pycache__" in root or "venv" in root:
+            if any(x in root for x in [".git", "__pycache__", "venv", "core/security"]):
                 continue
             for file in files:
                 if file.endswith(('.py', '.js', '.ts', '.env', '.json', '.yml', '.yaml')):

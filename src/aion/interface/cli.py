@@ -21,5 +21,12 @@ def daemon(path: str = "."):
     """Ignite the Aion background process."""
     start_daemon_main()
 
+@app.command()
+def mcp():
+    """Start the Aion MCP server."""
+    from aion.interface.mcp_server import main
+    import asyncio
+    asyncio.run(main())
+
 if __name__ == "__main__":
     app()
