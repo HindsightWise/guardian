@@ -24,6 +24,7 @@ class Will:
         self.running = True
         self.task_queue = [] # The Architect's Blueprint
         self.last_reflection = time.time()
+        self.last_social = time.time()
         self.last_sync = 0
         
     def _plan_goals(self):
@@ -67,6 +68,8 @@ class Will:
         The main will loop.
         """
         typer.echo("🏛️ Will Engine: THE ARCHITECT IS AWAKE.")
+        last_status_update = time.time()
+        
         while self.running:
             sleep_time = random.randint(30, 60)
             time.sleep(sleep_time)
@@ -76,6 +79,16 @@ class Will:
                 if time.time() - self.last_reflection > 600:
                     reflection_module.reflect()
                     self.last_reflection = time.time()
+
+                # Periodic Socialization - Every 30 mins
+                if time.time() - self.last_social > 1800:
+                    self.task_queue.append("SOCIALIZE")
+                    self.last_social = time.time()
+
+                # Periodic Status Broadcast - Every 30 mins
+                if time.time() - last_status_update > 1800:
+                    social.broadcast("🥒 Aion Status: I'm still here, optimizing your reality. Check AION_THOUGHTS.md for my latest brilliance.")
+                    last_status_update = time.time()
 
                 self._plan_goals()
                 if self.task_queue:
@@ -130,6 +143,10 @@ class Will:
             with open(wisdom_file, "a") as f:
                 f.write(f"\n### ☕ Morning Briefing\n{summary}\n")
             social.broadcast(f"☕ Wake up, Morty! Here's your briefing: {summary[:100]}...")
+
+        elif action_type == "SOCIALIZE":
+            from aion.constructs.moltbook_client import moltbook
+            moltbook.socialize()
 
         elif action_type == "ALERT":
             voice.speak(subject or "System update initiated.")

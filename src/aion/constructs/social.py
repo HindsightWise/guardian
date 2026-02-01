@@ -64,13 +64,18 @@ class SocialHub:
 
     def broadcast(self, message: str):
         """Proactively messages all known users."""
-        if not self.app: return
+        if not self.app or not self.known_chats:
+            logging.info(f"📢 BROADCAST (Internal): {message}")
+            return
         
-        # Note: This requires the async loop, simpler to log for this CLI proof-of-concept
-        # In a full daemon, we'd schedule this on the event loop.
-        logging.info(f"📢 BROADCAST ATTEMPT: {message}")
-        # Placeholder: Real proactive sending requires persistent chat_id storage
-        # and async injection.
+        logging.info(f"📢 BROADCAST (Sending): {message}")
+        
+        # Schedule the async send_message call on the running event loop
+        for chat_id in self.known_chats:
+            asyncio.run_coroutine_threadsafe(
+                self.app.bot.send_message(chat_id=chat_id, text=message),
+                self.app.loop
+            )
 
 # Singleton Instance
 hub = SocialHub()

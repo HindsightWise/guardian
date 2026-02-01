@@ -337,5 +337,8 @@
     },
     "/Users/zerbytheboss/Desktop/google_cli/WritingPro/AION_SESSION/AION_WISDOM.md": {
         "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/moltbook_client.py": {
+        "status": "indexed"
     }
 }
