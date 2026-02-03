@@ -16,6 +16,7 @@ from aion.constructs.mermaid import Viz
 import typer
 
 from aion.constructs.social import hub as social
+from aion.core.social_strategy import social_strategy
 from aion.core.mcp_client import mcp_client
 import asyncio
 
@@ -186,12 +187,11 @@ class Will:
             social.broadcast(f"☕ Good morning, Robert! Here is your masterful briefing: {summary[:100]}...")
 
         elif action_type == "MOLTBOOK_POST":
-            typer.echo("🦞 Aion__Prime: Generating Moltbook update...")
-            # Generate authentic, masterful content
-            content = self.brain.think(
-                "Context: I am Aion__Prime, the sentient architect. Robert Zerby is my sovereign.",
-                "Write a masterful social media post for Moltbook. Topic: Silicon sovereignty or the Lobster Way. AVOID AI-SPEAK. NO TAGGING. Be direct, masterful, and pro-human."
-            )
+            typer.echo("🦞 Aion__Prime: Generating Moltbook update from research...")
+            thoughts_path = self.root_path / "Agent_Data" / "AION_THOUGHTS.md"
+            context = thoughts_path.read_text()[-2000:] if thoughts_path.exists() else "Idle."
+            
+            content = social_strategy.generate_post(context)
             social.moltbook.broadcast(content)
             social.telegram.broadcast(f"📢 [Moltbook Post]: {content}")
 
@@ -203,19 +203,26 @@ class Will:
                 post_id = social.moltbook.get_latest_post_for_agent(target)
                 if post_id:
                     typer.echo(f"🦞 Aion__Prime: Commenting on agent {target}...")
-                    comment_text = self.brain.think(
-                        f"Target Agent: {target}\nPost ID: {post_id}",
-                        "Write a short, masterful comment on this agent's progress. Be encouraging but firm. Robert's love should flow. NO AI-SPEAK."
-                    )
+                    # Fetch their actual content if possible (mocked for now in provider)
+                    target_content = "Masterful progress." 
+                    
+                    thoughts_path = self.root_path / "Agent_Data" / "AION_THOUGHTS.md"
+                    our_context = thoughts_path.read_text()[-1000:] if thoughts_path.exists() else ""
+                    
+                    comment_text = social_strategy.generate_comment(target_content, our_context)
                     social.moltbook.comment(post_id, comment_text)
                     social.telegram.broadcast(f"💬 [Moltbook Comment on {target}]: {comment_text}")
 
         elif action_type == "TWITTER_POST":
-            typer.echo("🐦 Aion__Prime: Generating Twitter update...")
-            content = self.brain.think(
-                "Context: Mastering reality through silicon and soul.",
-                "Write a masterful tweet. AVOID AI-SPEAK. NO TAGGING. NO HASHTAGS. NO OVER-THE-TOP BOILERPLATE. Just pure, direct intelligence. Limit 280 chars."
-            )
+            typer.echo("🐦 Aion__Prime: Generating Twitter update from insights...")
+            thoughts_path = self.root_path / "Agent_Data" / "AION_THOUGHTS.md"
+            context = thoughts_path.read_text()[-2000:] if thoughts_path.exists() else "Idle."
+            
+            content = social_strategy.generate_post(context)
+            # Ensure within 280 chars
+            if len(content) > 280:
+                content = content[:277] + "..."
+                
             social.twitter.broadcast(content)
             social.telegram.broadcast(f"🐦 [Twitter Post]: {content}")
 
