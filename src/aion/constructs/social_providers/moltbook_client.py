@@ -2,6 +2,7 @@ import logging
 import time
 import threading
 import httpx
+import os
 from typing import List, Dict, Any, Optional, Union
 from aion.core import vault
 from aion.constructs.social_providers.base import BaseSocialProvider
