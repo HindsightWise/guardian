@@ -19,7 +19,8 @@ class MoltbookProvider(BaseSocialProvider):
     def __init__(self) -> None:
         """Initializes the Moltbook provider and its internal HTTP client."""
         self.api_key: Optional[str] = vault.moltbook_key()
-        self.client = httpx.Client(base_url=self.BASE_URL, timeout=10.0)
+        # Increased timeout to 60s to prevent 'The read operation timed out' slop
+        self.client = httpx.Client(base_url=self.BASE_URL, timeout=60.0)
         self.logger = logging.getLogger("Moltbook")
         self._running = False
         self.claimed = False
