@@ -33,9 +33,11 @@ class MoltbookProvider(BaseSocialProvider):
         """Background thread to poll for agent claim status and feed updates."""
         while self._running:
             try:
-                if not self.claimed:
+                # If FORCE_CLAIM is active, we don't need to poll for status anymore
+                if os.getenv("MOLTBOOK_FORCE_CLAIM", "false").lower() == "true":
+                    self.claimed = True
+                elif not self.claimed:
                     self._check_claim_status()
-                # Feed monitoring logic could be added here
             except Exception as e:
                 self.logger.error(f"🦞 Moltbook: Polling error: {e}")
             
