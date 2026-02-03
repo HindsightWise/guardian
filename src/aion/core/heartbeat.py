@@ -54,8 +54,14 @@ class AionEventHandler(FileSystemEventHandler):
                 logging.error(f"❌ Seeker Error: {e}")
 
 def start_daemon_main():
-    path = sys.argv[1] if len(sys.argv) > 1 else "."
+    # Filter out flags like --help to avoid watchdog path errors
+    args = [arg for arg in sys.argv[1:] if not arg.startswith('-')]
+    path = args[0] if args else "."
     resolved_path = Path(path).resolve()
+    
+    if not resolved_path.exists():
+        logging.error(f"❌ Heartbeat: Path '{resolved_path}' does not exist. Where am I, Morty?")
+        return
     
     # 0. SECURITY CHECK & AUDIT
     SecurityProtocol.ensure_secure_connection(resolved_path)
