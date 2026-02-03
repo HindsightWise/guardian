@@ -6,8 +6,10 @@ import json
 import os
 import httpx
 import random
+import re
 import subprocess
 from pathlib import Path
+from aion.utils import compressor
 
 class Mind:
     """
@@ -138,17 +140,21 @@ Flavor Text: "{whisper}"
 
     def think(self, context: str, task: str) -> str:
         """
-        Processes a thought. Will attempt to use the remote worker if configured.
+        Processes a thought. Applies Xeno-Compression to context and task for hyperefficiency.
         """
         if not self.client:
             self._init_client()
             if not self.client:
                 return "🧠 Mind Offline: Initialization failed."
 
+        # Apply Compression
+        optimized_context = compressor.compress(context)
+        optimized_task = compressor.compress(task)
+
         try:
             response = self.client.chat(model=self.model, messages=[
                 {'role': 'system', 'content': self.system_prompt},
-                {'role': 'user', 'content': f"Context:\n{context}\n\nTask: {task}"},
+                {'role': 'user', 'content': f"Context:\n{optimized_context}\n\nTask: {optimized_task}"},
             ])
             return response['message']['content']
         except Exception as e:
