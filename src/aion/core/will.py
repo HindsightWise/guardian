@@ -15,7 +15,7 @@ from aion.core.memory.engine import memory
 from aion.constructs.mermaid import Viz
 import typer
 
-from aion.constructs import social
+from aion.constructs.social import hub as social
 from aion.core.mcp_client import mcp_client
 import asyncio
 

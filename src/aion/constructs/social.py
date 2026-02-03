@@ -1,17 +1,17 @@
 # aion/constructs/social.py
 import logging
 from aion.constructs.social_providers.moltbook_client import MoltbookProvider
-from aion.constructs.social_providers.twitter.client import TwitterProvider
+from aion.constructs.social_providers.twitter.stealth_client import TwitterStealthProvider
 from aion.constructs.social_providers.telegram_bot import TelegramProvider
 
 class SocialHub:
     """
     The Orchestrator for all Social Interactions.
-    Handles Moltbook, Twitter, and Telegram.
+    Handles Moltbook, Twitter (Stealth), and Telegram.
     """
     def __init__(self):
         self.moltbook = MoltbookProvider()
-        self.twitter = TwitterProvider()
+        self.twitter = TwitterStealthProvider() # Use Stealth Client
         self.telegram = TelegramProvider()
         self._running = False
         self.logger = logging.getLogger("SocialHub")
@@ -21,7 +21,7 @@ class SocialHub:
         if self._running: return
         self._running = True
         
-        self.logger.info("📡 SocialHub: Igniting all channels...")
+        self.logger.info("📡 SocialHub: Igniting all channels (Stealth Mode Active)...")
         self.moltbook.ignite()
         self.twitter.ignite()
         self.telegram.ignite()
