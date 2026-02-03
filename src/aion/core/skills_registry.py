@@ -1,65 +1,36 @@
-import importlib
-import pkgutil
+import fnmatch
 import logging
-import inspect
+from typing import Callable, List, Dict, Any, Awaitable
 from pathlib import Path
-from typing import Dict, Any, Optional, Type
 
-class SkillRegistry:
-    """Dynamic Skill Loader for the Aion agent.
-    
-    This registry scans a specified package for classes that follow the
-    agent's skill convention (e.g., classes ending in 'Skill' or 'Officer')
-    and initializes them for use.
-    """
-    
-    def __init__(self, skills_pkg: str = "aion.skills") -> None:
-        """Initializes the registry.
-        
-        Args:
-            skills_pkg: The dot-notation path to the package containing skills.
-        """
-        self.skills: Dict[str, Any] = {}
-        self.skills_pkg = skills_pkg
-        self.logger = logging.getLogger("SkillRegistry")
+HandlerFunc = Callable[[Any], Awaitable[None]]
 
-    def load_skills(self) -> None:
-        """Scans the configured skills package and initializes compatible classes.
-        
-        Classes are considered skills if they are defined within the module
-        being scanned and their names end with 'Skill' or 'Officer'.
-        """
-        self.logger.info(f"🧩 Loading skills from {self.skills_pkg}...")
-        
-        try:
-            pkg = importlib.import_module(self.skills_pkg)
-            pkg_path = pkg.__path__
-        except ImportError:
-            self.logger.error(f"❌ Could not import skills package: {self.skills_pkg}")
-            return
+class SkillsRegistry:
+    def __init__(self):
+        self._registry: List[Dict[str, Any]] = []
 
-        for _, name, _ in pkgutil.iter_modules(pkg_path):
-            try:
-                module_name = f"{self.skills_pkg}.{name}"
-                module = importlib.import_module(module_name)
-                
-                for attr_name, attr_val in inspect.getmembers(module, inspect.isclass):
-                    # Convention: Only load classes defined in this module
-                    if attr_val.__module__ == module_name:
-                        # Check for naming convention
-                        if attr_name.endswith(('Skill', 'Officer')):
-                            self.skills[name] = attr_val()
-                            self.logger.info(f"   - Loaded Skill: {name} ({attr_name})")
-            except Exception as e:
-                self.logger.error(f"❌ Failed to load skill {name}: {e}")
+    def register(self, pattern: str, handler: HandlerFunc, name: str = "Unknown"):
+        """Registers a handler for a specific file pattern."""
+        self._registry.append({
+            "pattern": pattern,
+            "handler": handler,
+            "name": name
+        })
+        logging.info(f"✅ Skill Registered: {name} ({pattern})")
 
-    def get_skill(self, name: str) -> Optional[Any]:
-        """Retrieves a loaded skill by its module name.
+    async def dispatch(self, file_path: str, event_type: str = "modified"):
+        """Dispatches event to all matching handlers."""
+        path_obj = Path(file_path)
+        name = path_obj.name
         
-        Args:
-            name: The name of the module containing the skill.
-            
-        Returns:
-            The initialized skill object if found, else None.
-        """
-        return self.skills.get(name)
+        matched = False
+        for skill in self._registry:
+            if fnmatch.fnmatch(name, skill["pattern"]):
+                try:
+                    logging.info(f"⚡ Skill Triggered: {skill['name']} on {name}")
+                    await skill["handler"](path_obj)
+                    matched = True
+                except Exception as e:
+                    logging.error(f"❌ Skill Error ({skill['name']}): {e}")
+        
+        return matched

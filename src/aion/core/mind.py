@@ -138,6 +138,16 @@ Flavor Text: "{whisper}"
     def is_active(self) -> bool:
         return self.client is not None
 
+    def health(self) -> bool:
+        """Lightweight check to see if the brain is responsive."""
+        if not self.client: return False
+        try:
+            # List models is a cheap call
+            self.client.list()
+            return True
+        except Exception:
+            return False
+
     def think(self, context: str, task: str) -> str:
         """
         Processes a thought. Applies Xeno-Compression to context and task for hyperefficiency.

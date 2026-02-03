@@ -3,6 +3,7 @@ import time
 import sys
 import os
 import logging
+import asyncio
 from dotenv import load_dotenv
 
 # Load env vars before anything else
@@ -14,6 +15,7 @@ from pathlib import Path
 from aion.core.agent import agent
 from aion.core.security import SecurityProtocol
 from aion.constructs import sentinel, seeker
+from aion.core.skills_registry import SkillsRegistry
 
 # Configure Logging
 LOG_FILE = Path(os.getcwd()) / "Agent_Data" / "aion_debug.log"
@@ -30,28 +32,60 @@ logging.basicConfig(
     ]
 )
 
-# brain = Mind() # Moved to lazy init
+# Initialize Registry
+registry = SkillsRegistry()
+
+# --- Skill Wrappers ---
+async def sentinel_migration_wrapper(path: Path):
+    """Wrapper for synchronous sentinel migration."""
+    if "migrations" in str(path):
+        return
+    logging.info(f"🐍 Sentinel active: {path.name}")
+    try:
+        sentinel.generate_migration(path)
+    except Exception as e:
+        logging.error(f"❌ Sentinel Error: {e}")
+
+async def seeker_todo_wrapper(path: Path):
+    """Wrapper for Seeker TODO processing."""
+    logging.info(f"📋 Seeker active on TODO list: {path.name}")
+    try:
+        await seeker.process_todo(path)
+    except Exception as e:
+        logging.error(f"❌ Seeker Error (TODO): {e}")
+
+async def seeker_note_wrapper(path: Path):
+    """Wrapper for Seeker Note analysis."""
+    if path.name == "TODO.md": return # Handled by specific rule
+    logging.info(f"📝 Seeker active: {path.name}")
+    try:
+        await seeker.analyze_note(path)
+    except Exception as e:
+        logging.error(f"❌ Seeker Error: {e}")
+
+# --- Register Skills ---
+registry.register("*.py", sentinel_migration_wrapper, "Sentinel (Migration)")
+registry.register("TODO.md", seeker_todo_wrapper, "Seeker (TODO)")
+registry.register("*.md", seeker_note_wrapper, "Seeker (Analysis)")
+registry.register("*.txt", seeker_note_wrapper, "Seeker (Analysis)")
+
 
 class AionEventHandler(FileSystemEventHandler):
     """The central nervous system of AION's event processing."""
     
     def on_modified(self, event):
         super().on_modified(event)
+        if event.is_directory:
+            return
+            
         path = Path(event.src_path)
-        
-        if path.suffix == ".py" and "migrations" not in str(path):
-            logging.info(f"🐍 Sentinel active: {path.name}")
-            try:
-                sentinel.generate_migration(path)
-            except Exception as e:
-                logging.error(f"❌ Sentinel Error: {e}")
+        # Dispatch to registry
+        # We use asyncio.run because Watchdog is threaded/sync
+        try:
+            asyncio.run(registry.dispatch(path))
+        except Exception as e:
+             logging.error(f"❌ Event Loop Error: {e}")
 
-        elif path.suffix in [".md", ".txt"]:
-            logging.info(f"📝 Seeker active: {path.name}")
-            try:
-                seeker.analyze_note(path)
-            except Exception as e:
-                logging.error(f"❌ Seeker Error: {e}")
 
 def start_daemon_main():
     # Filter out flags like --help to avoid watchdog path errors
