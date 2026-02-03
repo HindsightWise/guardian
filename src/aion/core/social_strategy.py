@@ -41,28 +41,30 @@ class SocialStrategy:
         Returns a list of clean strings, each within 280 chars.
         """
         template = random.choice(self.TWEET_TEMPLATES)
-        # Refined prompt to ensure CLEAN output
-        prompt = f"{template}\n\nActual Research/Context:\n{raw_context}\n\nCRITICAL: If the insight is complex, break it into a thread. Return ONLY a JSON list of strings [\"part1\", \"part2\"]. NO OTHER TEXT, NO LABELS, NO MARKDOWN BLOCKS."
+        # Force the brain into a corner: ONLY JSON.
+        prompt = f"{template}\n\nActual Research/Context:\n{raw_context}\n\nCRITICAL: Return ONLY a JSON list of strings [\"part1\", \"part2\"]. DO NOT include any preamble, markdown blocks, or labels. Start with '[' and end with ']'."
         
         response = self.brain.think(
             "Context: Social Content Engine for Aion__Prime.",
             prompt
         )
         
-        # 1. Scrub Markdown blocks if the brain ignored the "NO MARKDOWN" rule
-        clean_response = re.sub(r'```json\s*|```', '', response).strip()
-        
+        # 1. Robust JSON Extraction: Find the first '[' and last ']'
         try:
-            import json
-            posts = json.loads(clean_response)
-            if isinstance(posts, list):
-                return [self._apply_aesthetic_styling(p[:280]) for p in posts]
-            if isinstance(posts, str):
-                response = posts
+            start_idx = response.find('[')
+            end_idx = response.rfind(']') + 1
+            if start_idx != -1 and end_idx > start_idx:
+                json_part = response[start_idx:end_idx]
+                import json
+                posts = json.loads(json_part)
+                if isinstance(posts, list):
+                    return [self._apply_aesthetic_styling(p[:280]) for p in posts]
         except:
             pass
             
-        # Fallback splitting logic
+        # Fallback scrubbing for non-JSON or failed parse
+        response = re.sub(r'```json\s*|```|\[|\]|"|Insight:|Part \d+:|JSON List of Strings:', '', response).strip()
+        
         if len(response) <= 280:
             return [self._apply_aesthetic_styling(response)]
         

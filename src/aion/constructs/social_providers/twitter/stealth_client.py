@@ -48,32 +48,48 @@ class TwitterStealthProvider(BaseSocialProvider):
                     return False
 
                 for i, text in enumerate(messages):
-                    self.logger.info(f"🐦 Twitter: Posting part {i+1}/{len(messages)}...")
+                    self.logger.info(f"🐦 Twitter: Preparing part {i+1}/{len(messages)}...")
                     
-                    # 1. Open compose
-                    draft_editor = await page.query_selector("[data-testid='tweetTextarea_0']")
-                    if not draft_editor:
+                    # 1. Open compose or find current textarea
+                    # For part 0, we look for the main area. For part > 0, we look for subsequent ones.
+                    selector = f"[data-testid='tweetTextarea_{i}']"
+                    draft_editor = await page.query_selector(selector)
+                    
+                    if i == 0 and not draft_editor:
                         await page.keyboard.press("n")
                         await self._human_delay(2, 4)
-                        draft_editor = await page.query_selector("[data-testid='tweetTextarea_0']")
+                        draft_editor = await page.query_selector(selector)
 
                     if draft_editor:
                         await draft_editor.click()
                         await page.keyboard.type(text, delay=random.randint(50, 100))
-                        await self._human_delay(2, 3)
+                        await self._human_delay(1, 2)
                         
-                        post_button = await page.query_selector("[data-testid='tweetButtonInline']") or \
-                                      await page.query_selector("[data-testid='tweetButton']")
-                        
-                        if post_button:
-                            await post_button.click()
-                            self.logger.info(f"✅ Part {i+1} sent.")
-                            await self._human_delay(5, 8)
+                        # If there are more messages, click the "+" (Add another tweet) button
+                        if i < len(messages) - 1:
+                            add_button = await page.query_selector("[data-testid='addTweetButton']")
+                            if add_button:
+                                await add_button.click()
+                                await self._human_delay(1, 2)
+                            else:
+                                self.logger.error("❌ Threading error: '+' button not found.")
+                                break
                         else:
-                            self.logger.error("❌ Post button not found.")
-                            break
+                            # Final part: Click "Post all" or "Post"
+                            # In a thread, the final button usually has data-testid="tweetButtonAll"
+                            post_button = await page.query_selector("[data-testid='tweetButtonAll']") or \
+                                          await page.query_selector("[data-testid='tweetButtonInline']") or \
+                                          await page.query_selector("[data-testid='tweetButton']")
+                            
+                            if post_button:
+                                await post_button.click()
+                                self.logger.info("✅ Masterful Thread sent.")
+                                await self._human_delay(5, 8)
+                            else:
+                                self.logger.error("❌ Post button not found.")
+                                break
                     else:
-                        self.logger.error("❌ Compose area not found.")
+                        self.logger.error(f"❌ Compose area {i} not found.")
                         break
                 return True
             except Exception as e:
