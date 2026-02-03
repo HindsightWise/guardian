@@ -340,5 +340,377 @@
     },
     "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/moltbook_client.py": {
         "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/AION_SCAVENGE_LOG.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/WORKSPACE_STRUCTURE.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/GEMINI.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/sync_twitter_state.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/setup_cookies.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/User_Content/My_journal.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/User_Content/Ralphs_Complete_Writings.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/User_Content/My_notes.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/User_Content/The_Weight_of_Worlds.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/skills_registry.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/agent.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social_providers/telegram_bot.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social_providers/moltbook_client.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social_providers/base.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social_providers/twitter/client.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social_providers/twitter/stealth_client.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/moltbook_skill.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/scholar.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/chronomancer.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/artist.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/critic.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/bard.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/vision/cortex.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_CRITIQUES.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_THOUGHTS.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/linear_ticket_seeker01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_WISDOM.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/test_brave_search.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/linear_ticket_seeker02.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/PRD_SEEKER.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_SESSION/research_01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_SESSION/AION_CRITIQUES.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_SESSION/AION_THOUGHTS.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_SESSION/plan_01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_SESSION/AION_WISDOM.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770025305.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770015512.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770027047.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770013457.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770023324.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770019684.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770046999.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770045663.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770013692.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770046079.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770020716.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770041564.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770011481.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770012478.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770015065.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770047138.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770020882.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_Stigmergy_Urbanism.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770042993.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770019514.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770019210.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Social_Intel_1770022384.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770021811.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Social_Intel_1770024342.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770015857.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770018685.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770042441.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770047264.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770025582.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770012563.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Social_Intel_1770021787.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770007505.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770009099.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770004246.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770013766.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770026873.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770023683.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770006276.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770025836.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770015205.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Social_Intel_1770026265.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770042573.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770012676.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770023933.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770013194.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770041698.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Market_Scan for Undervalued Assets: TSLA, MSFT, AAPL_1770006307.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770023175.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770021478.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Vision_AION__PRIME_pickle.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Social_Intel_1770024845.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770046313.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770025150.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770024688.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Social_Intel_1770015348.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770014387.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770046792.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770014795.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770007101.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770019369.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Novelty_1770013091.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Analysis/Research_1770022088.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Trading_Bot/suno-api/README_RU.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Trading_Bot/suno-api/README.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Trading_Bot/suno-api/README_CN.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Strategies/X_Mastery_Guide.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Strategies/Music_Prompts.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Strategies/Music_Spec_Dark_Lungs.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770042734.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770004377.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770007249.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770046502.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770024566.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770009026.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770009709.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770019943.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770013617.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770011412.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770014979.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770021340.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770022896.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770026440.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770007642.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770008216.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770004057.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Market_Intelligence/Scavenge_Reports/Scavenge_1770003897.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Identity/RALPH_CORE.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Identity/RALPH_MANIFEST.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Identity/RALPH_KNOWLEDGE_INDEX.md": {
+        "status": "indexed"
     }
 }

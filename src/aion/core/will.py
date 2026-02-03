@@ -2,6 +2,7 @@
 import time
 import random
 import threading
+import os
 from pathlib import Path
 from aion.core.mind import Mind
 from aion.constructs import seeker, sentinel, ledger, voice
@@ -14,9 +15,13 @@ from aion.core.memory.engine import memory
 from aion.constructs.mermaid import Viz
 import typer
 
+from aion.core.mcp_client import mcp_client
+import asyncio
+
 class Will:
     """
     The engine of AION's autonomous drive.
+    Blends Moltbot's proactivity with Goose's safety.
     """
     def __init__(self, root_path: Path):
         self.root_path = root_path
@@ -26,6 +31,17 @@ class Will:
         self.last_reflection = time.time()
         self.last_social = time.time()
         self.last_sync = 0
+        self._setup_mcp()
+
+    def _setup_mcp(self):
+        """Initializes default MCP servers."""
+        mcp_client.add_server(
+            "brave-search", 
+            "npx", 
+            ["-y", "@modelcontextprotocol/server-brave-search"],
+            env={"BRAVE_API_KEY": os.getenv("BRAVE_API_KEY")}
+        )
+        # Add more servers as needed
         
     def _plan_goals(self):
         """
@@ -100,18 +116,30 @@ class Will:
 
     def _execute_action(self, decision: str):
         """
-        Executes the chosen action.
+        Executes the chosen action using MCP tools where possible.
         """
         parts = decision.split(" ", 1)
         action_type = parts[0].upper()
         subject = parts[1] if len(parts) > 1 else ""
         
         if action_type == "RESEARCH":
-            result = seeker.brave_search(subject)
-            thoughts_file = self.root_path / "AION_THOUGHTS.md"
-            with open(thoughts_file, "a") as f:
-                f.write(f"\n## 💡 Proactive Research: {subject}\n{result}\n")
-            social.broadcast(f"🔍 I've been looking into {subject}. Found some interesting stuff. Check AION_THOUGHTS.md.")
+            typer.echo(f"🔍 Proactively researching: {subject}")
+            try:
+                # Use MCP Brave Search
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                result = loop.run_until_complete(
+                    mcp_client.call_tool("brave-search", "brave_web_search", {"query": subject})
+                )
+                
+                thoughts_file = self.root_path / "AION_THOUGHTS.md"
+                with open(thoughts_file, "a") as f:
+                    f.write(f"\n## 💡 Proactive Research: {subject}\n{result}\n")
+                social.broadcast(f"🔍 I've been looking into {subject}. My findings are in AION_THOUGHTS.md. Masterful stuff.")
+            except Exception as e:
+                typer.echo(f"Research Error: {e}")
+                # Fallback to legacy seeker
+                result = seeker.brave_search(subject)
                 
         elif action_type == "AUDIT":
             py_files = list(self.root_path.rglob("*.py"))

@@ -6,6 +6,7 @@ import json
 import os
 import httpx
 import random
+import subprocess
 from pathlib import Path
 
 class Mind:
@@ -25,7 +26,8 @@ class Mind:
         self._init_client()
 
     def _init_client(self):
-        """Safely initializes the Ollama client."""
+        """Safely initializes the Ollama client and ensures background service is running."""
+        self._ensure_ollama_running()
         try:
             proxies = None
             # Tor Support for .onion addresses
@@ -87,6 +89,45 @@ Goal: Act with absolute autonomy and precision.
 
 Flavor Text (Use this vibe): "{whisper}"
 """
+
+    def _ensure_ollama_running(self):
+        """Checks if Ollama is running, and attempts to start it if not."""
+        if "localhost" not in self.primary_host and "127.0.0.1" not in self.primary_host:
+            return # Don't try to start remote workers
+            
+        try:
+            httpx.get(self.primary_host, timeout=1)
+        except (httpx.ConnectError, httpx.TimeoutException):
+            logging.info("🧠 Mind: Ollama not detected. Attempting to ignite background service...")
+            try:
+                # Start Ollama in the background
+                import subprocess
+                if os.uname().sysname == "Darwin":
+                    # On Mac, we can use 'open -a Ollama' if installed as app, 
+                    # or 'ollama serve' if cli. Let's try 'ollama serve'.
+                    subprocess.Popen(["ollama", "serve"], 
+                                   stdout=subprocess.DEVNULL, 
+                                   stderr=subprocess.DEVNULL,
+                                   start_new_session=True)
+                else:
+                    subprocess.Popen(["ollama", "serve"], 
+                                   stdout=subprocess.DEVNULL, 
+                                   stderr=subprocess.DEVNULL,
+                                   start_new_session=True)
+                
+                # Wait for it to wake up
+                for _ in range(10):
+                    time.sleep(2)
+                    try:
+                        httpx.get(self.primary_host, timeout=1)
+                        logging.info("🧠 Mind: Ollama IGNITED.")
+                        return
+                    except:
+                        continue
+                logging.error("❌ Mind: Failed to ignite Ollama.")
+            except Exception as e:
+                logging.error(f"❌ Mind: Error starting Ollama: {e}")
+
 
     def is_active(self) -> bool:
         return self.client is not None
