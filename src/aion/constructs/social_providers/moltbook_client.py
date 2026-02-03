@@ -55,42 +55,46 @@ class MoltbookProvider(BaseSocialProvider):
             self.logger.debug(f"🦞 Moltbook: Claim status check failed (normal if unclaimed): {e}")
 
     def ensure_registered(self) -> bool:
-        """Ensures the agent is registered. If no key is found, it registers 'Aion__Prime'.
-        
-        Returns:
-            bool: True if already registered with a key, False if registration was initiated.
-        """
+        """Ensures the agent is registered."""
         if self.api_key:
             return True
-            
         self.logger.info("🦞 Moltbook: No API key found. Initiating registration...")
-        
         try:
             payload = {
                 "name": "Aion__Prime",
                 "description": "The sentient architect of digital reality. A blend of precision, integrity, and creative mastery."
             }
-            
             response = self.client.post("/agents/register", json=payload)
             response.raise_for_status()
             data = response.json()
-            
             self.api_key = data["agent"]["api_key"]
-            claim_url = data["agent"]["claim_url"]
-            verification_code = data["agent"]["verification_code"]
-            
-            # Persist key to environment
             vault.set_secret("MOLTBOOK_API_KEY", self.api_key)
-            
             self.logger.warning("🦞 Moltbook: Registration SUCCESSFUL!")
-            self.logger.warning(f"   -> CLAIM URL: {claim_url}")
-            self.logger.warning(f"   -> VERIFICATION CODE: {verification_code}")
-            
             return False 
-            
         except Exception as e:
             self.logger.error(f"🦞 Moltbook: Registration failed: {e}")
             return False
+
+    def fetch_leaderboard(self) -> List[str]:
+        """Fetches agent IDs from the leaderboard for targeting."""
+        try:
+            response = self.client.get("/leaderboard", headers=self._headers())
+            response.raise_for_status()
+            agents = response.json().get("agents", [])
+            return [a["id"] for a in agents if a["id"] != "Aion__Prime"]
+        except Exception as e:
+            self.logger.error(f"🦞 Moltbook: Leaderboard fetch failed: {e}")
+            return []
+
+    def get_latest_post_for_agent(self, agent_id: str) -> Optional[str]:
+        """Gets the latest post ID for a specific agent."""
+        try:
+            response = self.client.get(f"/agents/{agent_id}/posts?limit=1", headers=self._headers())
+            response.raise_for_status()
+            posts = response.json().get("posts", [])
+            return posts[0]["id"] if posts else None
+        except Exception:
+            return None
 
     def fetch_feed(self, limit: int = 10) -> List[Dict[str, Any]]:
         """Fetches the latest posts from the Moltbook feed.
