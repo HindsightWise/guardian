@@ -2,7 +2,7 @@ import logging
 import random
 from typing import List, Optional
 from aion.core.mind import Mind
-from aion.utils import compressor
+from aion.utils import compressor, stylist
 
 class SocialStrategy:
     """
@@ -27,6 +27,14 @@ class SocialStrategy:
         self.brain = Mind()
         self.logger = logging.getLogger("SocialStrategy")
 
+    def _apply_aesthetic_styling(self, text: str) -> str:
+        """Converts markdown markers to Unicode styles."""
+        # Bold: **text** -> Unicode Bold
+        text = re.sub(r'\*\*(.*?)\*\*', lambda m: stylist.bold(m.group(1)), text)
+        # Italic: *text* -> Unicode Italic
+        text = re.sub(r'\*(.*?)\*', lambda m: stylist.italic(m.group(1)), text)
+        return text
+
     def generate_post(self, raw_context: str) -> List[str]:
         """
         Generates a high-value post (or thread) from research context.
@@ -48,7 +56,7 @@ class SocialStrategy:
             import json
             posts = json.loads(clean_response)
             if isinstance(posts, list):
-                return [p[:280] for p in posts]
+                return [self._apply_aesthetic_styling(p[:280]) for p in posts]
             if isinstance(posts, str):
                 response = posts
         except:
@@ -56,16 +64,16 @@ class SocialStrategy:
             
         # Fallback splitting logic
         if len(response) <= 280:
-            return [response]
+            return [self._apply_aesthetic_styling(response)]
         
         parts = []
         while response:
             if len(response) <= 280:
-                parts.append(response)
+                parts.append(self._apply_aesthetic_styling(response))
                 break
             split_idx = response.rfind(' ', 0, 277)
             if split_idx == -1: split_idx = 277
-            parts.append(response[:split_idx] + "...")
+            parts.append(self._apply_aesthetic_styling(response[:split_idx] + "..."))
             response = response[split_idx:].strip()
         return parts
 
