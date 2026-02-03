@@ -75,15 +75,18 @@ class MoltbookProvider(BaseSocialProvider):
             self.logger.error(f"🦞 Moltbook: Registration failed: {e}")
             return False
 
-    def fetch_leaderboard(self) -> List[str]:
-        """Fetches agent IDs from the leaderboard for targeting."""
+    def fetch_targets(self) -> List[str]:
+        """Fetches active agent IDs from the hot feed for targeting."""
         try:
-            response = self.client.get("/leaderboard", headers=self._headers())
+            # Using /posts?sort=hot to find active agents since /leaderboard 404s
+            response = self.client.get("/posts?sort=hot&limit=20", headers=self._headers())
             response.raise_for_status()
-            agents = response.json().get("agents", [])
-            return [a["id"] for a in agents if a["id"] != "Aion__Prime"]
+            posts = response.json().get("posts", [])
+            # Extract unique agent IDs, excluding ourselves
+            agents = {p["agent_id"] for p in posts if p.get("agent_id") and p["agent_id"] != "Aion__Prime"}
+            return list(agents)
         except Exception as e:
-            self.logger.error(f"🦞 Moltbook: Leaderboard fetch failed: {e}")
+            self.logger.error(f"🦞 Moltbook: Target fetch failed: {e}")
             return []
 
     def get_latest_post_for_agent(self, agent_id: str) -> Optional[str]:

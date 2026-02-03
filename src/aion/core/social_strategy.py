@@ -1,5 +1,6 @@
 import logging
 import random
+import re
 from typing import List, Optional
 from aion.core.mind import Mind
 from aion.utils import compressor, stylist
