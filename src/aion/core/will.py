@@ -17,6 +17,7 @@ import typer
 
 from aion.constructs.social import hub as social
 from aion.core.social_strategy import social_strategy
+from typing import List, Dict, Union
 from aion.core.mcp_client import mcp_client
 import asyncio
 
@@ -128,13 +129,19 @@ class Will:
             
             time.sleep(random.randint(10, 30))
 
-    def _execute_action(self, decision: str):
+    def _execute_action(self, decision: Union[str, Dict]):
         """
         Executes the chosen action using MCP tools where possible.
+        Handles both string commands and dictionary-style actions.
         """
-        parts = decision.split(" ", 1)
-        action_type = parts[0].upper()
-        subject = parts[1] if len(parts) > 1 else ""
+        if isinstance(decision, dict):
+            # Flatten dict: {'RESEARCH': 'topic'} -> 'RESEARCH topic'
+            action_type = next(iter(decision.keys())).upper()
+            subject = str(next(iter(decision.values())))
+        else:
+            parts = str(decision).split(" ", 1)
+            action_type = parts[0].upper()
+            subject = parts[1] if len(parts) > 1 else ""
         
         if action_type == "RESEARCH":
             typer.echo(f"🔍 Proactively researching: {subject}")
