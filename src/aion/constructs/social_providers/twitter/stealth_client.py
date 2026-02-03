@@ -3,7 +3,7 @@ import asyncio
 import random
 import os
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from playwright.async_api import async_playwright, BrowserContext, Page
 from aion.constructs.social_providers.base import BaseSocialProvider
 
