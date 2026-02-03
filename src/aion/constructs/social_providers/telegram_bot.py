@@ -2,7 +2,7 @@ import os
 import logging
 import asyncio
 import threading
-from typing import Set, Optional, NoReturn
+from typing import Set, Optional, NoReturn, List, Union
 from telegram import Update
 from telegram.ext import Application, ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 from aion.core.mind import Mind
@@ -89,19 +89,17 @@ class TelegramProvider(BaseSocialProvider):
         t = threading.Thread(target=self._run, daemon=True)
         t.start()
 
-    def broadcast(self, message: str) -> None:
-        """Broadcasts a message to all known chat IDs.
-        
-        Args:
-            message: The content to broadcast.
-        """
+    def broadcast(self, message: Union[str, List[str]]) -> None:
+        """Broadcasts a message or thread to all known chat IDs."""
         if not self.app or not self.known_chats or not self.loop:
             return
             
+        final_message = "\n\n".join(message) if isinstance(message, list) else message
+
         for chat_id in self.known_chats:
             try:
                 asyncio.run_coroutine_threadsafe(
-                    self.app.bot.send_message(chat_id=chat_id, text=message),
+                    self.app.bot.send_message(chat_id=chat_id, text=final_message),
                     self.loop
                 )
             except Exception as e:

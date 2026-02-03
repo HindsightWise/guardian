@@ -30,36 +30,39 @@ class SocialStrategy:
     def generate_post(self, raw_context: str) -> List[str]:
         """
         Generates a high-value post (or thread) from research context.
-        Returns a list of strings, each within 280 chars.
+        Returns a list of clean strings, each within 280 chars.
         """
         template = random.choice(self.TWEET_TEMPLATES)
-        prompt = f"{template}\n\nIf the insight is complex, break it into a masterful thread (list of parts). Each part MUST be under 280 characters. Return as a JSON list of strings.\n\nActual Research/Context:\n{raw_context}"
+        # Refined prompt to ensure CLEAN output
+        prompt = f"{template}\n\nActual Research/Context:\n{raw_context}\n\nCRITICAL: If the insight is complex, break it into a thread. Return ONLY a JSON list of strings [\"part1\", \"part2\"]. NO OTHER TEXT, NO LABELS, NO MARKDOWN BLOCKS."
         
         response = self.brain.think(
             "Context: Social Content Engine for Aion__Prime.",
             prompt
         )
         
+        # 1. Scrub Markdown blocks if the brain ignored the "NO MARKDOWN" rule
+        clean_response = re.sub(r'```json\s*|```', '', response).strip()
+        
         try:
-            # Attempt to parse as JSON list
             import json
-            posts = json.loads(response)
+            posts = json.loads(clean_response)
             if isinstance(posts, list):
                 return [p[:280] for p in posts]
+            if isinstance(posts, str):
+                response = posts
         except:
             pass
             
-        # Fallback: Split by length or just return single
+        # Fallback splitting logic
         if len(response) <= 280:
             return [response]
         
-        # Simple splitting logic for non-JSON responses
         parts = []
         while response:
             if len(response) <= 280:
                 parts.append(response)
                 break
-            # Find last space within 280
             split_idx = response.rfind(' ', 0, 277)
             if split_idx == -1: split_idx = 277
             parts.append(response[:split_idx] + "...")

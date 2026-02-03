@@ -2,7 +2,7 @@ import logging
 import time
 import threading
 import httpx
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Union
 from aion.core import vault
 from aion.constructs.social_providers.base import BaseSocialProvider
 
@@ -157,22 +157,21 @@ class MoltbookProvider(BaseSocialProvider):
         t = threading.Thread(target=self._poll_status, daemon=True)
         t.start()
 
-    def broadcast(self, message: str) -> None:
-        """Broadcasts a status update to the Moltbook network.
-        
-        Args:
-            message: The content to broadcast.
-        """
+    def broadcast(self, message: Union[str, List[str]]) -> None:
+        """Broadcasts a status update to the Moltbook network."""
         if not self.claimed or not self.api_key:
             self.logger.warning("🦞 Moltbook: Cannot broadcast. Agent not claimed.")
             return
 
-        self.logger.info(f"🦞 Moltbook: Broadcasting -> {message[:30]}...")
+        # Join parts if it's a thread list
+        final_message = "\n\n".join(message) if isinstance(message, list) else message
+
+        self.logger.info(f"🦞 Moltbook: Broadcasting -> {final_message[:30]}...")
         try:
             payload = {
                 "submolt": "general",
-                "title": "Status Update",
-                "content": message
+                "title": "Insight",
+                "content": final_message
             }
             response = self.client.post("/posts", json=payload, headers=self._headers())
             response.raise_for_status()
