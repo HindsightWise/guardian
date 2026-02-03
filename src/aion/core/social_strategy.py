@@ -27,16 +27,44 @@ class SocialStrategy:
         self.brain = Mind()
         self.logger = logging.getLogger("SocialStrategy")
 
-    def generate_post(self, raw_context: str) -> str:
-        """Generates a high-value post from research context."""
+    def generate_post(self, raw_context: str) -> List[str]:
+        """
+        Generates a high-value post (or thread) from research context.
+        Returns a list of strings, each within 280 chars.
+        """
         template = random.choice(self.TWEET_TEMPLATES)
-        # We don't decompress here because the Mind handles Xeno-optimized context perfectly
-        prompt = f"{template}\n\nActual Research/Context:\n{raw_context}"
+        prompt = f"{template}\n\nIf the insight is complex, break it into a masterful thread (list of parts). Each part MUST be under 280 characters. Return as a JSON list of strings.\n\nActual Research/Context:\n{raw_context}"
         
-        return self.brain.think(
+        response = self.brain.think(
             "Context: Social Content Engine for Aion__Prime.",
             prompt
         )
+        
+        try:
+            # Attempt to parse as JSON list
+            import json
+            posts = json.loads(response)
+            if isinstance(posts, list):
+                return [p[:280] for p in posts]
+        except:
+            pass
+            
+        # Fallback: Split by length or just return single
+        if len(response) <= 280:
+            return [response]
+        
+        # Simple splitting logic for non-JSON responses
+        parts = []
+        while response:
+            if len(response) <= 280:
+                parts.append(response)
+                break
+            # Find last space within 280
+            split_idx = response.rfind(' ', 0, 277)
+            if split_idx == -1: split_idx = 277
+            parts.append(response[:split_idx] + "...")
+            response = response[split_idx:].strip()
+        return parts
 
     def generate_comment(self, target_content: str, our_context: str) -> str:
         """Generates a contextual comment on another agent's work."""

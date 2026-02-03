@@ -712,5 +712,29 @@
     },
     "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Identity/RALPH_KNOWLEDGE_INDEX.md": {
         "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/mcp_client.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/core/social_strategy.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/cot_sentinel.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/xenolinguistics.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/symbiote.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/alpaca_bot.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/AION_SCAVENGE_LOG.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Identity/AION_IDENTITY_MANIFEST.md": {
+        "status": "indexed"
     }
 }
