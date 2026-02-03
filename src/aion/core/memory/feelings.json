@@ -772,5 +772,17 @@
     },
     "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/BR_TICKETS/ppa/linear_ticket_br_ppa_01.md": {
         "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/VIXT_PRD.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/VIXT_TICKETS/reporting/linear_ticket_vixt_rep_01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/VIXT_TICKETS/registration/linear_ticket_vixt_reg_01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/VIXT_TICKETS/routing/linear_ticket_vixt_rout_01.md": {
+        "status": "indexed"
     }
 }

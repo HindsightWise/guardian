@@ -28,3 +28,5 @@ dependencies = [
 [project.scripts]
 aion-daemon = "aion.core.heartbeat:start_daemon_main"
 aion-cli = "aion.interface.cli:app"
+vixt = "aion.interface.cli:app"
+vixt-daemon = "aion.core.heartbeat:start_daemon_main"
