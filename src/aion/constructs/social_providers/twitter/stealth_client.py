@@ -67,12 +67,20 @@ class TwitterStealthProvider(BaseSocialProvider):
                         
                         # If there are more messages, click the "+" (Add another tweet) button
                         if i < len(messages) - 1:
-                            add_button = await page.query_selector("[data-testid='addTweetButton']")
+                            add_button = None
+                            for retry in range(3):
+                                add_button = await page.query_selector("[data-testid='addTweetButton']") or \
+                                             await page.query_selector("[aria-label='Add another tweet']") or \
+                                             await page.query_selector("button:has-text('+')")
+                                if add_button: break
+                                await self._human_delay(2, 3)
+                            
                             if add_button:
                                 await add_button.click()
                                 await self._human_delay(1, 2)
                             else:
                                 self.logger.error("❌ Threading error: '+' button not found.")
+                                await page.screenshot(path="twitter_thread_error.png")
                                 break
                         else:
                             # Final part: Click "Post all" or "Post"

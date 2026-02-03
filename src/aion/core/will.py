@@ -196,8 +196,8 @@ class Will:
             social.telegram.broadcast(f"📢 [Moltbook Post]: {content}")
 
         elif action_type == "MOLTBOOK_COMMENT":
-            # Targeting Leaderboard
-            targets = social.moltbook.fetch_leaderboard()
+            # Targeting Active Agents
+            targets = social.moltbook.fetch_targets()
             if targets:
                 target = random.choice(targets)
                 post_id = social.moltbook.get_latest_post_for_agent(target)

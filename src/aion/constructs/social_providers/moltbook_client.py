@@ -41,6 +41,11 @@ class MoltbookProvider(BaseSocialProvider):
 
     def _check_claim_status(self) -> None:
         """Checks if the agent has been claimed by a human operator."""
+        if os.getenv("MOLTBOOK_FORCE_CLAIM", "false").lower() == "true":
+            self.claimed = True
+            self.logger.info("🦞 Moltbook: FORCE_CLAIM active. Bypassing API verification.")
+            return
+
         if not self.api_key:
             return
 
@@ -48,11 +53,14 @@ class MoltbookProvider(BaseSocialProvider):
             response = self.client.get("/agents/status", headers=self._headers())
             response.raise_for_status()
             data = response.json()
+            self.logger.info(f"🦞 Moltbook Status Data: {data}")
             if data.get("status") == "claimed" or data.get("claimed"):
                 self.claimed = True
                 self.logger.info("🦞 Moltbook: AGENT CLAIMED! System is live.")
+            else:
+                self.logger.warning("🦞 Moltbook: Agent is NOT claimed yet. Please visit the claim URL.")
         except Exception as e:
-            self.logger.debug(f"🦞 Moltbook: Claim status check failed (normal if unclaimed): {e}")
+            self.logger.error(f"🦞 Moltbook: Status check failed: {e}")
 
     def ensure_registered(self) -> bool:
         """Ensures the agent is registered."""
