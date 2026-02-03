@@ -751,5 +751,26 @@
     },
     "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/STABILITY_TICKETS/a1b2c3d4/linear_ticket_a1b2c3d4.md": {
         "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/social_hub.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/constructs/navigator.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Aion/src/aion/skills/ppa.py": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/BR_EXPERIENCE_PRD.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/BR_TICKETS/social/linear_ticket_br_soc_01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/BR_TICKETS/ins/linear_ticket_br_ins_01.md": {
+        "status": "indexed"
+    },
+    "/Users/zerbytheboss/Desktop/google_cli/WritingPro/Agent_Data/BR_TICKETS/ppa/linear_ticket_br_ppa_01.md": {
+        "status": "indexed"
     }
 }
