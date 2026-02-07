@@ -1,0 +1,28 @@
+- Reading configuration...
+  - Reading registry from registry.yaml
+  - Reading catalog from [docker-mcp.yaml]
+  - Reading config from config.yaml
+  - Reading tools from tools.yaml
+- Configuration read in 80.178041ms
+- Using images:
+  - mcp/playwright@sha256:c1a5c5acb2afe2cb7f15c7cb3e493e66636bf0675dbe9967185fb17eb11b67e9
+> Images pulled in 344.131042ms
+- Those servers are enabled: playwright
+- Listing MCP tools...
+  - Running mcp/playwright with [run --rm -i --init --security-opt no-new-privileges --cpus 1 --memory 2Gb --pull never -l docker-mcp=true -l docker-mcp-tool-type=mcp -l docker-mcp-name=playwright -l docker-mcp-transport=stdio]
+  > playwright: (22 tools)
+> 22 tools listed in 15.443595083s
+- Adding internal tools (dynamic-tools feature enabled)
+  > mcp-find: tool for finding MCP servers in the catalog
+  > mcp-add: tool for adding MCP servers to the registry
+  > mcp-remove: tool for removing MCP servers from the registry
+  > code-mode: write code that calls other MCPs directly
+  > mcp-exec: execute tools that exist in the current session
+  > mcp-config-set: tool for setting configuration values for MCP servers
+  > mcp-discover: prompt for learning about dynamic server management
+- Starting OAuth notification monitor
+- Starting OAuth provider loops...
+- Watching for configuration updates...
+- Connecting to OAuth notification stream at http://localhost/notify/notifications/channel/external-oauth
+> Initialized in 15.877046833s
+> Start stdio server

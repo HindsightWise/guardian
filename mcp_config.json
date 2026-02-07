@@ -1,0 +1,87 @@
+{
+    "mcpServers": {
+        "github": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+            }
+        },
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/Users/zerbytheboss/Desktop/OpenClaw",
+                "/Users/zerbytheboss/Desktop"
+            ]
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ]
+        },
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ]
+        },
+        "brave-search": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "env": {
+                "BRAVE_API_KEY": "BSADiH8SakVAWOzRng0173ZFs6OPKVu"
+            }
+        },
+        "tavily": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "tavily-mcp@latest"
+            ],
+            "env": {
+                "TAVILY_API_KEY": "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"
+            }
+        },
+        "playwright": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-playwright"
+            ]
+        },
+        "fetch": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-fetch"
+            ]
+        },
+        "postgres": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-postgres-server"
+            ],
+            "env": {
+                "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/guardian_app"
+            }
+        },
+        "docker": {
+            "command": "uvx",
+            "args": [
+                "docker-mcp"
+            ]
+        }
+    }
+}
