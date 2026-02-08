@@ -1,155 +1,135 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AION MISSION CONTROL</title>
-    <!-- CACHE BUST v=11 -->
-    <link rel="stylesheet" href="style.css?v=11" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
 
-  <body>
-    <div class="crt-overlay"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AION MISSION CONTROL</title>
+  <!-- CACHE BUST v=11 -->
+  <link rel="stylesheet" href="style.css?v=11" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-    <header class="card">
-      <div class="header-left">
-        <div class="logo">AION__PRIME</div>
-        <div class="status-badge">CORTEX V8 [ONLINE]</div>
+<body>
+  <div class="crt-overlay"></div>
+
+  <header class="card">
+    <div class="header-left">
+      <div class="logo">AION__PRIME</div>
+      <div class="status-badge">CORTEX V8 [ONLINE]</div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center">
+      <div id="status" class="status-badge">SYSTEM ACTIVE</div>
+      <div id="clock" class="stat-label">00:00:00</div>
+    </div>
+  </header>
+
+  <div class="grid-container">
+    <!-- COLUMN 1: SYSTEM & INTEL -->
+    <div class="col">
+      <div class="card" style="flex: 1; min-height: 150px">
+        <h3>🌍 Global Intelligence</h3>
+        <div id="news-feed" class="scroll-area">Connecting to Explorer Channel...</div>
       </div>
-      <div style="display: flex; gap: 10px; align-items: center">
-        <div id="status" class="status-badge">SYSTEM ACTIVE</div>
-        <div id="clock" class="stat-label">00:00:00</div>
-      </div>
-    </header>
 
-    <div class="grid-container">
-      <!-- COLUMN 1: SYSTEM & INTEL -->
-      <div class="col">
-        <div class="card" style="flex: 1; min-height: 150px">
-          <h3>🌍 Global Intelligence</h3>
-          <div id="news-feed" class="scroll-area">Connecting to Explorer Channel...</div>
-        </div>
-
-        <div class="card" style="height: 200px; flex: 0 0 auto; overflow: hidden">
-          <h3>🌌 Dream Cycle</h3>
-          <div
-            id="dream-box"
-            class="scroll-area"
-            style="color: #ffffff; font-style: normal; font-weight: 500"
-          >
-            Waiting for Sync...
-          </div>
-        </div>
-
-        <div class="card" style="flex: 0 0 auto">
-          <h3>🧠 Neural State</h3>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 10px">
-            <span class="stat-label">Status</span>
-            <strong id="ai-status">...</strong>
-          </div>
-
-          <div class="orb-container" style="padding: 10px 0">
-            <div id="ai-orb" class="orb" style="width: 40px; height: 40px"></div>
-          </div>
-          <div style="text-align: center; margin-bottom: 5px">
-            <span class="stat-label">SYNC: </span><strong id="pulse-rate">98%</strong>
-          </div>
-
-          <!-- Terminal (Moved here) -->
-          <div id="terminal-output" class="terminal-output" style="height: 80px; font-size: 10px">
-            <div class="term-line">AION_OS v9.0.1...</div>
-          </div>
-          <div class="terminal-input-line">
-            <span class="prompt">></span>
-            <input type="text" id="terminal-input" placeholder="Cmd..." autocomplete="off" />
-          </div>
+      <div class="card" style="height: 200px; flex: 0 0 auto; overflow: hidden">
+        <h3>🌌 Dream Cycle</h3>
+        <div id="dream-box" class="scroll-area" style="color: #ffffff; font-style: normal; font-weight: 500">
+          Waiting for Sync...
         </div>
       </div>
 
-      <!-- COLUMN 2: MACRO & STRATEGY -->
-      <div class="col">
-        <!-- Macro Oscillators -->
-        <div class="card" style="flex: 1; display: flex; flex-direction: column">
-          <h3>👁️ Macro Oscillators</h3>
-          <div
-            id="macro-grid"
-            class="scroll-area"
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start"
-          >
-            <!-- Injected via JS -->
-            <div style="text-align: center; padding: 20px; color: #888">
-              Initializing Sensors...
-            </div>
-          </div>
+      <div class="card" style="flex: 0 0 auto">
+        <h3>🧠 Neural State</h3>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px">
+          <span class="stat-label">Status</span>
+          <strong id="ai-status">...</strong>
         </div>
 
-        <!-- Strategic Proposals -->
-        <div class="card" style="flex: 1; display: flex; flex-direction: column">
-          <h3>⚡ Strategic Proposals</h3>
-          <div id="proposals-body" class="scroll-area">
-            <!-- Rendered via JS -->
+        <div class="orb-container" style="padding: 10px 0">
+          <div id="ai-orb" class="orb" style="width: 40px; height: 40px"></div>
+        </div>
+        <div style="text-align: center; margin-bottom: 5px">
+          <span class="stat-label">SYNC: </span><strong id="pulse-rate">98%</strong>
+        </div>
+
+        <!-- Terminal (Moved here) -->
+        <div id="terminal-output" class="terminal-output" style="height: 80px; font-size: 10px">
+          <div class="term-line">AION_OS v9.0.1...</div>
+        </div>
+        <div class="terminal-input-line">
+          <span class="prompt">></span>
+          <input type="text" id="terminal-input" placeholder="Cmd..." autocomplete="off" />
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 2: MACRO & STRATEGY -->
+    <div class="col">
+      <!-- Macro Oscillators -->
+      <div class="card" style="flex: 1; display: flex; flex-direction: column">
+        <h3>👁️ Macro Oscillators</h3>
+        <div id="macro-grid" class="scroll-area"
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start">
+          <!-- Injected via JS -->
+          <div style="text-align: center; padding: 20px; color: #888">
+            Initializing Sensors...
           </div>
         </div>
       </div>
 
-      <!-- COLUMN 3: PORTFOLIO OPERATIONS (Enlarged) -->
-      <div class="col">
-        <!-- Asset Allocation (Doughnut) -->
-        <div
-          class="card"
-          style="flex: 0 0 220px; display: flex; flex-direction: column; overflow: hidden"
-        >
-          <h3 style="display: flex; justify-content: space-between">
-            <span>💼 Asset Allocation</span>
-            <span style="font-size: 10px; color: #666">AION / USER</span>
-          </h3>
-          <div style="flex: 1; position: relative; min-height: 0; display: flex; gap: 10px">
-            <div style="flex: 1; position: relative">
+      <!-- Strategic Proposals -->
+      <div class="card" style="flex: 1; display: flex; flex-direction: column">
+        <h3>⚡ Strategic Proposals</h3>
+        <div id="proposals-body" class="scroll-area">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 3: PORTFOLIO OPERATIONS (Enlarged) -->
+    <div class="col">
+      <!-- Asset Allocation (Doughnut) -->
+      <div class="card"
+        style="flex: 0 0 auto; min-height: 280px; display:flex; flex-direction:column; overflow: hidden;">
+        <h3 style="display:flex; justify-content:space-between;">
+          <span>💼 Asset Allocation</span>
+          <span style="font-size:10px; color:#666;">Top Holdings</span>
+        </h3>
+        <div style="flex: 1; position: relative; min-height: 0; display: flex; gap: 10px;">
+          <!-- Aion Chart & Legend -->
+          <div style="flex: 1; display: flex; flex-direction: column;">
+            <div style="flex: 1; position: relative; min-height: 100px;">
               <canvas id="chartAion"></canvas>
               <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                  text-align: center;
-                  font-size: 10px;
-                  color: #30d158;
-                  pointer-events: none;
-                "
-              >
-                AION
-              </div>
+                style="position:absolute; bottom:0; width:100%; text-align:center; font-size:10px; color:#30d158; pointer-events:none; opacity:0.8;">
+                AION</div>
             </div>
-            <div style="flex: 1; position: relative">
+            <div id="legendAion"
+              style="margin-top:5px; font-size:9px; color:#999; display:flex; flex-direction:column; gap:2px;"></div>
+          </div>
+
+          <!-- User Chart & Legend -->
+          <div style="flex: 1; display: flex; flex-direction: column;">
+            <div style="flex: 1; position: relative; min-height: 100px;">
               <canvas id="chartUser"></canvas>
               <div
-                style="
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                  text-align: center;
-                  font-size: 10px;
-                  color: #0a84ff;
-                  pointer-events: none;
-                "
-              >
-                USER
-              </div>
+                style="position:absolute; bottom:0; width:100%; text-align:center; font-size:10px; color:#0a84ff; pointer-events:none; opacity:0.8;">
+                USER</div>
             </div>
+            <div id="legendUser"
+              style="margin-top:5px; font-size:9px; color:#999; display:flex; flex-direction:column; gap:2px;"></div>
           </div>
         </div>
 
         <!-- AION PORTFOLIO -->
         <div class="card" style="flex: 1; display: flex; flex-direction: column; min-height: 250px">
-          <div
-            style="
+          <div style="
               display: flex;
               justify-content: space-between;
               align-items: flex-end;
               margin-bottom: 5px;
-            "
-          >
+            ">
             <h3>🤖 Aion Trades (Auto)</h3>
             <div id="aion-summary" style="font-size: 10px; color: #30d158; text-align: right">
               <!-- Injected via JS -->
@@ -314,30 +294,47 @@
           const portUserBody = document.getElementById("portfolio-user-body");
           const portAionBody = document.getElementById("portfolio-aion-body");
 
-          // Helper to update charts
-          function updateChart(chart, assets) {
+          // Helper to update charts and legends
+          function updateChart(chart, assets, legendId) {
             if (!assets || assets.length === 0) return;
-            // Filter significant
-            const sig = assets.filter((p) => (p.market_value || p.qty * p.current_price) > 50);
-            sig.sort((a, b) => (b.market_value || 0) - (a.market_value || 0));
 
-            const totalVal = sig.reduce(
-              (acc, p) => acc + (p.market_value || p.qty * p.current_price),
-              0,
-            );
+            // Filter significant & Sort
+            const sig = assets.filter(p => (p.market_value || p.qty * p.current_price) > 50);
+            sig.sort((a, b) => ((b.market_value || 0) - (a.market_value || 0)));
 
-            chart.data.labels = sig.map((p) => p.symbol);
-            chart.data.datasets[0].data = sig.map((p) => {
+            const totalVal = sig.reduce((acc, p) => acc + (p.market_value || p.qty * p.current_price), 0);
+
+            // Update Chart Data
+            chart.data.labels = sig.map(p => p.symbol);
+            chart.data.datasets[0].data = sig.map(p => {
               const val = p.market_value || p.qty * p.current_price;
               return ((val / totalVal) * 100).toFixed(1);
             });
             chart.update("none");
+
+            // Update Legend
+            const legendEl = document.getElementById(legendId);
+            if (legendEl) {
+              // Top 5 only
+              legendEl.innerHTML = sig.slice(0, 5).map((p, i) => {
+                const val = p.market_value || p.qty * p.current_price;
+                const pct = ((val / totalVal) * 100).toFixed(1);
+                const color = chart.data.datasets[0].backgroundColor[i % chart.data.datasets[0].backgroundColor.length];
+                return `<div style="display:flex; justify-content:space-between; align-items:center;">
+                              <div style="display:flex; align-items:center; gap:4px;">
+                                <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
+                                <span>${p.symbol}</span>
+                              </div>
+                              <span style="color:#fff; font-weight:bold;">${pct}%</span>
+                            </div>`;
+              }).join("");
+            }
           }
 
           // USER
           if (data.portfolio && data.portfolio.user) {
             const userAssets = data.portfolio.user;
-            updateChart(chartUser, userAssets);
+            updateChart(chartUser, userAssets, "legendUser");
 
             portUserBody.innerHTML = userAssets
               .map((p) => {
@@ -374,7 +371,7 @@
 
             if (data.portfolio.aion) {
               const aionAssets = data.portfolio.aion;
-              updateChart(chartAion, aionAssets);
+              updateChart(chartAion, aionAssets, "legendAion");
 
               portAionBody.innerHTML = aionAssets
                 .map((p) => {
@@ -467,5 +464,6 @@
       fetchData();
       setInterval(fetchData, 3000); // 3s polling
     </script>
-  </body>
+</body>
+
 </html>
