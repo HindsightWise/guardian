@@ -157,6 +157,12 @@ h1 {
   /* Solarized Accent Hover */
 }
 
+.gutter.gutter-vertical {
+  cursor: row-resize;
+  background-image: none;
+  /* Can add grip lines if needed */
+}
+
 /* Content Areas */
 .scroll-area {
   flex-grow: 1;
