@@ -424,15 +424,15 @@
                   const pct = ((val / totalVal) * 100).toFixed(1);
                   const color =
                     chart.data.datasets[0].backgroundColor[
-                      i % chart.data.datasets[0].backgroundColor.length
+                    i % chart.data.datasets[0].backgroundColor.length
                     ];
                   return `<div style="display:flex; justify-content:space-between; align-items:center;">
-                              <div style="display:flex; align-items:center; gap:4px;">
-                                <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
-                                <span>${p.symbol}</span>
-                              </div>
-                              <span style="color:#fff; font-weight:bold;">${pct}%</span>
-                            </div>`;
+                                <div style="display:flex; align-items:center; gap:4px;">
+                                  <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
+                                  <span>${p.symbol}</span>
+                                </div>
+                                <span style="color:#fff; font-weight:bold;">${pct}%</span>
+                              </div>`;
                 })
                 .join("");
             }
@@ -452,14 +452,14 @@
                 const chgSign = p.change_24h >= 0 ? "+" : "";
 
                 return `
-                    <tr>
-                        <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
-                        <td class="mono" style="color:var(--text-secondary);">${p.qty}</td>
-                        <td class="mono" style="color:var(--text-secondary);">$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                        <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
-                        <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                        <td class="mono ${chgClass}">${chgSign}${p.change_24h ? p.change_24h.toFixed(2) : "0.00"}%</td>
-                    </tr>`;
+                      <tr>
+                          <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
+                          <td class="mono" style="color:var(--text-secondary);">${p.qty}</td>
+                          <td class="mono" style="color:var(--text-secondary);">$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
+                          <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
+                          <td class="mono ${chgClass}">${chgSign}${p.change_24h ? p.change_24h.toFixed(2) : "0.00"}%</td>
+                      </tr>`;
               })
               .join("");
           }
@@ -490,14 +490,14 @@
                   const chgSign = p.change_24h >= 0 ? "+" : "";
 
                   return `
-                        <tr>
-                            <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
-                            <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : p.qty}</td>
-                            <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                            <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
-                            <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                            <td class="mono ${chgClass}">${isCash ? "-" : chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%"}</td>
-                        </tr>`;
+                          <tr>
+                              <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
+                              <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : p.qty}</td>
+                              <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                              <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                              <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
+                              <td class="mono ${chgClass}">${isCash ? "-" : chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%"}</td>
+                          </tr>`;
                 })
                 .join("");
             }
@@ -511,12 +511,12 @@
                 const last = m.history[m.history.length - 1];
                 const color = last >= 0 ? "var(--success)" : "var(--danger)";
                 return `<div style="background:rgba(0,0,0,0.05); padding:5px; border-radius:4px;">
-                           <div style="font-size:10px; color:var(--text-secondary);">${m.asset}</div>
-                           <div style="font-size:12px; font-weight:bold; color:${color}">${last}</div>
-                           <div style="height:20px; display:flex; align-items:flex-end; gap:2px;">
-                             ${m.history.map((v) => `<div style="width:4px; height:${Math.min(Math.abs(v), 20)}px; background:${v >= 0 ? "var(--success)" : "var(--danger)"}"></div>`).join("")}
-                           </div>
-                         </div>`;
+                             <div style="font-size:10px; color:var(--text-secondary);">${m.asset}</div>
+                             <div style="font-size:12px; font-weight:bold; color:${color}">${last}</div>
+                             <div style="height:20px; display:flex; align-items:flex-end; gap:1px;">
+                               ${m.history.map((v) => `<div style="width:2px; height:${Math.min(Math.abs(v), 20)}px; background:${v >= 0 ? "var(--success)" : "var(--danger)"}"></div>`).join("")}
+                             </div>
+                           </div>`;
               })
               .join("");
           }
@@ -533,15 +533,15 @@
                       ? "var(--danger)"
                       : "var(--warning)";
                 return `<div class="compact-row" style="border-bottom:1px solid rgba(0,0,0,0.05); padding:4px 0;">
-                         <div style="display:flex; justify-content:space-between;">
-                           <span style="font-weight:bold; color:var(--text-primary);">${p.action} ${p.asset}</span>
-                           <span style="color:${statusColor}; font-size:9px; border:1px solid ${statusColor}; padding:0 3px; border-radius:3px;">${p.status}</span>
-                         </div>
-                         <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
-                           <span>${p.size} @ ${p.price}</span>
-                           <span>${p.created_at || ""}</span>
-                         </div>
-                       </div>`;
+                           <div style="display:flex; justify-content:space-between;">
+                             <span style="font-weight:bold; color:var(--text-primary);">${p.action} ${p.asset}</span>
+                             <span style="color:${statusColor}; font-size:9px; border:1px solid ${statusColor}; padding:0 3px; border-radius:3px;">${p.status}</span>
+                           </div>
+                           <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
+                             <span>${p.size} @ ${p.price}</span>
+                             <span>${p.created_at || ""}</span>
+                           </div>
+                         </div>`;
               })
               .join("");
           }
@@ -552,13 +552,13 @@
               .slice(0, 8)
               .map(
                 (n) => `
-                <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
-                   <div style="display:flex; justify-content:space-between;">
-                       <span style="font-size:11px; color: var(--text-primary); line-height:1.2; font-weight: 500;">${n.headline}</span>
-                       <span style="font-size:9px; color:var(--text-secondary);">${n.timestamp || ""}</span>
-                   </div>
-                   <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : "var(--text-secondary)"}">${n.sentiment}</div>
-                </div>`,
+                  <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
+                     <div style="display:flex; justify-content:space-between;">
+                         <span style="font-size:11px; color: var(--text-primary); line-height:1.2; font-weight: 500;">${n.headline}</span>
+                         <span style="font-size:9px; color:var(--text-secondary);">${n.timestamp || ""}</span>
+                     </div>
+                     <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : "var(--text-secondary)"}">${n.sentiment}</div>
+                  </div>`,
               )
               .join("");
           }
@@ -586,57 +586,46 @@
           const savedRaw = localStorage.getItem("dashboard_grid_layout");
           if (savedRaw) {
             const savedLayout = JSON.parse(savedRaw);
+             n: Check if the save contains our modern stable IDs
+                        tains old auto-gen IDs (like 'card-global-0'), discard it
+                        ernIDs = savedLayout.some(
+                (ite)             (item.id === "item-news" || item.id === "item-macro"),
+                        c          ple array format vs full state
+              if (hasMo                       // Vali            t -> Load positions, but don't duplicate DOM
+                // We u            tch the static widgets by ID and update their coords
+                // grid            an be tricky with static content.
+                // Safer            and update manually to avoid duplication.
 
-            // Validation: Check if the save contains our modern stable IDs
-            // If it contains old auto-gen IDs (like 'card-global-0'), discard it
-            const hasModernIDs = savedLayout.some(
-              (item) => item.id && (item.id === "item-news" || item.id === "item-macro"),
-            );
-
-            // Also check for simple array format vs full state
-            if (hasModernIDs) {
-              // Valid modern layout -> Load positions, but don't duplicate DOM
-              // We use a trick: match the static widgets by ID and update their coords
-              // grid.load in v7+ can be tricky with static content.
-              // Safer way: Iterate and update manually to avoid duplication.
-
-              savedLayout.forEach((node) => {
-                const el = document.getElementById(node.id);
-                if (el && el.gridstackNode) {
-                  grid.update(el, { x: node.x, y: node.y, w: node.w, h: node.h });
-                }
-              });
-            } else {
-              console.warn("Legacy layout detected. Resetting to default.");
-              localStorage.removeItem("dashboard_grid_layout");
+                savedLan                        const el = documen              (node.id);
+                  if (el && el.grids                            grid.update(el,                 de.y, w: node.w, h: node.h });
+                  }
+                })              el                          n("Legacy            ed. Resetting to default.");
+                localStorage.removeI            _grid_layout");
+              }
             }
+                    {
+          co      ror("Layout lo        , e);
+            localStorage.removeItem(        _grid_layout");
           }
-        } catch (e) {
-          console.error("Layout load failed", e);
-          localStorage.removeItem("dashboard_grid_layout");
-        }
 
-        // Save on Change
-        grid.on("change", function (event, items) {
-          // Flatten the structure for save
-          const state = grid.save(false); // false = don't save content, just structure
-          localStorage.setItem("dashboard_grid_layout", JSON.stringify(state));
-        });
-
-        // Resize Observer for Charts
-        const pAlloc = document.getElementById("p-alloc");
-        if (pAlloc) {
-          const ro = new ResizeObserver(() => {
-            if (chartAion) chartAion.resize();
-            if (chartUser) chartUser.resize();
+          // Save on Chan               "change", function       items) {
+            // Fla tten the structur
+            const state = grid.save        / false = don't save content, just structure
+            localStorage.setItem("d        rid_layout", JSON.stringify(state));
           });
-          ro.observe(pAlloc);
-        }
-      });
 
-      // Initial Fetch & Poll
-      fetchData();
-      setInterval(fetchData, 3000); // 3s polling
+          // Resize Ob      or Ch           const pAlloc = document.g      tById("p-alloc");
+          if (pAlloc) {
+            c      = new ResizeOb        => {
+              if (chartAion) chartA          ;
+               if (chartUser) chart          );
+            });
+            ro.obse        );
+                });
+
+        // I      et    oll
+       etchData();
+        setInt    fetchData, 30    / 3s polling
     </script>
   </body>
 </html>
