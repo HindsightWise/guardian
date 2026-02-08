@@ -329,16 +329,16 @@ h1 {
   background: var(--card-bg) !important;
   color: var(--text-primary);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
-  /* Reduced radius */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  /* Reduced shadow */
+  border-radius: 8px;
+  /* Restored radius */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  /* Restored shadow */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 8px !important;
-  /* Reduced padding from 15px */
+  padding: 12px !important;
+  /* Increased from 8px for breathability */
   overflow: hidden !important;
-  /* Force contained content */
+  /* Keep hidden to prevent breakout, but padding helps */
   display: flex !important;
   flex-direction: column !important;
 }
