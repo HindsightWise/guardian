@@ -320,6 +320,36 @@ h1 {
   margin-bottom: 4px;
 }
 
+/* GRIDSTACK OVERRIDES */
+.grid-stack {
+  background: transparent;
+}
+
+.grid-stack-item-content {
+  background: var(--card-bg) !important;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  /* Slightly softer */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  /* Softer shadow */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 15px;
+  /* Consistent padding */
+  overflow: hidden !important;
+  /* Force contained content */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Theme adaptation for drop placeholder */
+.grid-stack-placeholder > .placeholder-content {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px dashed var(--accent) !important;
+  border-radius: 8px;
+}
+
 /* Proposal Items */
 .proposal-item {
   background: rgba(255, 214, 10, 0.05);

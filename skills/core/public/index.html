@@ -1,237 +1,269 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AION MISSION CONTROL</title>
+    <!-- CACHE BUST v=11 -->
+    <link rel="stylesheet" href="style.css?v=12" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- GRIDSTACK -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack-all.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AION MISSION CONTROL</title>
-  <!-- CACHE BUST v=11 -->
-  <link rel="stylesheet" href="style.css?v=11" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-  <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
-</head>
+  <body>
+    <div class="crt-overlay"></div>
 
-<body>
-  <div class="crt-overlay"></div>
+    <header class="card" style="margin-bottom: 10px">
+      <div class="header-left">
+        <div class="logo">AION__PRIME</div>
+        <div class="status-badge">CORTEX V8 [ONLINE]</div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center">
+        <div id="status" class="status-badge">SYSTEM ACTIVE</div>
+        <div id="clock" class="stat-label">00:00:00</div>
+      </div>
+    </header>
 
-  <header class="card">
-    <div class="header-left">
-      <div class="logo">AION__PRIME</div>
-      <div class="status-badge">CORTEX V8 [ONLINE]</div>
-    </div>
-    <div style="display: flex; gap: 10px; align-items: center">
-      <div id="status" class="status-badge">SYSTEM ACTIVE</div>
-      <div id="clock" class="stat-label">00:00:00</div>
-    </div>
-  </header>
-
-  <div class="grid-container">
-    <!-- COLUMN 1: SYSTEM & INTEL -->
-    <div id="col-0" class="col">
-      <div id="c1-news" class="card" style="display: flex; flex-direction: column; overflow: hidden;">
-        <h3>🌍 Global Intelligence</h3>
-        <div id="news-feed" class="scroll-area">Connecting to Explorer Channel...</div>
+    <div class="grid-stack">
+      <!-- 1. Global Intelligence -->
+      <div class="grid-stack-item" gs-x="0" gs-y="0" gs-w="3" gs-h="4" id="item-news">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3>🌍 Global Intelligence</h3>
+          <div id="news-feed" class="scroll-area">Connecting to Explorer Channel...</div>
+        </div>
       </div>
 
-      <div id="c1-dream" class="card" style="display: flex; flex-direction: column; overflow: hidden;">
-        <h3>🌌 Dream Cycle</h3>
-        <div id="dream-box" class="scroll-area"
-          style="font-style: normal; font-weight: 500; color: var(--text-primary);">
-          Waiting for Sync...
-        </div>
-      </div>
-
-      <div id="c1-neural" class="card" style="display: flex; flex-direction: column; overflow: hidden;">
-        <h3>🧠 Neural State</h3>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px">
-          <span class="stat-label">Status</span>
-          <strong id="ai-status">...</strong>
-        </div>
-
-        <div class="orb-container" style="padding: 10px 0">
-          <div id="ai-orb" class="orb" style="width: 40px; height: 40px"></div>
-        </div>
-        <div style="text-align: center; margin-bottom: 5px">
-          <span class="stat-label">SYNC: </span><strong id="pulse-rate">98%</strong>
-        </div>
-
-        <!-- Terminal (Moved here) -->
-        <div id="terminal-output" class="terminal-output" style="height: 80px; font-size: 10px">
-          <div class="term-line">AION_OS v9.0.1...</div>
-        </div>
-        <div class="terminal-input-line">
-          <span class="prompt">></span>
-          <input type="text" id="terminal-input" placeholder="Cmd..." autocomplete="off" />
-        </div>
-      </div>
-    </div>
-
-    <!-- COLUMN 2: MACRO & STRATEGY -->
-    <div id="col-1" class="col">
-      <!-- Macro Oscillators -->
-      <div id="c2-macro" class="card" style="display: flex; flex-direction: column; overflow: hidden;">
-        <h3>👁️ Macro Oscillators</h3>
-        <div id="macro-grid" class="scroll-area"
-          style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start">
-          <!-- Injected via JS -->
-          <div style="text-align: center; padding: 20px; color: #888">
-            Initializing Sensors...
+      <!-- 2. Dream Cycle -->
+      <div class="grid-stack-item" gs-x="0" gs-y="4" gs-w="3" gs-h="4" id="item-dream">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3>🌌 Dream Cycle</h3>
+          <div
+            id="dream-box"
+            class="scroll-area"
+            style="font-style: normal; font-weight: 500; color: var(--text-primary)"
+          >
+            Waiting for Sync...
           </div>
         </div>
       </div>
 
-      <!-- Strategic Proposals -->
-      <div id="c2-strat" class="card" style="display: flex; flex-direction: column; overflow: hidden;">
-        <h3>⚡ Strategic Proposals</h3>
-        <div id="proposals-body" class="scroll-area">
-          <!-- Rendered via JS -->
+      <!-- 3. Neural State -->
+      <div class="grid-stack-item" gs-x="0" gs-y="8" gs-w="3" gs-h="4" id="item-neural">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3>🧠 Neural State</h3>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px">
+            <span class="stat-label">Status</span>
+            <strong id="ai-status">...</strong>
+          </div>
+
+          <div class="orb-container" style="padding: 10px 0">
+            <div id="ai-orb" class="orb" style="width: 40px; height: 40px"></div>
+          </div>
+          <div style="text-align: center; margin-bottom: 5px">
+            <span class="stat-label">SYNC: </span><strong id="pulse-rate">98%</strong>
+          </div>
+
+          <div id="terminal-output" class="terminal-output" style="height: 80px; font-size: 10px">
+            <div class="term-line">AION_OS v9.0.1...</div>
+          </div>
+          <div class="terminal-input-line">
+            <span class="prompt">></span>
+            <input type="text" id="terminal-input" placeholder="Cmd..." autocomplete="off" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- COLUMN 3: PORTFOLIO OPERATIONS (Enlarged) -->
-    <div id="col-2" class="col">
-      <!-- Asset Allocation (Doughnut) -->
-      <div id="p-alloc" class="card" style="
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-        ">
-        <h3 style="display: flex; justify-content: space-between">
-          <span>💼 Asset Allocation</span>
-          <span style="font-size: 10px; color: var(--text-secondary)">Top Holdings</span>
-        </h3>
-        <div style="
-            flex: 1;
-            position: relative;
-            min-height: 0;
-            display: flex;
-            gap: 10px;
-          ">
-          <!-- Aion Chart & Legend -->
-          <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
-            <div class="chart-container">
-              <canvas id="chartAion"></canvas>
-              <div style="
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                  text-align: center;
-                  font-size: 10px;
-                  color: var(--success);
-                  pointer-events: none;
-                  opacity: 0.8;
-                ">
-                AION
-              </div>
+      <!-- 4. Macro Oscillators -->
+      <div class="grid-stack-item" gs-x="3" gs-y="0" gs-w="4" gs-h="6" id="item-macro">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3>👁️ Macro Oscillators</h3>
+          <div
+            id="macro-grid"
+            class="scroll-area"
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start"
+          >
+            <div style="text-align: center; padding: 20px; color: #888">
+              Initializing Sensors...
             </div>
-            <div id="legendAion" style="
-                margin-top: 5px;
-                font-size: 9px;
-                color: var(--text-secondary);
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-              "></div>
           </div>
+        </div>
+      </div>
 
-          <!-- User Chart & Legend -->
-          <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
-            <div class="chart-container">
-              <canvas id="chartUser"></canvas>
-              <div style="
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                  text-align: center;
-                  font-size: 10px;
+      <!-- 5. Strategic Proposals -->
+      <div class="grid-stack-item" gs-x="3" gs-y="6" gs-w="4" gs-h="6" id="item-strat">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3>⚡ Strategic Proposals</h3>
+          <div id="proposals-body" class="scroll-area"></div>
+        </div>
+      </div>
+
+      <!-- 6. Asset Allocation -->
+      <div class="grid-stack-item" gs-x="7" gs-y="0" gs-w="5" gs-h="4" id="item-alloc">
+        <div
+          class="grid-stack-item-content card"
+          id="p-alloc"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3 style="display: flex; justify-content: space-between">
+            <span>💼 Asset Allocation</span>
+            <span style="font-size: 10px; color: var(--text-secondary)">Top Holdings</span>
+          </h3>
+          <div style="flex: 1; position: relative; min-height: 0; display: flex; gap: 10px">
+            <!-- Aion Chart -->
+            <div style="flex: 1; display: flex; flex-direction: column; min-width: 0">
+              <div class="chart-container">
+                <canvas id="chartAion"></canvas>
+                <div
+                  style="
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    text-align: center;
+                    font-size: 10px;
+                    color: var(--success);
+                    pointer-events: none;
+                    opacity: 0.8;
+                  "
+                >
+                  AION
+                </div>
+              </div>
+              <div
+                id="legendAion"
+                style="
+                  margin-top: 5px;
+                  font-size: 9px;
                   color: var(--text-secondary);
-                  pointer-events: none;
-                  opacity: 0.8;
-                ">
-                USER
-              </div>
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              ></div>
             </div>
-            <div id="legendUser" style="
-                margin-top: 5px;
-                font-size: 9px;
-                color: var(--text-secondary);
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-              "></div>
+            <!-- User Chart -->
+            <div style="flex: 1; display: flex; flex-direction: column; min-width: 0">
+              <div class="chart-container">
+                <canvas id="chartUser"></canvas>
+                <div
+                  style="
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    text-align: center;
+                    font-size: 10px;
+                    color: var(--text-secondary);
+                    pointer-events: none;
+                    opacity: 0.8;
+                  "
+                >
+                  USER
+                </div>
+              </div>
+              <div
+                id="legendUser"
+                style="
+                  margin-top: 5px;
+                  font-size: 9px;
+                  color: var(--text-secondary);
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              ></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- AION PORTFOLIO -->
-      <div id="p-aion" class="card" style="
-            display: flex;
-            flex-direction: column;
-          ">
-        <div style="
+      <!-- 7. Aion Trades -->
+      <div class="grid-stack-item" gs-x="7" gs-y="4" gs-w="5" gs-h="4" id="item-aion-trades">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <div
+            style="
               display: flex;
               justify-content: space-between;
               align-items: flex-end;
               margin-bottom: 5px;
-            ">
-          <h3>🤖 Aion Trades (Auto)</h3>
-          <div id="aion-summary" style="
-                font-size: 10px;
-                color: var(--success);
-                text-align: right;
-              ">
-            <!-- Injected via JS -->
+            "
+          >
+            <h3>🤖 Aion Trades (Auto)</h3>
+            <div
+              id="aion-summary"
+              style="font-size: 10px; color: var(--success); text-align: right"
+            ></div>
           </div>
-        </div>
-        <div class="scroll-area">
-          <table class="data-table">
-            <thead style="background: rgba(0, 0, 0, 0.05)">
-              <tr>
-                <th>ASSET</th>
-                <th>QTY</th>
-                <th>PRICE</th>
-                <th>VAL</th>
-                <th>P/L %</th>
-                <th>24H %</th>
-              </tr>
-            </thead>
-            <tbody id="portfolio-aion-body">
-              <!-- JS Injected -->
-            </tbody>
-          </table>
+          <div class="scroll-area" style="overflow-x: auto">
+            <table class="data-table">
+              <thead style="background: rgba(0, 0, 0, 0.05)">
+                <tr>
+                  <th>ASSET</th>
+                  <th>QTY</th>
+                  <th>PRICE</th>
+                  <th>VAL</th>
+                  <th>P/L %</th>
+                  <th>24H %</th>
+                </tr>
+              </thead>
+              <tbody id="portfolio-aion-body"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <!-- USER PORTFOLIO -->
-      <div id="p-user" class="card" style="display: flex; flex-direction: column">
-        <h3>📜 User Holdings (Manual)</h3>
-        <div class="scroll-area">
-          <table class="data-table">
-            <thead style="background: rgba(0, 0, 0, 0.05)">
-              <tr>
-                <th>ASSET</th>
-                <th>QTY</th>
-                <th>PRICE</th>
-                <th>VAL</th>
-                <th>P/L %</th>
-                <th>24H %</th>
-              </tr>
-            </thead>
-            <tbody id="portfolio-user-body">
-              <!-- JS Injected -->
-              <tr>
-                <td colspan="6" style="
-                      padding: 10px;
-                      text-align: center;
-                      color: var(--text-secondary);
-                    ">
-                  Connecting to Database...
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- 8. User Holdings -->
+      <div class="grid-stack-item" gs-x="7" gs-y="8" gs-w="5" gs-h="4" id="item-user-holdings">
+        <div
+          class="grid-stack-item-content card"
+          style="display: flex; flex-direction: column; overflow: hidden"
+        >
+          <h3>📜 User Holdings (Manual)</h3>
+          <div class="scroll-area" style="overflow-x: auto">
+            <table class="data-table">
+              <thead style="background: rgba(0, 0, 0, 0.05)">
+                <tr>
+                  <th>ASSET</th>
+                  <th>QTY</th>
+                  <th>PRICE</th>
+                  <th>VAL</th>
+                  <th>P/L %</th>
+                  <th>24H %</th>
+                </tr>
+              </thead>
+              <tbody id="portfolio-user-body">
+                <tr>
+                  <td
+                    colspan="6"
+                    style="padding: 10px; text-align: center; color: var(--text-secondary)"
+                  >
+                    Connecting...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -315,7 +347,7 @@
 
         // RESIZE OBSERVER
         // Trigger resize when the parent card changes size
-        const pAlloc = document.getElementById('p-alloc');
+        const pAlloc = document.getElementById("p-alloc");
         if (pAlloc) {
           const ro = new ResizeObserver(() => {
             if (chartAion) chartAion.resize();
@@ -365,14 +397,17 @@
             if (!assets || assets.length === 0) return;
 
             // Filter significant & Sort
-            const sig = assets.filter(p => (p.market_value || p.qty * p.current_price) > 50);
-            sig.sort((a, b) => ((b.market_value || 0) - (a.market_value || 0)));
+            const sig = assets.filter((p) => (p.market_value || p.qty * p.current_price) > 50);
+            sig.sort((a, b) => (b.market_value || 0) - (a.market_value || 0));
 
-            const totalVal = sig.reduce((acc, p) => acc + (p.market_value || p.qty * p.current_price), 0);
+            const totalVal = sig.reduce(
+              (acc, p) => acc + (p.market_value || p.qty * p.current_price),
+              0,
+            );
 
             // Update Chart Data
-            chart.data.labels = sig.map(p => p.symbol);
-            chart.data.datasets[0].data = sig.map(p => {
+            chart.data.labels = sig.map((p) => p.symbol);
+            chart.data.datasets[0].data = sig.map((p) => {
               const val = p.market_value || p.qty * p.current_price;
               return ((val / totalVal) * 100).toFixed(1);
             });
@@ -382,18 +417,24 @@
             const legendEl = document.getElementById(legendId);
             if (legendEl) {
               // Top 5 only
-              legendEl.innerHTML = sig.slice(0, 5).map((p, i) => {
-                const val = p.market_value || p.qty * p.current_price;
-                const pct = ((val / totalVal) * 100).toFixed(1);
-                const color = chart.data.datasets[0].backgroundColor[i % chart.data.datasets[0].backgroundColor.length];
-                return `<div style="display:flex; justify-content:space-between; align-items:center;">
+              legendEl.innerHTML = sig
+                .slice(0, 5)
+                .map((p, i) => {
+                  const val = p.market_value || p.qty * p.current_price;
+                  const pct = ((val / totalVal) * 100).toFixed(1);
+                  const color =
+                    chart.data.datasets[0].backgroundColor[
+                      i % chart.data.datasets[0].backgroundColor.length
+                    ];
+                  return `<div style="display:flex; justify-content:space-between; align-items:center;">
                               <div style="display:flex; align-items:center; gap:4px;">
                                 <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
                                 <span>${p.symbol}</span>
                               </div>
                               <span style="color:#fff; font-weight:bold;">${pct}%</span>
                             </div>`;
-              }).join("");
+                })
+                .join("");
             }
           }
 
@@ -455,7 +496,7 @@
                             <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                             <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                             <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                            <td class="mono ${chgClass}">${isCash ? "-" : (chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%")}</td>
+                            <td class="mono ${chgClass}">${isCash ? "-" : chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%"}</td>
                         </tr>`;
                 })
                 .join("");
@@ -526,116 +567,46 @@
         }
       }
 
-      /* DRAG & DROP LOGIC */
-      const columns = document.querySelectorAll(".col");
-
-      // Load saved order
-      function loadLayout() {
-        const saved = JSON.parse(localStorage.getItem("dashboard_layout"));
-        if (!saved) return;
-
-        columns.forEach((col, index) => {
-          const colId = `col-${index}`;
-          const cardIds = saved[colId];
-          if (cardIds) {
-            cardIds.forEach(id => {
-              const card = document.getElementById(id);
-              if (card) col.appendChild(card);
-            });
-          }
-        });
-      }
-
-      // Save valid IDs only
-      function saveLayout() {
-        const layout = {};
-        columns.forEach((col, index) => {
-          const cards = Array.from(col.children).filter(c => c.id);
-          layout[`col-${index}`] = cards.map(c => c.id);
-        });
-        localStorage.setItem("dashboard_layout", JSON.stringify(layout));
-      }
-
-      // Initialize
+      /* GRIDSTACK INIT */
+      let grid = null;
       document.addEventListener("DOMContentLoaded", () => {
-        // Assign IDs to cards if missing for persistence
-        document.querySelectorAll(".card").forEach((card, i) => {
-          if (!card.id) {
-            const title = card.querySelector("h3")?.innerText || "card";
-            card.id = "card-" + title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + "-" + i;
-          }
+        // Init Gridstack
+        grid = GridStack.init({
+          float: true,
+          minRow: 1,
+          cellHeight: 80, // Adjust base height unit
+          margin: 10,
+          disableResize: false,
+          disableDrag: false,
         });
 
-        loadLayout();
+        // Load Saved Layout
+        const savedLayout = JSON.parse(localStorage.getItem("dashboard_grid_layout"));
+        if (savedLayout) {
+          grid.load(savedLayout);
+        }
 
-        // SPLIT.JS (Horizontal Columns)
-        const savedSizes = JSON.parse(localStorage.getItem("dashboard_split_sizes")) || [25, 25, 50];
-
-        Split(['#col-0', '#col-1', '#col-2'], {
-          sizes: savedSizes,
-          minSize: 200,
-          gutterSize: 10,
-          cursor: 'col-resize',
-          onDragEnd: function (sizes) {
-            localStorage.setItem("dashboard_split_sizes", JSON.stringify(sizes));
-          }
+        // Save on Change
+        grid.on("change", function (event, items) {
+          const state = grid.save();
+          localStorage.setItem("dashboard_grid_layout", JSON.stringify(state));
         });
 
-        // SPLIT.JS (Vertical Portfolio - Col 3)
-        const savedVertDetails = JSON.parse(localStorage.getItem("dashboard_split_vert")) || [33, 33, 33];
-        Split(['#p-alloc', '#p-aion', '#p-user'], {
-          direction: 'vertical',
-          sizes: savedVertDetails,
-          minSize: 100,
-          gutterSize: 10,
-          cursor: 'row-resize',
-          onDragEnd: function (sizes) {
-            localStorage.setItem("dashboard_split_vert", JSON.stringify(sizes));
-          }
-        });
-
-        // SPLIT.JS (Vertical System - Col 1)
-        const savedCol0 = JSON.parse(localStorage.getItem("dashboard_split_col0")) || [30, 30, 40];
-        Split(['#c1-news', '#c1-dream', '#c1-neural'], {
-          direction: 'vertical',
-          sizes: savedCol0,
-          minSize: 80,
-          gutterSize: 10,
-          cursor: 'row-resize',
-          onDragEnd: function (sizes) {
-            localStorage.setItem("dashboard_split_col0", JSON.stringify(sizes));
-          }
-        });
-
-        // SPLIT.JS (Vertical Strategy - Col 2)
-        const savedCol1 = JSON.parse(localStorage.getItem("dashboard_split_col1")) || [50, 50];
-        Split(['#c2-macro', '#c2-strat'], {
-          direction: 'vertical',
-          sizes: savedCol1,
-          minSize: 100,
-          gutterSize: 10,
-          cursor: 'row-resize',
-          onDragEnd: function (sizes) {
-            localStorage.setItem("dashboard_split_col1", JSON.stringify(sizes));
-          }
-        });
-
-        // SORTABLE (Drag & Drop Cards)
-        columns.forEach(col => {
-          new Sortable(col, {
-            group: 'dashboard', // Share lists
-            animation: 150,
-            ghostClass: 'sortable-ghost',
-            handle: '.card', // Whole card is handle
-            onSort: saveLayout // Save on any change
+        // Resize Observer for Charts (still needed for internal responsiveness)
+        // Trigger resize when the parent card changes size
+        const pAlloc = document.getElementById("p-alloc");
+        if (pAlloc) {
+          const ro = new ResizeObserver(() => {
+            if (chartAion) chartAion.resize();
+            if (chartUser) chartUser.resize();
           });
-        });
+          ro.observe(pAlloc);
+        }
       });
 
       // Initial Fetch & Poll
       fetchData();
       setInterval(fetchData, 3000); // 3s polling
     </script>
-</body>
-
+  </body>
 </html>
