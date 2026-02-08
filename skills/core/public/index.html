@@ -8,6 +8,7 @@
   <!-- CACHE BUST v=11 -->
   <link rel="stylesheet" href="style.css?v=11" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 
 <body>
@@ -514,6 +515,58 @@
           console.error("Fetch Error:", e);
         }
       }
+
+      /* DRAG & DROP LOGIC */
+      const columns = document.querySelectorAll(".col");
+
+      // Load saved order
+      function loadLayout() {
+        const saved = JSON.parse(localStorage.getItem("dashboard_layout"));
+        if (!saved) return;
+
+        columns.forEach((col, index) => {
+          const colId = `col-${index}`;
+          const cardIds = saved[colId];
+          if (cardIds) {
+            cardIds.forEach(id => {
+              const card = document.getElementById(id);
+              if (card) col.appendChild(card);
+            });
+          }
+        });
+      }
+
+      // Save valid IDs only
+      function saveLayout() {
+        const layout = {};
+        columns.forEach((col, index) => {
+          const cards = Array.from(col.children).filter(c => c.id);
+          layout[`col-${index}`] = cards.map(c => c.id);
+        });
+        localStorage.setItem("dashboard_layout", JSON.stringify(layout));
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        // Assign IDs to cards if missing for persistence
+        document.querySelectorAll(".card").forEach((card, i) => {
+          if (!card.id) {
+            const title = card.querySelector("h3")?.innerText || "card";
+            card.id = "card-" + title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + "-" + i;
+          }
+        });
+
+        loadLayout();
+
+        columns.forEach(col => {
+          new Sortable(col, {
+            group: 'dashboard', // Share lists
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            onSort: saveLayout // Save on any change
+          });
+        });
+      });
 
       // Initial Fetch & Poll
       fetchData();

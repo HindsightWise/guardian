@@ -60,6 +60,18 @@ body {
   min-height: 0;
   overflow: hidden;
   position: relative;
+  cursor: grab;
+  /* Draggable */
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.sortable-ghost {
+  opacity: 0.4;
+  background: var(--glass-bg);
+  border: 1px dashed var(--accent);
 }
 
 .card h3 {
