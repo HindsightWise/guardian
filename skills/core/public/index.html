@@ -424,208 +424,146 @@
                   const pct = ((val / totalVal) * 100).toFixed(1);
                   const color =
                     chart.data.datasets[0].backgroundColor[
-                    i % chart.data.datasets[0].backgroundColor.length
-                    ];
-                  return `<div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                  <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
-                                  <span>${p.symbol}</span>
-                                </div>
-                                <span style="color:#fff; font-weight:bold;">${pct}%</span>
-                              </div>`;
-                })
-                .join("");
-            }
-          }
+                    % chart.data.datasets[0].backgroundColor.length
 
-          // USER
-          if (data.portfolio && data.portfolio.user) {
-            const userAssets = data.portfolio.user;
-            updateChart(chartUser, userAssets, "legendUser");
-
-            portUserBody.innerHTML = userAssets
-              .map((p) => {
-                const marketVal = p.market_value || p.qty * p.current_price || 0;
-                const plClass = p.pl_pct >= 0 ? "trend-up" : "trend-down";
-                const plSign = p.pl_pct >= 0 ? "+" : "";
-                const chgClass = p.change_24h >= 0 ? "trend-up" : "trend-down";
-                const chgSign = p.change_24h >= 0 ? "+" : "";
-
-                return `
-                      <tr>
-                          <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
-                          <td class="mono" style="color:var(--text-secondary);">${p.qty}</td>
-                          <td class="mono" style="color:var(--text-secondary);">$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                          <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
-                          <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                          <td class="mono ${chgClass}">${chgSign}${p.change_24h ? p.change_24h.toFixed(2) : "0.00"}%</td>
-                      </tr>`;
-              })
-              .join("");
-          }
-
-          // RENDER AION PORTFOLIO
-          if (data.portfolio) {
-            // Render Summary if available
-            if (data.portfolio.aion_summary) {
-              const s = data.portfolio.aion_summary;
-              const el = document.getElementById("aion-summary");
-              const plVal = s.total_pl || 0;
-              const plColor = plVal >= 0 ? "#30d158" : "#ff453a";
-              if (el)
-                el.innerHTML = `BAL: $${s.balance.toLocaleString()} | BP: $${s.buying_power.toLocaleString()} | P/L: <span style="color:${plColor}">$${plVal.toLocaleString()}</span>`;
+                    turn `<div style="display:flex; justify-content:space-between; align-items:center;">
+                                  <div style="display:flex; align-items:center; gap:4px;">
+                                    <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
+                                    <span>${p.symbol}</span>
+                                  </div>
+                                  <span style="color:#fff; font-weight:bold;">${pct}%</span>
+                                                                        .                                                         if (data.portfolio && data.portfoli                    const userAssets = data.portfo                    updateChart(chartUser, userAssets, "legen                    portUserBody.innerHTML = u                      .map                        const marketVal = p.market_value || p.qty * p.current_pr                        const plClass = p.pl_pct >= 0 ? "trend-up" : "tre                        const plSign = p.pl_pct >= 0 ?                         const chgClass = p.change_24h >= 0 ? "trend-up" : "tre                        const chgSign = p.change_24h >= 0 ? "                        return `
+                        <tr>
+                            <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
+                            <td class="mono" style="color:var(--text-secondary);">${p.qty}</td>
+                            <td class="mono" style="color:var(--text-secondary);">$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                            <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
+                            <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
+                            <td class="mono ${chgClass}">${chgSign}${p.change_24h ? p.change_24h.toFixed(2) : "0.00"}%</td>
+                                          })                   );
             }
 
-            if (data.portfolio.aion) {
-              const aionAssets = data.portfolio.aion;
-              updateChart(chartAion, aionAssets, "legendAion");
+                    AION PORTFOLIO
+                  .portfolio) {
+              // Re           if available
+              if (data.            _summary) {
+                const s = dat            on_summary;
+                const el = document.getEle            -summary");
+                const            al_pl || 0;
+                const plColor = plVal >= 0             "#ff453                if (el)
+                  el.innerHTML = `BAL: $${s.balance.toLocaleString()} | BP: $${s.buying_power.toLocaleString()} | P/L: <span style="color:${plColor}">$${plVal.t          g()                     }
 
-              portAionBody.innerHTML = aionAssets
-                .map((p) => {
-                  const marketVal = p.market_value || p.qty * p.current_price || 0;
-                  const plClass = p.pl_pct >= 0 ? "trend-up" : "trend-down";
-                  const plSign = p.pl_pct >= 0 ? "+" : "";
-                  const isCash = p.symbol === "CASH";
-                  const chgClass = p.change_24h >= 0 ? "trend-up" : "trend-down";
-                  const chgSign = p.change_24h >= 0 ? "+" : "";
+              i            lio.aion) {
+                const aionAsse            folio.aion;
+                updateChart(chartAion, ai            endAion");
 
-                  return `
-                          <tr>
-                              <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
-                              <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : p.qty}</td>
-                              <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                              <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
-                              <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                              <td class="mono ${chgClass}">${isCash ? "-" : chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%"}</td>
-                          </tr>`;
-                })
-                .join("");
-            }
-          }
+                portAionBo              ionAssets
+                      p) => {
+                    const marketVal = p.market_value || p.qt                e || 0;
+                    const plClass = p.pl_pct >= 0 ? "                -down";
+                    const plSign =                 " : "";
+                    const isCa                "CASH";
+                    const chgClass = p.change_24h >= 0 ? "                -down";
+                    const chgSign = p.cha                 : "";
 
-          // MACRO OSCILLATORS (Keep existing)
-          if (data.macro && data.macro.cot_data) {
-            const grid = document.getElementById("macro-grid");
-            grid.innerHTML = data.macro.cot_data
-              .map((m) => {
-                const last = m.history[m.history.length - 1];
-                const color = last >= 0 ? "var(--success)" : "var(--danger)";
-                return `<div style="background:rgba(0,0,0,0.05); padding:5px; border-radius:4px;">
-                             <div style="font-size:10px; color:var(--text-secondary);">${m.asset}</div>
-                             <div style="font-size:12px; font-weight:bold; color:${color}">${last}</div>
-                             <div style="height:20px; display:flex; align-items:flex-end; gap:1px;">
-                               ${m.history.map((v) => `<div style="width:2px; height:${Math.min(Math.abs(v), 20)}px; background:${v >= 0 ? "var(--success)" : "var(--danger)"}"></div>`).join("")}
-                             </div>
-                           </div>`;
-              })
-              .join("");
-          }
-
-          // PROPOSALS / NEWS (Keep existing)
-          const propBody = document.getElementById("proposals-body");
-          if (data.proposals && data.proposals.length > 0) {
-            propBody.innerHTML = data.proposals
-              .map((p) => {
-                const statusColor =
-                  p.status === "APPROVED"
-                    ? "var(--success)"
-                    : p.status === "DENIED"
-                      ? "var(--danger)"
-                      : "var(--warning)";
-                return `<div class="compact-row" style="border-bottom:1px solid rgba(0,0,0,0.05); padding:4px 0;">
-                           <div style="display:flex; justify-content:space-between;">
-                             <span style="font-weight:bold; color:var(--text-primary);">${p.action} ${p.asset}</span>
-                             <span style="color:${statusColor}; font-size:9px; border:1px solid ${statusColor}; padding:0 3px; border-radius:3px;">${p.status}</span>
-                           </div>
-                           <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
-                             <span>${p.size} @ ${p.price}</span>
-                             <span>${p.created_at || ""}</span>
-                           </div>
-                         </div>`;
-              })
-              .join("");
-          }
-
-          const newsDiv = document.getElementById("news-feed");
-          if (data.news && data.news.length > 0) {
-            newsDiv.innerHTML = data.news
-              .slice(0, 8)
-              .map(
-                (n) => `
-                  <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
-                     <div style="display:flex; justify-content:space-between;">
-                         <span style="font-size:11px; color: var(--text-primary); line-height:1.2; font-weight: 500;">${n.headline}</span>
-                         <span style="font-size:9px; color:var(--text-secondary);">${n.timestamp || ""}</span>
-                     </div>
-                     <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : "var(--text-secondary)"}">${n.sentiment}</div>
-                  </div>`,
-              )
-              .join("");
-          }
-        } catch (e) {
-          console.error("Fetch Error:", e);
-        }
-      }
-
-      /* GRIDSTACK INIT */
-      let grid = null;
-      document.addEventListener("DOMContentLoaded", () => {
-        // Init Gridstack
-        grid = GridStack.init({
-          float: true, // Allow floating widgets
-          minRow: 1,
-          cellHeight: 80,
-          margin: 10,
-          disableResize: false,
-          disableDrag: false,
-          column: 12, // Force 12 column grid
-        });
-
-        // Smart Load: Check for Legacy Data
-        try {
-          const savedRaw = localStorage.getItem("dashboard_grid_layout");
-          if (savedRaw) {
-            const savedLayout = JSON.parse(savedRaw);
-             n: Check if the save contains our modern stable IDs
-                        tains old auto-gen IDs (like 'card-global-0'), discard it
-                        ernIDs = savedLayout.some(
-                (ite)             (item.id === "item-news" || item.id === "item-macro"),
-                        c          ple array format vs full state
-              if (hasMo                       // Vali            t -> Load positions, but don't duplicate DOM
-                // We u            tch the static widgets by ID and update their coords
-                // grid            an be tricky with static content.
-                // Safer            and update manually to avoid duplication.
-
-                savedLan                        const el = documen              (node.id);
-                  if (el && el.grids                            grid.update(el,                 de.y, w: node.w, h: node.h });
-                  }
-                })              el                          n("Legacy            ed. Resetting to default.");
-                localStorage.removeI            _grid_layout");
+                    return `
+                            <tr>
+                                <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
+                                <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : p.qty}</td>
+                                <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                                <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
+                                <td class="mono ${chgClass}">${isCash ? "-" : chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%                               /tr>`;
+                })                   "");
               }
             }
-                    {
-          co      ror("Layout lo        , e);
-            localStorage.removeItem(        _grid_layout");
-          }
 
-          // Save on Chan               "change", function       items) {
-            // Fla tten the structur
-            const state = grid.save        / false = don't save content, just structure
-            localStorage.setItem("d        rid_layout", JSON.stringify(state));
+               CRO OSCILLATORS (Keep existing)
+                     cro && data.macro.cot_data) {
+              const grid          getElementById("macro-grid");
+                     rHTML = data.m                          .map((m) => {
+                  cons              ry[m.history.length - 1];
+                  const color = last >              cess)" : "var(--danger)";
+                  return `<div style="background:rgba(0,0,0,0.05); padding:5px; border-radius:4px;">
+                               <div style="font-size:10px; color:var(--text-secondary);">${m.asset}</div>
+                               <div style="font-size:12px; font-weight:bold; color:${color}">${last}</div>
+                             <div style="height:20px; display:flex; align-items:flex-end; gap:1px; width:100%;">
+                               ${m.history.map((v) => `<div style="flex:1; height:${Math.min(Math.abs(v), 20)}px; background:${v >= 0 ? "var(--success)" : "var(--danger)"}"></div>`).join("")}
+                           </d                               v>`              })
+                .join("");
+
+            // PROPOSALS / NEWS (Keep existing)
+            con        y = document.getElementById("proposals-body");
+                ta.proposals && data.proposals.lengt                   propBod              ta.proposals
+                          {
+                  const                               p.stat                                    ? "var                               : p.sta                                     ? "                                   : "var(--warning)";
+                  return `<div class="compact-row" style="border-bottom:1px solid rgba(0,0,0,0.05); padding:4px 0;">
+                             <div style="display:flex; justify-content:space-between;">
+                               <span style="font-weight:bold; color:var(--text-primary);">${p.action} ${p.asset}</span>
+                               <span style="color:${statusColor}; font-size:9px; border:1px solid ${statusColor}; padding:0 3px; border-radius:3px;">${p.status}</span>
+                             </div>
+                             <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
+                               <span>${p.size} @ ${p.price}</span>
+                               <span>${p.created_at || ""}<                              </div>
+                       </div>`;
+                })
+                .join("");
+
+            const newsDiv = document.getEl          ews-feed");
+            if (data            news.length >                ne              = data.news
+                .slice(0, 8)
+                .map(
+                  (n) => `
+                    <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
+                       <div style="display:flex; justify-content:space-between;">
+                           <span style="font-size:11px; color: var(--text-primary); line-height:1.2; font-weight: 500;">${n.headline}</span>
+                           <span style="font-size:9px; color:var(--text-secondary);">${n.timestamp || ""}</span>
+                       </div>
+                       <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "var             "            ondary)"}">        en
+                       >`,
+                )
+                      );                 } catch (e) {
+          console.error(     Error:", e);
+          }
+        }
+
+        /* GRIDSTACK IN          let grid = nul       document.addEventListen        tentLoaded", () => {
+          // Init Gr              grid         k.init({
+                 true, // All        g widgets
+            mi                 cellHeight:             margin: 10,
+            disableRe      lse,
+          disableDrag: false,
+            colum      / Forc        n grid
           });
 
-          // Resize Ob      or Ch           const pAlloc = document.g      tById("p-alloc");
-          if (pAlloc) {
-            c      = new ResizeOb        => {
-              if (chartAion) chartA          ;
-               if (chartUser) chart          );
-            });
+          // Smart Load: Check for Legacy Data        ry {
+            c          w = localStorage.getItem("dashboard_grid_l           vedRaw) {
+              const savedLayout = JSON.parse(savedRaw);
+             n: Check if the save contains our modern stable IDs
+                              old auto-gen IDs (like 'card-global-0'), disa                            ernIDs = savedLayout.some(
+                  (ite)           (itt          item.id === "item-macro"),
+                          c          e array format vs fu                     if (hasMo                       // Vali            t -> L             but don't duplicate DOM
+                  // We u            tch the static             and update their coords
+                  // grid                    ky with static content.
+                  // Safer            and y            ication.
+
+                  save                          const el = documen              (                          if (el && el.grids                          grid.update(el,                 de.y, w: node.w, h: nod                                                                                n("Legacy            ed. Resetting to default.                  localStorage.removeI            _grid_layout                                                          co      ror("Layout lo        ,               localStorage.removeItem(        _grid_layout                       // Save on                  "change", func tion       items)             // Fla tten the structur
+              nst state = grid.save        / false = don't save content, just structure
+              calStorage.setItem("d        rid_layout", JSON.stringify(state));
+            ;
+
+          // Resize Ob      or Ch             t pAlloc = document.g      tById("p-alloc");
+              pAlloc) {
+                   = new ResizeOb        => {
+                  ch artAion) chartA          ;
+                  ( chartUser) chart          );
+             );
             ro.obse        );
-                });
+               );
 
         // I      et    oll
-       etchData();
-        setInt    fetchData, 30    / 3s polling
+         chData();
+         etInt    fetchData, 30    / 3s polling
     </script>
   </body>
 </html>
