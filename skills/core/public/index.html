@@ -110,8 +110,8 @@
             gap: 10px;
           ">
           <!-- Aion Chart & Legend -->
-          <div style="flex: 1; display: flex; flex-direction: column">
-            <div style="flex: 1; position: relative; min-height: 100px">
+          <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+            <div class="chart-container">
               <canvas id="chartAion"></canvas>
               <div style="
                   position: absolute;
@@ -137,8 +137,8 @@
           </div>
 
           <!-- User Chart & Legend -->
-          <div style="flex: 1; display: flex; flex-direction: column">
-            <div style="flex: 1; position: relative; min-height: 100px">
+          <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+            <div class="chart-container">
               <canvas id="chartUser"></canvas>
               <div style="
                   position: absolute;
@@ -267,6 +267,7 @@
       };
 
       function initCharts() {
+        // AION CHART
         const ctxAion = document.getElementById("chartAion").getContext("2d");
         chartAion = new Chart(ctxAion, {
           type: "doughnut",
@@ -284,6 +285,7 @@
           options: commonOptions,
         });
 
+        // USER CHART
         const ctxUser = document.getElementById("chartUser").getContext("2d");
         chartUser = new Chart(ctxUser, {
           type: "doughnut",
@@ -310,6 +312,17 @@
           },
           options: commonOptions,
         });
+
+        // RESIZE OBSERVER
+        // Trigger resize when the parent card changes size
+        const pAlloc = document.getElementById('p-alloc');
+        if (pAlloc) {
+          const ro = new ResizeObserver(() => {
+            if (chartAion) chartAion.resize();
+            if (chartUser) chartUser.resize();
+          });
+          ro.observe(pAlloc);
+        }
       }
 
       /* TERMINAL MOCK */

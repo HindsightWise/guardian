@@ -167,6 +167,8 @@ h1 {
 .scroll-area {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  /* Prevent body horizontal scroll */
   /* Enable Scroll */
   font-family: var(--mono-stack);
   font-size: 12px;
@@ -174,15 +176,50 @@ h1 {
   /* Fixed color var */
   line-height: 1.5;
   white-space: pre-wrap;
-  /* Custom Scrollbar Styling */
+  word-wrap: break-word;
+  /* Ensure text wraps */
+  overflow-wrap: break-word;
+  /* Standard property */
   padding-right: 4px;
+  min-height: 0;
+  /* Flexbox overflow fix */
+  min-width: 0;
+  /* Flexbox overflow fix */
+}
+
+/* Ensure cards handle resizing gracefully */
+.card {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Charts Responsive Container */
+.chart-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
 /* Tables */
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 11px;
+  /* Slightly smaller font for dense data */
+  table-layout: fixed;
+  /* Force fixed layout for better control */
+}
+
+.data-table th,
+.data-table td {
+  padding: 4px 2px;
+  /* Reduce padding */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* Prevent wrapping in cells, use tooltip or expand on hover if needed */
 }
 
 .data-table th {
@@ -196,7 +233,39 @@ h1 {
   /* Was glass-bg, needs solid to prevent overlap */
   z-index: 20;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  /* Specific Column Widths for Portfolio */
 }
+
+.data-table th:nth-child(1) {
+  width: 25%;
+}
+
+/* Asset */
+.data-table th:nth-child(2) {
+  width: 15%;
+}
+
+/* Qty */
+.data-table th:nth-child(3) {
+  width: 20%;
+}
+
+/* Price */
+.data-table th:nth-child(4) {
+  width: 20%;
+}
+
+/* Val */
+.data-table th:nth-child(5) {
+  width: 10%;
+}
+
+/* P/L */
+.data-table th:nth-child(6) {
+  width: 10%;
+}
+
+/* 24h */
 
 .data-table td {
   padding: 4px 0;
