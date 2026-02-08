@@ -52,12 +52,14 @@ body {
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  /* Lighter shadow for solarized */
   display: flex;
   flex-direction: column;
   /* CRITICAL FOR SCROLLING: Card must not expand indefinitely */
   min-height: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .card h3 {
@@ -155,9 +157,10 @@ h1 {
   font-weight: 500;
   position: sticky;
   top: 0;
-  background: var(--glass-bg);
-  /* Sticky header needs bg */
-  z-index: 10;
+  background: var(--bg-color);
+  /* Was glass-bg, needs solid to prevent overlap */
+  z-index: 20;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
 }
 
 .data-table td {
