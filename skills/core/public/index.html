@@ -572,28 +572,58 @@
       document.addEventListener("DOMContentLoaded", () => {
         // Init Gridstack
         grid = GridStack.init({
-          float: true,
+          float: true, // Allow floating widgets
           minRow: 1,
-          cellHeight: 80, // Adjust base height unit
+          cellHeight: 80,
           margin: 10,
           disableResize: false,
           disableDrag: false,
+          column: 12, // Force 12 column grid
         });
 
-        // Load Saved Layout
-        const savedLayout = JSON.parse(localStorage.getItem("dashboard_grid_layout"));
-        if (savedLayout) {
-          grid.load(savedLayout);
+        // Smart Load: Check for Legacy Data
+        try {
+          const savedRaw = localStorage.getItem("dashboard_grid_layout");
+          if (savedRaw) {
+            const savedLayout = JSON.parse(savedRaw);
+
+            // Validation: Check if the save contains our modern stable IDs
+            // If it contains old auto-gen IDs (like 'card-global-0'), discard it
+            const hasModernIDs = savedLayout.some(
+              (item) => item.id && (item.id === "item-news" || item.id === "item-macro"),
+            );
+
+            // Also check for simple array format vs full state
+            if (hasModernIDs) {
+              // Valid modern layout -> Load positions, but don't duplicate DOM
+              // We use a trick: match the static widgets by ID and update their coords
+              // grid.load in v7+ can be tricky with static content.
+              // Safer way: Iterate and update manually to avoid duplication.
+
+              savedLayout.forEach((node) => {
+                const el = document.getElementById(node.id);
+                if (el && el.gridstackNode) {
+                  grid.update(el, { x: node.x, y: node.y, w: node.w, h: node.h });
+                }
+              });
+            } else {
+              console.warn("Legacy layout detected. Resetting to default.");
+              localStorage.removeItem("dashboard_grid_layout");
+            }
+          }
+        } catch (e) {
+          console.error("Layout load failed", e);
+          localStorage.removeItem("dashboard_grid_layout");
         }
 
         // Save on Change
         grid.on("change", function (event, items) {
-          const state = grid.save();
+          // Flatten the structure for save
+          const state = grid.save(false); // false = don't save content, just structure
           localStorage.setItem("dashboard_grid_layout", JSON.stringify(state));
         });
 
-        // Resize Observer for Charts (still needed for internal responsiveness)
-        // Trigger resize when the parent card changes size
+        // Resize Observer for Charts
         const pAlloc = document.getElementById("p-alloc");
         if (pAlloc) {
           const ro = new ResizeObserver(() => {
