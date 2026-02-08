@@ -1,22 +1,25 @@
 :root {
-  --bg-color: #000000;
-  --glass-bg: rgba(28, 28, 30, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --accent: #0a84ff;
-  --text-primary: #ffffff;
-  --text-secondary: #8e8e93;
+  --bg-color: #050505;
+  --glass-bg: rgba(10, 10, 10, 0.95);
+  /* Less glass, more metal */
+  --glass-border: rgba(48, 209, 88, 0.2);
+  --accent: #2c2c2c;
+  --text-primary: #30d158;
+  /* Matrix Green */
+  --text-secondary: #0a84ff;
+  /* Terminal Blue */
   --success: #30d158;
   --danger: #ff453a;
   --warning: #ffd60a;
-  --font-stack: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --mono-stack: "JetBrains Mono", "SF Mono", monospace;
+  --font-stack: "JetBrains Mono", "Courier New", monospace;
+  /* PURE TERMINAL */
+  --mono-stack: "JetBrains Mono", "Courier New", monospace;
 }
 
 body {
+  background-color: #050505;
+  /* Fallback */
   background-color: var(--bg-color);
-  background-image:
-    radial-gradient(circle at 10% 20%, rgba(10, 132, 255, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(48, 209, 88, 0.1) 0%, transparent 40%);
   color: var(--text-primary);
   font-family: var(--font-stack);
   margin: 0;
@@ -27,7 +30,8 @@ body {
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
-  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 0 2px rgba(48, 209, 88, 0.2);
+  /* REDUCED GLOW (Accessibility) */
 }
 
 /* Glass Cards */
@@ -43,6 +47,7 @@ body {
   flex-direction: column;
   /* CRITICAL FOR SCROLLING: Card must not expand indefinitely */
   min-height: 0;
+  overflow: hidden;
 }
 
 .card h3 {
@@ -89,8 +94,8 @@ h1 {
 /* 3-Column Layout */
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  /* 3 Columns */
+  grid-template-columns: 1fr 1fr 1.5fr;
+  /* 3 Columns: Standard, Standard, Wide (Portfolio) */
   gap: 16px;
   flex-grow: 1;
   min-height: 0;
@@ -118,7 +123,8 @@ h1 {
   /* Enable Scroll */
   font-family: var(--mono-stack);
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #e0e0e0;
+  /* Brighter default text */
   line-height: 1.5;
   white-space: pre-wrap;
   /* Custom Scrollbar Styling */
@@ -168,6 +174,20 @@ h1 {
 
 .val-warning {
   color: var(--warning);
+}
+
+/* Phase 13: Compact UI */
+.compact-row {
+  padding: 4px 0 !important;
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 2px !important;
+  min-height: 0 !important;
+}
+
+.compact-row .news-headline {
+  font-size: 12px !important;
+  margin-bottom: 2px !important;
 }
 
 /* News Feed Items */
@@ -247,14 +267,15 @@ h1 {
   width: 100vw;
   height: 100vh;
   background:
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
   background-size:
-    100% 2px,
-    3px 100%;
+    100% 3px,
+    4px 100%;
   pointer-events: none;
   z-index: 999;
-  animation: flicker 0.15s infinite;
+  opacity: 0.8;
+  animation: flicker 0.1s infinite;
 }
 
 @keyframes flicker {
