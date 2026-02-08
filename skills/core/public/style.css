@@ -116,11 +116,12 @@ h1 {
 }
 
 /* 3-Column Layout */
+/* 3-Column Layout (FLEX for Split.js) */
 .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr;
-  /* 3 Columns: Standard, Standard, Wide (Portfolio) */
-  gap: 16px;
+  display: flex;
+  /* Changed from grid to flex */
+  flex-direction: row;
+  /* gap: 16px; REMOVED gap, handled by Split.js gutter */
   flex-grow: 1;
   min-height: 0;
   /* CRITICAL: Allows grid to shrink to viewport */
@@ -138,6 +139,22 @@ h1 {
   /* CRITICAL: Allows flex children to scroll */
   height: 100%;
   overflow: hidden;
+  padding: 0 8px;
+  /* Add padding since gap is gone */
+}
+
+/* Split.js Gutter */
+.gutter {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  cursor: col-resize;
+  transition: background 0.2s;
+}
+
+.gutter:hover {
+  background-color: rgba(38, 139, 210, 0.2);
+  /* Solarized Accent Hover */
 }
 
 /* Content Areas */
@@ -147,8 +164,8 @@ h1 {
   /* Enable Scroll */
   font-family: var(--mono-stack);
   font-size: 12px;
-  color: #e0e0e0;
-  /* Brighter default text */
+  color: var(--text-primary);
+  /* Fixed color var */
   line-height: 1.5;
   white-space: pre-wrap;
   /* Custom Scrollbar Styling */

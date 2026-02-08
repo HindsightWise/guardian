@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css?v=11" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
 
   <div class="grid-container">
     <!-- COLUMN 1: SYSTEM & INTEL -->
-    <div class="col">
+    <div id="col-0" class="col">
       <div class="card" style="flex: 1; min-height: 150px">
         <h3>🌍 Global Intelligence</h3>
         <div id="news-feed" class="scroll-area">Connecting to Explorer Channel...</div>
@@ -67,7 +68,7 @@
     </div>
 
     <!-- COLUMN 2: MACRO & STRATEGY -->
-    <div class="col">
+    <div id="col-1" class="col">
       <!-- Macro Oscillators -->
       <div class="card" style="flex: 1; display: flex; flex-direction: column">
         <h3>👁️ Macro Oscillators</h3>
@@ -90,7 +91,7 @@
     </div>
 
     <!-- COLUMN 3: PORTFOLIO OPERATIONS (Enlarged) -->
-    <div class="col">
+    <div id="col-2" class="col">
       <!-- Asset Allocation (Doughnut) -->
       <div class="card" style="
           flex: 0 0 auto;
@@ -558,11 +559,26 @@
 
         loadLayout();
 
+        // SPLIT.JS (Resizable Columns)
+        const savedSizes = JSON.parse(localStorage.getItem("dashboard_split_sizes")) || [25, 25, 50];
+
+        Split(['#col-0', '#col-1', '#col-2'], {
+          sizes: savedSizes,
+          minSize: 200,
+          gutterSize: 10,
+          cursor: 'col-resize',
+          onDragEnd: function (sizes) {
+            localStorage.setItem("dashboard_split_sizes", JSON.stringify(sizes));
+          }
+        });
+
+        // SORTABLE (Drag & Drop Cards)
         columns.forEach(col => {
           new Sortable(col, {
             group: 'dashboard', // Share lists
             animation: 150,
             ghostClass: 'sortable-ghost',
+            handle: '.card', // Whole card is handle
             onSort: saveLayout // Save on any change
           });
         });
