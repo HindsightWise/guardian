@@ -100,9 +100,43 @@
           class="card"
           style="flex: 0 0 220px; display: flex; flex-direction: column; overflow: hidden"
         >
-          <h3>💼 Asset Allocation</h3>
-          <div style="flex: 1; position: relative; min-height: 0">
-            <canvas id="portfolioChart"></canvas>
+          <h3 style="display: flex; justify-content: space-between">
+            <span>💼 Asset Allocation</span>
+            <span style="font-size: 10px; color: #666">AION / USER</span>
+          </h3>
+          <div style="flex: 1; position: relative; min-height: 0; display: flex; gap: 10px">
+            <div style="flex: 1; position: relative">
+              <canvas id="chartAion"></canvas>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  width: 100%;
+                  text-align: center;
+                  font-size: 10px;
+                  color: #30d158;
+                  pointer-events: none;
+                "
+              >
+                AION
+              </div>
+            </div>
+            <div style="flex: 1; position: relative">
+              <canvas id="chartUser"></canvas>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  width: 100%;
+                  text-align: center;
+                  font-size: 10px;
+                  color: #0a84ff;
+                  pointer-events: none;
+                "
+              >
+                USER
+              </div>
+            </div>
           </div>
         </div>
 
@@ -177,14 +211,48 @@
       setInterval(updateClock, 1000);
 
       /* Chart Instances */
-      let portfolioChart = null;
+      let chartAion = null;
+      let chartUser = null;
 
       Chart.defaults.color = "#a0a0a0";
       Chart.defaults.borderColor = "rgba(255,255,255,0.1)";
 
+      const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "60%",
+        plugins: {
+          legend: { display: false }, // Hide legend to save space
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return context.label + ": " + context.parsed + "%";
+              },
+            },
+          },
+        },
+      };
+
       function initCharts() {
-        const ctxPort = document.getElementById("portfolioChart").getContext("2d");
-        portfolioChart = new Chart(ctxPort, {
+        const ctxAion = document.getElementById("chartAion").getContext("2d");
+        chartAion = new Chart(ctxAion, {
+          type: "doughnut",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                data: [],
+                backgroundColor: ["#30d158", "#208b3a", "#155d27"], // Green shades
+                borderWidth: 0,
+                hoverOffset: 5,
+              },
+            ],
+          },
+          options: commonOptions,
+        });
+
+        const ctxUser = document.getElementById("chartUser").getContext("2d");
+        chartUser = new Chart(ctxUser, {
           type: "doughnut",
           data: {
             labels: [],
@@ -192,33 +260,22 @@
               {
                 data: [],
                 backgroundColor: [
-                  "#30d158",
                   "#0a84ff",
                   "#5e5ce6",
-                  "#ffd60a",
-                  "#ff453a",
-                  "#64d2ff",
                   "#bf5af2",
-                  "#ff9f0a",
                   "#ac8e68",
+                  "#ff9f0a",
+                  "#ff453a",
+                  "#ffd60a",
+                  "#64d2ff",
                   "#ffffff",
                 ],
                 borderWidth: 0,
-                hoverOffset: 10,
+                hoverOffset: 5,
               },
             ],
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "60%",
-            plugins: {
-              legend: {
-                position: "right",
-                labels: { boxWidth: 10, font: { size: 10 }, color: "#e0e0e0" },
-              },
-            },
-          },
+          options: commonOptions,
         });
       }
 
@@ -251,17 +308,37 @@
             document.getElementById("pulse-rate").innerText = (data.state.sync || "98") + "%";
           }
 
-          if (!portfolioChart) initCharts();
+          if (!chartAion || !chartUser) initCharts();
 
           // RENDER PORTFOLIOS
           const portUserBody = document.getElementById("portfolio-user-body");
           const portAionBody = document.getElementById("portfolio-aion-body");
-          let allAssets = [];
+
+          // Helper to update charts
+          function updateChart(chart, assets) {
+            if (!assets || assets.length === 0) return;
+            // Filter significant
+            const sig = assets.filter((p) => (p.market_value || p.qty * p.current_price) > 50);
+            sig.sort((a, b) => (b.market_value || 0) - (a.market_value || 0));
+
+            const totalVal = sig.reduce(
+              (acc, p) => acc + (p.market_value || p.qty * p.current_price),
+              0,
+            );
+
+            chart.data.labels = sig.map((p) => p.symbol);
+            chart.data.datasets[0].data = sig.map((p) => {
+              const val = p.market_value || p.qty * p.current_price;
+              return ((val / totalVal) * 100).toFixed(1);
+            });
+            chart.update("none");
+          }
 
           // USER
           if (data.portfolio && data.portfolio.user) {
             const userAssets = data.portfolio.user;
-            allAssets = allAssets.concat(userAssets);
+            updateChart(chartUser, userAssets);
+
             portUserBody.innerHTML = userAssets
               .map((p) => {
                 const marketVal = p.market_value || p.qty * p.current_price || 0;
@@ -297,7 +374,8 @@
 
             if (data.portfolio.aion) {
               const aionAssets = data.portfolio.aion;
-              allAssets = allAssets.concat(aionAssets);
+              updateChart(chartAion, aionAssets);
+
               portAionBody.innerHTML = aionAssets
                 .map((p) => {
                   const marketVal = p.market_value || p.qty * p.current_price || 0;
@@ -321,19 +399,7 @@
             }
           }
 
-          // ALLOCATION CHART
-          const significantAssets = allAssets.filter(
-            (p) => (p.market_value || p.qty * p.current_price) > 100,
-          );
-          significantAssets.sort((a, b) => (b.market_value || 0) - (a.market_value || 0));
-          const topAssets = significantAssets.slice(0, 10);
-          portfolioChart.data.labels = topAssets.map((p) => p.symbol);
-          portfolioChart.data.datasets[0].data = topAssets.map(
-            (p) => p.market_value || p.qty * p.current_price,
-          );
-          portfolioChart.update("none");
-
-          // MACRO OSCILLATORS
+          // MACRO OSCILLATORS (Keep existing)
           if (data.macro && data.macro.cot_data) {
             const grid = document.getElementById("macro-grid");
             grid.innerHTML = data.macro.cot_data
@@ -351,7 +417,7 @@
               .join("");
           }
 
-          // PROPOSALS
+          // PROPOSALS / NEWS (Keep existing)
           const propBody = document.getElementById("proposals-body");
           if (data.proposals && data.proposals.length > 0) {
             propBody.innerHTML = data.proposals
@@ -376,7 +442,6 @@
               .join("");
           }
 
-          // NEWS
           const newsDiv = document.getElementById("news-feed");
           if (data.news && data.news.length > 0) {
             newsDiv.innerHTML = data.news
