@@ -34,7 +34,8 @@
 
       <div class="card" style="height: 200px; flex: 0 0 auto; overflow: hidden">
         <h3>🌌 Dream Cycle</h3>
-        <div id="dream-box" class="scroll-area" style="color: #ffffff; font-style: normal; font-weight: 500">
+        <div id="dream-box" class="scroll-area"
+          style="font-style: normal; font-weight: 500; color: var(--text-primary);">
           Waiting for Sync...
         </div>
       </div>
@@ -90,40 +91,85 @@
     <!-- COLUMN 3: PORTFOLIO OPERATIONS (Enlarged) -->
     <div class="col">
       <!-- Asset Allocation (Doughnut) -->
-      <div class="card"
-        style="flex: 0 0 auto; min-height: 280px; display:flex; flex-direction:column; overflow: hidden;">
-        <h3 style="display:flex; justify-content:space-between;">
+      <div class="card" style="
+          flex: 0 0 220px;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+        ">
+        <h3 style="display: flex; justify-content: space-between">
           <span>💼 Asset Allocation</span>
-          <span style="font-size:10px; color:#666;">Top Holdings</span>
+          <span style="font-size: 10px; color: var(--text-secondary)">Top Holdings</span>
         </h3>
-        <div style="flex: 1; position: relative; min-height: 0; display: flex; gap: 10px;">
+        <div style="
+            flex: 1;
+            position: relative;
+            min-height: 0;
+            display: flex;
+            gap: 10px;
+          ">
           <!-- Aion Chart & Legend -->
-          <div style="flex: 1; display: flex; flex-direction: column;">
-            <div style="flex: 1; position: relative; min-height: 100px;">
+          <div style="flex: 1; display: flex; flex-direction: column">
+            <div style="flex: 1; position: relative; min-height: 100px">
               <canvas id="chartAion"></canvas>
-              <div
-                style="position:absolute; bottom:0; width:100%; text-align:center; font-size:10px; color:#30d158; pointer-events:none; opacity:0.8;">
-                AION</div>
+              <div style="
+                  position: absolute;
+                  bottom: 0;
+                  width: 100%;
+                  text-align: center;
+                  font-size: 10px;
+                  color: var(--success);
+                  pointer-events: none;
+                  opacity: 0.8;
+                ">
+                AION
+              </div>
             </div>
-            <div id="legendAion"
-              style="margin-top:5px; font-size:9px; color:#999; display:flex; flex-direction:column; gap:2px;"></div>
+            <div id="legendAion" style="
+                margin-top: 5px;
+                font-size: 9px;
+                color: var(--text-secondary);
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+              "></div>
           </div>
 
           <!-- User Chart & Legend -->
-          <div style="flex: 1; display: flex; flex-direction: column;">
-            <div style="flex: 1; position: relative; min-height: 100px;">
+          <div style="flex: 1; display: flex; flex-direction: column">
+            <div style="flex: 1; position: relative; min-height: 100px">
               <canvas id="chartUser"></canvas>
-              <div
-                style="position:absolute; bottom:0; width:100%; text-align:center; font-size:10px; color:#0a84ff; pointer-events:none; opacity:0.8;">
-                USER</div>
+              <div style="
+                  position: absolute;
+                  bottom: 0;
+                  width: 100%;
+                  text-align: center;
+                  font-size: 10px;
+                  color: var(--text-secondary);
+                  pointer-events: none;
+                  opacity: 0.8;
+                ">
+                USER
+              </div>
             </div>
-            <div id="legendUser"
-              style="margin-top:5px; font-size:9px; color:#999; display:flex; flex-direction:column; gap:2px;"></div>
+            <div id="legendUser" style="
+                margin-top: 5px;
+                font-size: 9px;
+                color: var(--text-secondary);
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+              "></div>
           </div>
         </div>
 
         <!-- AION PORTFOLIO -->
-        <div class="card" style="flex: 1; display: flex; flex-direction: column; min-height: 250px">
+        <div class="card" style="
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 250px;
+          ">
           <div style="
               display: flex;
               justify-content: space-between;
@@ -131,13 +177,17 @@
               margin-bottom: 5px;
             ">
             <h3>🤖 Aion Trades (Auto)</h3>
-            <div id="aion-summary" style="font-size: 10px; color: #30d158; text-align: right">
+            <div id="aion-summary" style="
+                font-size: 10px;
+                color: var(--success);
+                text-align: right;
+              ">
               <!-- Injected via JS -->
             </div>
           </div>
           <div class="scroll-area">
             <table class="data-table">
-              <thead style="background: rgba(0, 0, 0, 0.8)">
+              <thead style="background: rgba(0, 0, 0, 0.05)">
                 <tr>
                   <th>ASSET</th>
                   <th>QTY</th>
@@ -159,7 +209,7 @@
           <h3>📜 User Holdings (Manual)</h3>
           <div class="scroll-area">
             <table class="data-table">
-              <thead style="background: rgba(0, 0, 0, 0.8)">
+              <thead style="background: rgba(0, 0, 0, 0.05)">
                 <tr>
                   <th>ASSET</th>
                   <th>QTY</th>
@@ -172,7 +222,11 @@
               <tbody id="portfolio-user-body">
                 <!-- JS Injected -->
                 <tr>
-                  <td colspan="6" style="padding: 10px; text-align: center; color: #666">
+                  <td colspan="6" style="
+                      padding: 10px;
+                      text-align: center;
+                      color: var(--text-secondary);
+                    ">
                     Connecting to Database...
                   </td>
                 </tr>
@@ -194,8 +248,8 @@
       let chartAion = null;
       let chartUser = null;
 
-      Chart.defaults.color = "#a0a0a0";
-      Chart.defaults.borderColor = "rgba(255,255,255,0.1)";
+      Chart.defaults.color = "#657b83"; // Solarized Base00
+      Chart.defaults.borderColor = "rgba(0,0,0,0.05)";
 
       const commonOptions = {
         responsive: true,
@@ -346,10 +400,10 @@
 
                 return `
                     <tr>
-                        <td style="font-weight:700; color: #fff;">${p.symbol}</td>
-                        <td class="mono" style="color:#ccc;">${p.qty}</td>
-                        <td class="mono" style="color:#ccc;">$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                        <td class="mono" style="color:#ccc;">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
+                        <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
+                        <td class="mono" style="color:var(--text-secondary);">${p.qty}</td>
+                        <td class="mono" style="color:var(--text-secondary);">$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                        <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
                         <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
                         <td class="mono ${chgClass}">${chgSign}${p.change_24h ? p.change_24h.toFixed(2) : "0.00"}%</td>
                     </tr>`;
@@ -384,12 +438,12 @@
 
                   return `
                         <tr>
-                            <td style="font-weight:700; color: #fff;">${p.symbol}</td>
-                            <td class="mono" style="color:#ccc;">${isCash ? "-" : p.qty}</td>
-                            <td class="mono" style="color:#ccc;">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                            <td class="mono" style="color:#ccc;">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+                            <td style="font-weight:700; color: var(--text-primary);">${p.symbol}</td>
+                            <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : p.qty}</td>
+                            <td class="mono" style="color:var(--text-secondary);">${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                            <td class="mono" style="color:var(--text-secondary);">$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                             <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                            <td class="mono ${chgClass}">${isCash ? "-" : chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%"}</td>
+                            <td class="mono ${chgClass}">${isCash ? "-" : (chgSign + (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%")}</td>
                         </tr>`;
                 })
                 .join("");
@@ -402,12 +456,12 @@
             grid.innerHTML = data.macro.cot_data
               .map((m) => {
                 const last = m.history[m.history.length - 1];
-                const color = last >= 0 ? "#30d158" : "#ff453a";
-                return `<div style="background:rgba(255,255,255,0.05); padding:5px; border-radius:4px;">
-                           <div style="font-size:10px; color:#aaa;">${m.asset}</div>
+                const color = last >= 0 ? "var(--success)" : "var(--danger)";
+                return `<div style="background:rgba(0,0,0,0.05); padding:5px; border-radius:4px;">
+                           <div style="font-size:10px; color:var(--text-secondary);">${m.asset}</div>
                            <div style="font-size:12px; font-weight:bold; color:${color}">${last}</div>
                            <div style="height:20px; display:flex; align-items:flex-end; gap:2px;">
-                             ${m.history.map((v) => `<div style="width:4px; height:${Math.min(Math.abs(v), 20)}px; background:${v >= 0 ? "#30d158" : "#ff453a"}"></div>`).join("")}
+                             ${m.history.map((v) => `<div style="width:4px; height:${Math.min(Math.abs(v), 20)}px; background:${v >= 0 ? "var(--success)" : "var(--danger)"}"></div>`).join("")}
                            </div>
                          </div>`;
               })
@@ -421,16 +475,16 @@
               .map((p) => {
                 const statusColor =
                   p.status === "APPROVED"
-                    ? "#30d158"
+                    ? "var(--success)"
                     : p.status === "DENIED"
-                      ? "#ff453a"
-                      : "#ffd60a";
-                return `<div class="compact-row" style="border-bottom:1px solid #333; padding:4px 0;">
+                      ? "var(--danger)"
+                      : "var(--warning)";
+                return `<div class="compact-row" style="border-bottom:1px solid rgba(0,0,0,0.05); padding:4px 0;">
                          <div style="display:flex; justify-content:space-between;">
-                           <span style="font-weight:bold; color:#fff;">${p.action} ${p.asset}</span>
+                           <span style="font-weight:bold; color:var(--text-primary);">${p.action} ${p.asset}</span>
                            <span style="color:${statusColor}; font-size:9px; border:1px solid ${statusColor}; padding:0 3px; border-radius:3px;">${p.status}</span>
                          </div>
-                         <div style="display:flex; justify-content:space-between; color:#888;">
+                         <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
                            <span>${p.size} @ ${p.price}</span>
                            <span>${p.created_at || ""}</span>
                          </div>
@@ -447,10 +501,10 @@
                 (n) => `
                 <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
                    <div style="display:flex; justify-content:space-between;">
-                       <span style="font-size:11px; color: #fff; line-height:1.2; font-weight: 500;">${n.headline}</span>
-                       <span style="font-size:9px; color:#666;">${n.timestamp || ""}</span>
+                       <span style="font-size:11px; color: var(--text-primary); line-height:1.2; font-weight: 500;">${n.headline}</span>
+                       <span style="font-size:9px; color:var(--text-secondary);">${n.timestamp || ""}</span>
                    </div>
-                   <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "#30d158" : "#ccc"}">${n.sentiment}</div>
+                   <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : "var(--text-secondary)"}">${n.sentiment}</div>
                 </div>`,
               )
               .join("");

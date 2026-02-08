@@ -1,18 +1,28 @@
 :root {
-  --bg-color: #050505;
-  --glass-bg: rgba(10, 10, 10, 0.95);
-  /* Less glass, more metal */
-  --glass-border: rgba(48, 209, 88, 0.2);
-  --accent: #2c2c2c;
-  --text-primary: #30d158;
-  /* Matrix Green */
-  --text-secondary: #0a84ff;
-  /* Terminal Blue */
-  --success: #30d158;
-  --danger: #ff453a;
-  --warning: #ffd60a;
+  /* SOLARISED LIGHT / PAPER THEME */
+  --bg-color: #fdf6e3;
+  /* Base3 (Cream) */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  /* Frosted Glass */
+  --glass-border: rgba(0, 0, 0, 0.05);
+  /* Subtle Border */
+
+  --accent: #268bd2;
+  /* Blue */
+
+  --text-primary: #073642;
+  /* Base02 (Dark Navy) */
+  --text-secondary: #586e75;
+  /* Base01 (Grey) */
+
+  --success: #859900;
+  /* Green */
+  --danger: #dc322f;
+  /* Red */
+  --warning: #b58900;
+  /* Yellow/Orange */
+
   --font-stack: "JetBrains Mono", "Courier New", monospace;
-  /* PURE TERMINAL */
   --mono-stack: "JetBrains Mono", "Courier New", monospace;
 }
 
@@ -153,7 +163,7 @@ h1 {
 .data-table td {
   padding: 4px 0;
   color: var(--text-primary);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .data-table tr:last-child td {
@@ -267,14 +277,14 @@ h1 {
   width: 100vw;
   height: 100vh;
   background:
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.02) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
   background-size:
     100% 3px,
     4px 100%;
   pointer-events: none;
   z-index: 999;
-  opacity: 0.8;
+  opacity: 0.3;
   animation: flicker 0.1s infinite;
 }
 
@@ -356,8 +366,8 @@ h1 {
 /* Enhanced News Cards */
 /* --- DATA STREAM INTELLIGENCE --- */
 .news-card {
-  background: rgba(10, 10, 12, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   border-left: 2px solid var(--text-secondary);
   padding: 10px;
   margin-bottom: 8px;
@@ -419,7 +429,7 @@ h1 {
   font-family: var(--font-stack);
   font-size: 13px;
   font-weight: 500;
-  color: #e0e0e0;
+  color: var(--text-primary);
   margin-bottom: 6px;
   line-height: 1.35;
 }
@@ -427,11 +437,11 @@ h1 {
 .news-insight {
   font-family: var(--mono-stack);
   font-size: 10px;
-  color: #a0a0a0;
+  color: var(--text-secondary);
   /* Dimmed */
   margin-bottom: 8px;
   padding-left: 8px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .news-actions {
