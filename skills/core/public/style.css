@@ -329,14 +329,14 @@ h1 {
   background: var(--card-bg) !important;
   color: var(--text-primary);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  /* Slightly softer */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  /* Softer shadow */
+  border-radius: 6px;
+  /* Reduced radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Reduced shadow */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 15px;
-  /* Consistent padding */
+  padding: 8px !important;
+  /* Reduced padding from 15px */
   overflow: hidden !important;
   /* Force contained content */
   display: flex !important;
@@ -347,16 +347,16 @@ h1 {
 .grid-stack-placeholder > .placeholder-content {
   background: rgba(0, 0, 0, 0.05) !important;
   border: 1px dashed var(--accent) !important;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 /* Proposal Items */
 .proposal-item {
   background: rgba(255, 214, 10, 0.05);
-  border: 1px solid rgba(255, 214, 10, 0.2);
-  border-radius: 6px;
-  padding: 10px;
-  margin-bottom: 10px;
+  border-left: 2px solid var(--warning);
+  padding: 6px;
+  /* Reduced from 10px */
+  margin-bottom: 4px;
 }
 
 /* Pulse Animation */
