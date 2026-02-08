@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AION MISSION CONTROL</title>
+    <!-- CACHE BUST v=8 -->
+    <link rel="stylesheet" href="style.css?v=8" />
+  </head>
+
+  <body>
+    <div class="crt-overlay"></div>
+
+    <header class="card">
+      <div class="header-left">
+        <div class="logo">AION__PRIME</div>
+        <div class="status-badge">CORTEX V8 [ONLINE]</div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center">
+        <div id="status" class="status-badge">SYSTEM ACTIVE</div>
+        <div id="clock" class="stat-label">00:00:00</div>
+      </div>
+    </header>
+
+    <div class="grid-container">
+      <!-- COLUMN 1: INTELLIGENCE (News & Dreams) -->
+      <div class="col">
+        <div class="card" style="flex: 1">
+          <h3>🌍 Global Intelligence</h3>
+          <div id="news-feed" class="scroll-area">Connecting to Explorer Channel...</div>
+        </div>
+        <div class="card" style="flex: 0 0 20%">
+          <h3>🌌 Dream Cycle</h3>
+          <div id="dream-box" class="scroll-area" style="color: var(--accent); font-style: italic">
+            Waiting for Sync...
+          </div>
+        </div>
+        <div class="card" style="flex: 0 0 auto">
+          <h3>👁️ Macro Intelligence</h3>
+          <div id="macro-box" style="font-size: 11px; padding: 5px">Loading Sentry Data...</div>
+        </div>
+      </div>
+
+      <!-- COLUMN 2: OPERATIONS (Portfolio & Targets) -->
+      <div class="col">
+        <div class="card" style="flex: 1">
+          <h3>💼 Portfolio Holdings</h3>
+          <div class="scroll-area">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ASSET</th>
+                  <th>QTY</th>
+                  <th>PRICE</th>
+                  <th>1D %</th>
+                  <th>VALUE</th>
+                  <th>P/L %</th>
+                  <th>RATING</th>
+                </tr>
+              </thead>
+              <tbody id="portfolio-body">
+                <!-- JS Injected -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card" style="flex: 1">
+          <h3>🎯 Live Sector Feed</h3>
+          <div class="scroll-area">
+            <div id="market-grid-container" class="market-grid">
+              <!-- JS Injected -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 3: SYNAPSE (State, Proposals, Logs) -->
+      <div class="col">
+        <div class="card" style="flex: 0 0 auto">
+          <h3>🧠 Neural State</h3>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px">
+            <span class="stat-label">Status</span>
+            <strong id="ai-status">...</strong>
+          </div>
+
+          <!-- Vitals: Resonance Orb -->
+          <div class="orb-container">
+            <div id="ai-orb" class="orb"></div>
+          </div>
+          <!-- Status Below Orb -->
+          <div style="text-align: center; margin-bottom: 10px">
+            <span class="stat-label">NEURAL SYNC: </span><strong id="pulse-rate">98%</strong>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 10px">
+            <span class="stat-label">Last Decision</span>
+            <strong id="ai-decision" style="color: var(--accent)">...</strong>
+          </div>
+          <div
+            id="ai-thought"
+            class="scroll-area"
+            style="
+              height: 60px;
+              margin-top: 10px;
+              border-top: 1px solid rgba(255, 255, 255, 0.05);
+              padding-top: 5px;
+            "
+          >
+            ...
+          </div>
+        </div>
+
+        <div class="card" style="flex: 1">
+          <h3>🛡️ Strategic Proposals</h3>
+          <div id="proposals-feed" class="scroll-area">Checking Advisory...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateClock() {
+        document.getElementById("clock").innerText = new Date().toLocaleTimeString();
+      }
+      setInterval(updateClock, 1000);
+
+      // Typing Effect State
+      let currentThought = "";
+      let isTyping = false;
+
+      function typeWriter(text, elementId, speed = 15) {
+        if (isTyping) return; // Simple lock
+        isTyping = true;
+        const el = document.getElementById(elementId);
+        el.innerText = "";
+        let i = 0;
+
+        function type() {
+          if (i < text.length) {
+            el.innerText += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          } else {
+            isTyping = false;
+          }
+        }
+        type();
+      }
+
+      async function fetchData() {
+        try {
+          const res = await fetch("/api/data");
+          const data = await res.json();
+
+          // 1. NEURAL STATE
+          document.getElementById("ai-status").innerText = data.state.status || "OFFLINE";
+          document.getElementById("ai-decision").innerText = data.state.last_decision || "N/A";
+
+          // Typing Effect for Thought
+          const newThought = data.state.detail || "Buffer Empty";
+          if (newThought !== currentThought) {
+            currentThought = newThought;
+            typeWriter(newThought, "ai-thought");
+          }
+
+          // Orb Pulse Simulation
+          const pulse = 98 + Math.random() * 2;
+          document.getElementById("pulse-rate").innerText = pulse.toFixed(1) + "%";
+
+          // 2. DREAM
+          const rawDream = data.dream.replace(/## 🌌 Dream Cycle .*/, "").trim();
+          document.getElementById("dream-box").innerText = rawDream;
+
+          // 3. PORTFOLIO
+          const portBody = document.getElementById("portfolio-body");
+          portBody.innerHTML = data.portfolio
+            .map((p) => {
+              if (p.symbol === "CASH") return ""; // Skip cash or render differently
+              const val = p.market_value ? p.market_value.toLocaleString() : "-";
+              const price = p.current_price ? p.current_price.toLocaleString() : "-";
+
+              const plClass = p.pl_pct >= 0 ? "trend-up" : "trend-down";
+              const plSign = p.pl_pct >= 0 ? "+" : "";
+
+              const dayClass = p.day_change_pct >= 0 ? "trend-up" : "trend-down";
+              const daySign = p.day_change_pct >= 0 ? "+" : "";
+
+              let ratingClass = "val-neutral";
+              if (p.rating === "BUY") ratingClass = "trend-up";
+              if (p.rating === "SELL") ratingClass = "trend-down";
+
+              return `
+                    <tr>
+                        <td style="font-weight:700">${p.symbol}</td>
+                        <td class="mono">${p.qty}</td>
+                        <td class="mono">$${price}</td>
+                        <td class="mono ${dayClass}">${daySign}${p.day_change_pct ? p.day_change_pct.toFixed(2) : "0.00"}%</td>
+                        <td class="mono">$${typeof p.market_value === "number" ? p.market_value.toFixed(2) : val}</td>
+                        <td class="mono ${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
+                        <td style="font-size:10px; font-weight:700;" class="${ratingClass}">${p.rating || "HOLD"}</td>
+                    </tr>
+                    `;
+            })
+            .join("");
+
+          // Add Cash Row Separately if needed, or just let it calculate P/L (Cash usually 0 P/L)
+          const cash = data.portfolio.find((p) => p.symbol === "CASH");
+          if (cash) {
+            portBody.innerHTML += `
+                     <tr style="border-top:1px solid rgba(255,255,255,0.1)">
+                        <td style="font-weight:700; color:var(--text-secondary)">CASH</td>
+                        <td class="mono">-</td>
+                        <td class="mono">$1.00</td>
+                        <td class="mono">-</td>
+                        <td class="mono" style="color:#fff">$${cash.qty.toLocaleString()}</td>
+                        <td class="mono">-</td>
+                        <td class="mono">SAFE</td>
+                     </tr>`;
+          }
+
+          // 4. MARKET GRID (Sentry)
+          const targetBody = document.getElementById("market-grid-container");
+          if (data.market && data.market.assets) {
+            targetBody.innerHTML = data.market.assets
+              .map((asset) => {
+                const isUp = asset.change >= 0;
+                const trendClass = isUp ? "trend-up" : "trend-down";
+                const sign = isUp ? "+" : "";
+
+                return `
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">${asset.symbol.toUpperCase()}</span>
+                            <span class="ticker-price">$${asset.price.toLocaleString()}</span>
+                            <span class="ticker-change ${trendClass}">${sign}${asset.change.toFixed(2)}%</span>
+                        </div>
+                        `;
+              })
+              .join("");
+          } else {
+            targetBody.innerHTML = '<div style="padding:10px; opacity:0.5;">Sentry Offline</div>';
+          }
+
+          // 4.5 MACRO INTELLIGENCE
+          const macroBox = document.getElementById("macro-box");
+          if (data.macro && data.macro.cot) {
+            const btc = data.macro.cot.btc;
+            const sentClass =
+              btc.sentiment === "BULLISH"
+                ? "val-up"
+                : btc.sentiment === "BEARISH"
+                  ? "val-down"
+                  : "val-neutral";
+
+            macroBox.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:4px; margin-bottom:4px;">
+                            <span><strong>COT (Bitcoin)</strong></span>
+                            <span style="color:var(--text-secondary)">${btc.report_date}</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>Lev Funds Net:</span>
+                            <span class="mono ${sentClass}">${btc.lev_money_net > 0 ? "+" : ""}${btc.lev_money_net.toLocaleString()}</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>Sentiment:</span>
+                            <strong class="${sentClass}">${btc.sentiment}</strong>
+                        </div>
+                    `;
+          } else {
+            macroBox.innerHTML = '<span style="opacity:0.5">No Macro Data</span>';
+          }
+
+          // 5. NEWS FEED - RENDER CARDS
+          const newsDiv = document.getElementById("news-feed");
+          if (data.news && data.news.length > 0) {
+            newsDiv.innerHTML = data.news
+              .map((n) => {
+                let topicClass = "topic-world";
+                // Safety check for n.topic existing
+                const topic = n.topic || "Unknown";
+
+                if (topic.toLowerCase().includes("crypto")) topicClass = "topic-crypto";
+                if (topic.toLowerCase().includes("solana")) topicClass = "topic-crypto";
+                if (topic.toLowerCase().includes("tech")) topicClass = "topic-tech";
+                if (topic.toLowerCase().includes("us")) topicClass = "topic-us";
+
+                return `
+                         <div class="news-card ${topicClass}">
+                            <div class="news-meta">
+                                <span>${topic}</span>
+                                <span>OP: AION</span>
+                            </div>
+                            <div class="news-headline">${n.headline || "Update"}</div>
+                            <div class="news-insight">
+                                // ${n.insight ? n.insight.substring(0, 140) : "Analyzing..."}
+                            </div>
+                            <div class="news-actions">
+                                <a href="${n.source || "#"}" target="_blank" class="news-btn">SOURCE DATA</a>
+                            </div>
+                         </div>
+                         `;
+              })
+              .join("");
+          } else {
+            newsDiv.innerHTML = "No intelligence gathered yet.";
+          }
+
+          // 6. PROPOSALS - RENDER BADGES
+          const propDiv = document.getElementById("proposals-feed");
+          if (data.proposals && data.proposals.length > 0) {
+            propDiv.innerHTML = data.proposals
+              .map((p) => {
+                const isExec = p.type === "EXECUTED";
+                const badgeClass = isExec ? "badge-executed" : "badge-proposal";
+                const cardClass = isExec ? "prop-executed" : "prop-proposal";
+
+                // Highlight Buy/Sell in title
+                let safeTitle = (p.title || "Log")
+                  .replace("BUY", '<span class="badge-buy">BUY</span>')
+                  .replace("SELL", '<span class="badge-sell">SELL</span>');
+
+                return `
+                       <div class="prop-card ${cardClass}">
+                           <div style="margin-bottom: 4px;">
+                                <span class="prop-badge ${badgeClass}">${p.type}</span>
+                                <strong>${safeTitle}</strong>
+                           </div>
+                           <div style="font-size: 11px; color: var(--text-secondary); white-space: pre-wrap;">
+                               ${(p.raw || "").replace(/## .*/, "").trim()}
+                           </div>
+                       </div>`;
+              })
+              .join("");
+          } else {
+            propDiv.innerHTML = "No active proposals.";
+          }
+        } catch (e) {
+          console.error("Link Failure", e);
+        }
+      }
+
+      setInterval(fetchData, 1000);
+      fetchData();
+    </script>
+  </body>
+</html>

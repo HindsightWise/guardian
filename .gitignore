@@ -75,3 +75,7 @@ USER.md
 memory/
 .agent/*.json
 !.agent/workflows/
+
+# Unignore critical skills
+!skills/core/
+!skills/memory/
