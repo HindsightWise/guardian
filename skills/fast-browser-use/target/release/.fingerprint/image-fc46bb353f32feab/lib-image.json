@@ -1,0 +1,31 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"bmp\", \"dds\", \"default\", \"dxt\", \"exr\", \"farbfeld\", \"gif\", \"hdr\", \"ico\", \"jpeg\", \"jpeg_rayon\", \"openexr\", \"png\", \"pnm\", \"qoi\", \"tga\", \"tiff\", \"webp\"]",
+  "declared_features": "[\"avif\", \"avif-decoder\", \"avif-encoder\", \"benchmarks\", \"bmp\", \"dav1d\", \"dcv-color-primitives\", \"dds\", \"default\", \"dxt\", \"exr\", \"farbfeld\", \"gif\", \"hdr\", \"ico\", \"jpeg\", \"jpeg_rayon\", \"libwebp\", \"mp4parse\", \"openexr\", \"png\", \"pnm\", \"qoi\", \"ravif\", \"rayon\", \"rgb\", \"tga\", \"tiff\", \"webp\", \"webp-encoder\"]",
+  "target": 14891025389109761416,
+  "profile": 2040997289075261528,
+  "path": 12900342218509886288,
+  "deps": [
+    [3712811570531045576, "byteorder", false, 10803628009184155307],
+    [5157631553186200874, "num_traits", false, 6765012514459341544],
+    [12687914511023397207, "png", false, 18131111596044620637],
+    [12704391208695820441, "tiff", false, 14471909887909572459],
+    [13654600731502310505, "gif", false, 17041876857968922662],
+    [14020839807111676977, "exr", false, 4653608645977422341],
+    [14589292995769234176, "bytemuck", false, 14660523814787408078],
+    [14697349632922996918, "qoi", false, 2703219277033327215],
+    [15061855456976648579, "jpeg", false, 14692726291314139206],
+    [18370424882373179248, "color_quant", false, 6075857721432196754]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/image-fc46bb353f32feab/dep-lib-image",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

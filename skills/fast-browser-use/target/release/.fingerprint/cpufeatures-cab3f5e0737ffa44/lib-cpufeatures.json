@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 2330704043955282025,
+  "profile": 2040997289075261528,
+  "path": 15117326845552629112,
+  "deps": [[203594543813181569, "libc", false, 17670824037116592602]],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/cpufeatures-cab3f5e0737ffa44/dep-lib-cpufeatures",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

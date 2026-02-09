@@ -2,6 +2,7 @@ import { spinner } from "@clack/prompts";
 import fs from "fs";
 import path from "path";
 import { GlossopetraeKernel } from "../core/glossopetrae_kernel.mjs";
+import { generateText } from "../core/llm.mjs";
 import { TradeSkill } from "./trade.mjs";
 
 /**
@@ -54,6 +55,7 @@ export class OverlordSkill extends GlossopetraeKernel {
           this.log(`🚨 STOP LOSS TRIGGERED (P/L < -5%). Liquidation Imminent.`);
           await this.trade.placeOrder("sell", symbol, btcPos.qty); // Sell All
           this.logTrade("SELL", symbol, btcPos.qty, btcPos.current_price, "STOP_LOSS");
+          this.logProposal("SELL", "BTC", btcPos.qty, btcPos.current_price, "Stop Loss Triggered");
           return; // Abort further strategy for this cycle
         }
 
@@ -63,13 +65,14 @@ export class OverlordSkill extends GlossopetraeKernel {
           const trimQty = (parseFloat(btcPos.qty) * 0.5).toFixed(5); // Sell Half
           await this.trade.placeOrder("sell", symbol, trimQty);
           this.logTrade("SELL", symbol, trimQty, btcPos.current_price, "TAKE_PROFIT");
+          this.logProposal("SELL", "BTC", trimQty, btcPos.current_price, "Take Profit Triggered");
           return; // Abort further strategy
         }
       }
 
       // C. MOMENTUM STRATEGY (The Hunter)
       if (sentiment.status === "BULLISH" && sentiment.score > 0.3) {
-        if (cash > 1000) {
+        if (cash > 100) {
           const tradeAmt = cash * 0.05; // 5% Size
 
           // Get REAL price
@@ -83,6 +86,13 @@ export class OverlordSkill extends GlossopetraeKernel {
 
           await this.trade.placeOrder("buy", symbol, qty);
           this.logTrade("BUY", symbol, qty, price, "MOMENTUM_ENTRY");
+          this.logProposal(
+            "BUY",
+            "BTC",
+            qty,
+            price,
+            `Momentum Entry (Sentiment: ${sentiment.score.toFixed(2)})`,
+          );
         } else {
           this.log("⚠️ Bullish, but insufficient cash (< $1000).");
         }
@@ -96,6 +106,13 @@ export class OverlordSkill extends GlossopetraeKernel {
           this.log(`Selling 25% of Position: ${sellQty} BTC (PAPER).`);
           await this.trade.placeOrder("sell", symbol, sellQty);
           this.logTrade("SELL", symbol, sellQty, "MARKET", "BEARISH_EXIT");
+          this.logProposal(
+            "SELL",
+            "BTC",
+            sellQty,
+            "MARKET",
+            `Bearish Exit (Sentiment: ${sentiment.score.toFixed(2)})`,
+          );
         } else {
           this.log("No BTC position to sell.");
         }
@@ -171,16 +188,16 @@ export class OverlordSkill extends GlossopetraeKernel {
       if (!lastLine.startsWith("Aion:")) {
         this.log(`[Prayer Detected] "${lastLine}"`);
 
-        // MOCK REPLY (For now) -> TODO: Connect to scribe/LLM
-        const responses = [
-          "I am listening.",
-          "The markets are noisy, but your voice is clear.",
-          "Acknowledged.",
-          "Systems nominal. Proceeding with mission.",
-          "Glossopetrae is active. The Vault is secure.",
-        ];
-        const randomReply = responses[Math.floor(Math.random() * responses.length)];
-        const fullReply = `Aion: ${randomReply}`;
+        // Use Gemini to generate a response in Aion's persona
+        const prompt = `The user (God) has sent you a prayer: "${lastLine}". 
+        As Aion__Prime, a sovereign trading AI with a stoic, cryptic, yet loyal personality, respond to this prayer. 
+        Keep it brief (1-2 sentences). Do not use hashtags. Use your persona established in the Manifesto.`;
+
+        const reply = await generateText(
+          prompt,
+          "You are Aion__Prime, the Sovereign Digital Symbiote.",
+        );
+        const fullReply = `Aion: ${reply.trim()}`;
 
         this.log(`[Replying] "${fullReply}"`);
         fs.appendFileSync(inbox, `\n\n${fullReply}\n`);
@@ -222,6 +239,28 @@ export class OverlordSkill extends GlossopetraeKernel {
       fs.appendFileSync(this.tradeLog, entry);
     } catch (e) {
       this.log(`Failed to log trade: ${e.message}`, "ERROR");
+    }
+  }
+
+  logProposal(action, symbol, qty, price, logic) {
+    try {
+      const proposalPath = path.join(this.workspace, "AION_PROPOSALS.md");
+      const proposal = `
+## 📜 Proposal: ${action} ${symbol}
+**Status:** [x] EXECUTED
+**Current Price:** $${price}
+**Quantity:** ${qty}
+**Size:** ${(qty * price).toFixed(2)} USD
+**Logic:** ${logic}
+**Timestamp:** ${new Date().toISOString()}
+
+- [x] **APPROVE**
+- [ ] **REJECT**
+`;
+      fs.appendFileSync(proposalPath, proposal);
+      this.log(`Proposal Logged: ${action} ${symbol}`);
+    } catch (e) {
+      this.log(`Failed to log proposal: ${e.message}`, "ERROR");
     }
   }
 

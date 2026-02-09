@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"i128\", \"std\"]",
+  "declared_features": "[\"default\", \"i128\", \"libm\", \"std\"]",
+  "target": 5408242616063297496,
+  "profile": 1369601567987815722,
+  "path": 13616859439289757957,
+  "deps": [[13927012481677012980, "autocfg", false, 1631957334182588097]],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/num-traits-66a3e5375cbe0e5b/dep-build-script-build-script-build",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

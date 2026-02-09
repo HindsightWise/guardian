@@ -1,0 +1,31 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"_ring\", \"_rustls\", \"_tls\", \"default\", \"gzip\", \"rustls\", \"rustls-no-provider\", \"rustls-webpki-roots\", \"socks-proxy\"]",
+  "declared_features": "[\"_doc\", \"_ring\", \"_rustls\", \"_test\", \"_tls\", \"_url\", \"brotli\", \"charset\", \"cookies\", \"default\", \"gzip\", \"json\", \"multipart\", \"native-tls\", \"native-tls-no-default\", \"native-tls-webpki-roots\", \"platform-verifier\", \"rustls\", \"rustls-no-provider\", \"rustls-webpki-roots\", \"socks-proxy\", \"vendored\", \"win-system-proxy\"]",
+  "target": 2636997325719059094,
+  "profile": 1369601567987815722,
+  "path": 6103032210797237166,
+  "deps": [
+    [1129418674938548854, "socks", false, 15208568510865291024],
+    [3236792770635956517, "rustls", false, 4311881165026521826],
+    [4359956005902820838, "utf8", false, 8640096636712326228],
+    [5071328984507806225, "webpki_roots", false, 11627716254777373756],
+    [6803352382179706244, "percent_encoding", false, 3552749316335286633],
+    [9948939636274895937, "ureq_proto", false, 16684388706625295177],
+    [10456045882549826531, "flate2", false, 22509608746075328],
+    [10630857666389190470, "log", false, 1857416347176499517],
+    [13077212702700853852, "base64", false, 2302761675672479230],
+    [17894305664988315121, "rustls_pki_types", false, 16603793482603107564]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/ureq-463b30cb3da11ef4/dep-lib-ureq",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

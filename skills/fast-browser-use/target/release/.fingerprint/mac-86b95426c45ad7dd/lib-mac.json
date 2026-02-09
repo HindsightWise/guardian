@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 4071246351868317718,
+  "profile": 2040997289075261528,
+  "path": 15128884836683179697,
+  "deps": [],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/mac-86b95426c45ad7dd/dep-lib-mac",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

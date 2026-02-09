@@ -1,0 +1,26 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 7456125560412827427,
+  "profile": 2040997289075261528,
+  "path": 10432814916651474389,
+  "deps": [
+    [2399633497816108991, "tendril", false, 10070017293104094394],
+    [3791929332532787956, "string_cache", false, 11215250312839146625],
+    [7359235151837888654, "build_script_build", false, 5724396676586658853],
+    [10630857666389190470, "log", false, 1948912650598144518],
+    [17186037756130803222, "phf", false, 5767795887753014512]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/markup5ever-625994129fb53a6c/dep-lib-markup5ever",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

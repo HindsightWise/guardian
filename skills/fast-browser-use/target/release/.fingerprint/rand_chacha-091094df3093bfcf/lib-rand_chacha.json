@@ -1,0 +1,23 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"std\"]",
+  "declared_features": "[\"default\", \"simd\", \"std\"]",
+  "target": 15766068575093147603,
+  "profile": 2040997289075261528,
+  "path": 12023059438401348578,
+  "deps": [
+    [1740877332521282793, "rand_core", false, 1081669444292577081],
+    [12919011715531272606, "ppv_lite86", false, 4798764850034959063]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/rand_chacha-091094df3093bfcf/dep-lib-rand_chacha",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

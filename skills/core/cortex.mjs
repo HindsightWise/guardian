@@ -94,10 +94,6 @@ class CortexSkill extends GlossopetraeKernel {
     // START MARKET DATA LOOP
     this.initMarketData();
 
-    // START OVERLORD (Strategy)
-    // Run appropriately - startLoop is infinite, so don't await it if it blocks
-    this.overlord.startLoop().catch((e) => this.log(`Overlord Died: ${e.message}`, "ERROR"));
-
     server.listen(this.port, () => {
       this.log(`Server running at http://localhost:${this.port}/`);
     });
@@ -107,60 +103,24 @@ class CortexSkill extends GlossopetraeKernel {
   async initMarketData() {
     this.log("Initializing Market Data Stream...");
 
-    // Load Initial State with PREV_CLOSE for 24h Calc
-    this.portfolioAion = [
-      {
-        symbol: "BTC",
-        qty: 0.29925,
-        cost_basis: 70592.7, // User Provided
-        current_price: 70821.79,
-        prev_close: 70000.0,
-        market_value: 0,
-        pl_pct: 0,
-        rating: "CORE",
-      },
-      {
-        symbol: "CASH",
-        qty: 29260.39,
-        cost_basis: 1,
-        current_price: 1,
-        prev_close: 1,
-        market_value: 29260.39,
-        pl_pct: 0,
-        rating: "SAFE",
-      },
-    ];
+    // Initial load
+    await this.updateMarketData();
 
-    // Load User Portfolio from File
-    const userPortPath = path.join(
-      process.env.HOME,
-      ".openclaw/workspace/AION_USER_PORTFOLIO.json",
-    );
-    if (fs.existsSync(userPortPath)) {
-      try {
-        this.portfolioUser = JSON.parse(fs.readFileSync(userPortPath, "utf8"));
-        // Ensure prev_close is set if missing (simulate)
-        this.portfolioUser.forEach((p) => {
-          if (!p.prev_close) p.prev_close = p.current_price * 0.98; // Mock prev close if missing
-        });
-      } catch (e) {
-        this.log(`Failed to load User Portfolio: ${e.message}`, "ERROR");
-        this.portfolioUser = [];
-      }
-    } else {
-      this.portfolioUser = [];
-    }
-
-    // Initial Calc
-    this.calculateMetrics();
-
-    // Loop (Every 3s)
+    // Loop (Every 3s) - Only for UI responsiveness, Sentry does the heavy lifting
     setInterval(() => this.updateMarketData(), 3000);
   }
 
   async updateMarketData() {
-    // 1. AION PORTFOLIO (Alpaca)
-    // Only fetch if we have a valid connection (keys present)
+    const workspace = path.join(process.env.HOME, ".openclaw/workspace");
+    const marketDataPath = path.join(workspace, "AION_MARKET_DATA.json");
+
+    // 1. AION PORTFOLIO (Prefer Sentry Data)
+    if (fs.existsSync(marketDataPath)) {
+      try {
+        const marketData = JSON.parse(fs.readFileSync(marketDataPath, "utf8"));
+      } catch (e) {}
+    }
+
     if (this.alpaca && this.alpaca.apiKey) {
       try {
         const livePositions = await this.alpaca.getPositions();
@@ -205,29 +165,38 @@ class CortexSkill extends GlossopetraeKernel {
         const change = price * (Math.random() - 0.5) * 0.002;
         return price + change;
       };
-      this.portfolioAion.forEach((p) => {
-        if (p.symbol !== "CASH") {
-          p.current_price = randomWalk(p.current_price);
-        }
-      });
+      if (this.portfolioAion) {
+        this.portfolioAion.forEach((p) => {
+          if (p.symbol !== "CASH") {
+            p.current_price = randomWalk(p.current_price);
+          }
+        });
+      }
     }
 
     // 2. USER PORTFOLIO (Manual / File Based)
-    // We reload from file to catch any manual updates, or simulate price movement on existing holdings
     const userPortPath = path.join(
       process.env.HOME,
       ".openclaw/workspace/AION_USER_PORTFOLIO.json",
     );
     if (fs.existsSync(userPortPath)) {
       try {
-        // Reload to get latest QTY/Basis
         const loaded = JSON.parse(fs.readFileSync(userPortPath, "utf8"));
-        // Merge with current prices (random walk simulation for now, until we have real market data feed for these tickers)
-        // In a real app, we'd fetch quote for each symbol here.
         this.portfolioUser = loaded.map((p) => {
-          // Simple simulation of price movement for "Live" feel
+          // Derive cost_basis if missing using pl_pct
+          if (!p.cost_basis) {
+            const current = p.current_price || 100;
+            const pl = p.pl_pct || 0;
+            p.cost_basis = current / (1 + pl / 100);
+          }
+
+          // Ensure prev_close exists for 24h calculation
+          if (!p.prev_close) p.prev_close = p.current_price * 0.98;
+
+          // Simulation for "Live" feel
           const current = p.current_price || p.cost_basis;
           const newPrice = current * (1 + (Math.random() - 0.5) * 0.001);
+
           return {
             ...p,
             current_price: newPrice,
@@ -236,8 +205,6 @@ class CortexSkill extends GlossopetraeKernel {
           };
         });
       } catch (e) {}
-    } else {
-      // Keep existing or demo fallback (handled in serveDataComposite)
     }
 
     // Calculate Totals

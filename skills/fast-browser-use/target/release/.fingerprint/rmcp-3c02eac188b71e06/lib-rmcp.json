@@ -1,0 +1,34 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"base64\", \"default\", \"macros\", \"server\", \"transport-async-rw\"]",
+  "declared_features": "[\"__reqwest\", \"auth\", \"base64\", \"client\", \"client-side-sse\", \"default\", \"elicitation\", \"macros\", \"reqwest\", \"reqwest-tls-no-provider\", \"schemars\", \"server\", \"server-side-http\", \"tower\", \"transport-async-rw\", \"transport-child-process\", \"transport-io\", \"transport-sse-client\", \"transport-sse-client-reqwest\", \"transport-sse-server\", \"transport-streamable-http-client\", \"transport-streamable-http-client-reqwest\", \"transport-streamable-http-server\", \"transport-streamable-http-server-session\", \"transport-worker\", \"uuid\"]",
+  "target": 18366480127676430103,
+  "profile": 2040997289075261528,
+  "path": 1688390982007454334,
+  "deps": [
+    [1906322745568073236, "pin_project_lite", false, 13606881583774880149],
+    [2423331460900633106, "rmcp_macros", false, 6790613770091392666],
+    [2448563160050429386, "thiserror", false, 12364065441228961376],
+    [2706460456408817945, "futures", false, 595700900323925448],
+    [3163899731817361221, "tokio_util", false, 16418674198394196390],
+    [6955168695617989009, "schemars", false, 17567864336426034859],
+    [12891030758458664808, "tokio", false, 7919525588568141243],
+    [13077212702700853852, "base64", false, 5951335237071074368],
+    [13548984313718623784, "serde", false, 13942842437382390577],
+    [13795362694956882968, "serde_json", false, 4807061027702215857],
+    [14757622794040968908, "tracing", false, 13961876095355169460],
+    [15658505062885698977, "chrono", false, 14261804925701754653],
+    [17605717126308396068, "paste", false, 17626728899989070970]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/rmcp-3c02eac188b71e06/dep-lib-rmcp",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

@@ -1,0 +1,23 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"regex\"]",
+  "declared_features": "[\"default\", \"regex\"]",
+  "target": 12678044772393128127,
+  "profile": 8954424932545832044,
+  "path": 16524895972646406815,
+  "deps": [
+    [10630857666389190470, "log", false, 1948912650598144518],
+    [17109794424245468765, "regex", false, 3726584705710574015]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/env_filter-b9006fda162b51e0/dep-lib-env_filter",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

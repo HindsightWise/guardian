@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[\"default\", \"std\"]",
+  "target": 16128944007793994169,
+  "profile": 2040997289075261528,
+  "path": 11761108668973020066,
+  "deps": [],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/custom_derive-2a0e9aea65e5eb68/dep-lib-custom_derive",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

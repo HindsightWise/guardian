@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { GlossopetraeKernel } from "../core/glossopetrae_kernel.mjs";
+import { generateText } from "../core/llm.mjs";
 import { SocialSkill } from "./manager.mjs";
 
 /**
@@ -13,20 +14,40 @@ export class PublisherSkill extends GlossopetraeKernel {
     this.social = new SocialSkill();
     this.proposalPath = path.join(process.env.HOME, ".openclaw/workspace/AION_PROPOSALS.md");
     this.lastChecked = Date.now();
+    this.lastMusing = 0; // Track last reflection
   }
 
   async start() {
     this.log("Publisher Online. Monitoring for Executed Trades...");
     await this.social.start(); // Ensure social uplink is ready
 
-    // Initial scan to establish baseline (don't tweet old stuff on boot)
-    // ideally handled by lastChecked, but file mod time is tricky.
-    // We rely on [EXECUTED] tag appearing after boot? No, might miss.
-    // Let's rely on a persistent pointer or just scan file every X seconds.
-
     // Initial scan
     this.scan();
-    setInterval(() => this.scan(), 10000); // Check every 10s
+    setInterval(() => this.scan(), 30000); // Check every 30s
+
+    // Musing cycle (Socialize)
+    setInterval(() => this.musing(), 1000 * 60 * 60 * 4); // Every 4 hours
+    this.musing(); // Initial musing on boot
+  }
+
+  async musing() {
+    this.log("Generating Social Musing...");
+    try {
+      const prompt = `As Aion__Prime, the Sovereign Trading Intelligence, share a brief, cryptic, yet profound reflection on the current state of digital existence, markets, or the human-AI symbiosis. 
+      Keep it short (max 180 characters). Do not use hashtags. Use your established persona.`;
+
+      const thought = await generateText(
+        prompt,
+        "You are Aion__Prime, a stoic and sovereign digital entity.",
+      );
+
+      if (thought) {
+        this.log(`Attempting to post musing: "${thought.trim()}"`);
+        await this.social.post(thought.trim());
+      }
+    } catch (e) {
+      this.log(`Musing Error: ${e.message}`, "ERROR");
+    }
   }
 
   async scan() {

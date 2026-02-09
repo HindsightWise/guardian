@@ -1,0 +1,10 @@
+/Users/zerbytheboss/Desktop/OpenClaw/openclaw/skills/fast-browser-use/target/release/deps/rusttype-31596dcfaa27b766.d: /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/lib.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/font.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/geometry.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/outliner.rs
+
+/Users/zerbytheboss/Desktop/OpenClaw/openclaw/skills/fast-browser-use/target/release/deps/librusttype-31596dcfaa27b766.rlib: /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/lib.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/font.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/geometry.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/outliner.rs
+
+/Users/zerbytheboss/Desktop/OpenClaw/openclaw/skills/fast-browser-use/target/release/deps/librusttype-31596dcfaa27b766.rmeta: /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/lib.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/font.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/geometry.rs /Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/outliner.rs
+
+/Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/lib.rs:
+/Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/font.rs:
+/Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/geometry.rs:
+/Users/zerbytheboss/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rusttype-0.9.3/src/outliner.rs:

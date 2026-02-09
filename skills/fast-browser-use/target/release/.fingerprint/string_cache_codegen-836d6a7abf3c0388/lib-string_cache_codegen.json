@@ -1,0 +1,25 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 4822312724886654266,
+  "profile": 1369601567987815722,
+  "path": 11575638486149275391,
+  "deps": [
+    [4289358735036141001, "proc_macro2", false, 5745514945756180680],
+    [6100504282945712449, "quote", false, 16213597178756147287],
+    [9060940869921439196, "phf_shared", false, 13316045993801487089],
+    [18124350542602697595, "phf_generator", false, 8596199956961015809]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/string_cache_codegen-836d6a7abf3c0388/dep-lib-string_cache_codegen",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

@@ -1,0 +1,25 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"getrandom\"]",
+  "declared_features": "[\"default\", \"getrandom\", \"nightly\"]",
+  "target": 44311651032485388,
+  "profile": 2040997289075261528,
+  "path": 5578723268891145990,
+  "deps": [
+    [3722963349756955755, "once_cell", false, 1845271484124419836],
+    [12285238697122577036, "fastrand", false, 2672983378030555137],
+    [18377328279789821306, "rustix", false, 5470173642890676571],
+    [18408407127522236545, "getrandom", false, 2179327233795206587]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/tempfile-65b0efbb429d93f0/dep-lib-tempfile",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

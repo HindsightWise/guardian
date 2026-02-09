@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"std\"]",
+  "declared_features": "[\"default\", \"libm\", \"std\"]",
+  "target": 4335109392423587462,
+  "profile": 2040997289075261528,
+  "path": 9663931048232711124,
+  "deps": [],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/ab_glyph_rasterizer-8ba37e98b3a566c7/dep-lib-ab_glyph_rasterizer",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

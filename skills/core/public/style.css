@@ -1,26 +1,29 @@
 :root {
-  /* SOLARISED LIGHT / PAPER THEME */
-  --bg-color: #fdf6e3;
-  /* Base3 (Cream) */
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  /* Frosted Glass */
-  --glass-border: rgba(0, 0, 0, 0.05);
+  /* INDUSTRIAL GRAY THEME */
+  --bg-color: #d1d7da;
+  /* Slate Gray */
+  --glass-bg: rgba(240, 242, 245, 0.7);
+  /* Frosted Light Gray */
+  --glass-border: rgba(0, 0, 0, 0.1);
   /* Subtle Border */
 
   --accent: #268bd2;
   /* Blue */
 
-  --text-primary: #073642;
-  /* Base02 (Dark Navy) */
-  --text-secondary: #586e75;
-  /* Base01 (Grey) */
+  --text-primary: #1a1c1d;
+  /* Dark Gray/Black */
+  --text-secondary: #4a4f52;
+  /* Slate Grey */
 
-  --success: #859900;
-  /* Green */
-  --danger: #dc322f;
-  /* Red */
+  --success: #2d8a39;
+  /* Professional Green */
+  --danger: #c42b2b;
+  /* Professional Red */
   --warning: #b58900;
   /* Yellow/Orange */
+
+  --card-bg: var(--glass-bg);
+  --border-color: var(--glass-border);
 
   --font-stack: "JetBrains Mono", "Courier New", monospace;
   --mono-stack: "JetBrains Mono", "Courier New", monospace;
@@ -34,12 +37,13 @@ body {
   font-family: var(--font-stack);
   margin: 0;
   padding: 20px;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   text-shadow: 0 0 2px rgba(48, 209, 88, 0.2);
   /* REDUCED GLOW (Accessibility) */
 }
@@ -506,11 +510,16 @@ h1 {
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-left: 2px solid var(--text-secondary);
-  padding: 10px;
-  margin-bottom: 8px;
+  padding: 4px 8px;
+  margin-bottom: 2px;
   position: relative;
   overflow: hidden;
   transition: all 0.2s ease;
+}
+
+.news-card:hover {
+  background: rgba(20, 20, 25, 0.05);
+  transform: translateX(2px);
 }
 
 .news-card::before {
@@ -523,12 +532,6 @@ h1 {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   opacity: 0;
   transition: opacity 0.3s;
-}
-
-.news-card:hover {
-  background: rgba(20, 20, 25, 0.8);
-  transform: translateX(2px);
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
 }
 
 .news-card:hover::before {
@@ -558,17 +561,17 @@ h1 {
   font-size: 9px;
   color: var(--text-secondary);
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   letter-spacing: 0.5px;
 }
 
 .news-headline {
   font-family: var(--font-stack);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-primary);
-  margin-bottom: 6px;
-  line-height: 1.35;
+  margin-bottom: 2px;
+  line-height: 1.2;
 }
 
 .news-insight {
@@ -576,7 +579,7 @@ h1 {
   font-size: 10px;
   color: var(--text-secondary);
   /* Dimmed */
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   padding-left: 8px;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -592,7 +595,7 @@ h1 {
   background: rgba(255, 255, 255, 0.05);
   color: var(--accent);
   text-decoration: none;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border: 1px solid rgba(10, 132, 255, 0.2);
   border-radius: 2px;
   text-transform: uppercase;
@@ -606,9 +609,9 @@ h1 {
 
 /* Enhanced Proposal Cards */
 .prop-card {
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 4px;
+  border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.3);
 }
@@ -625,12 +628,12 @@ h1 {
 
 .prop-badge {
   display: inline-block;
-  padding: 3px 6px;
-  border-radius: 4px;
-  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 
 .badge-executed {
@@ -651,15 +654,15 @@ h1 {
 .market-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 8px;
-  padding: 8px 0;
+  gap: 4px;
+  padding: 4px 0;
 }
 
 .ticker-item {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  padding: 8px;
+  padding: 4px;
   text-align: center;
   transition: transform 0.2s;
 }
@@ -670,16 +673,16 @@ h1 {
 }
 
 .ticker-symbol {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   color: var(--text-secondary);
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .ticker-price {
   font-family: var(--mono-stack);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #fff;
   display: block;
@@ -687,8 +690,8 @@ h1 {
 
 .ticker-change {
   font-family: var(--mono-stack);
-  font-size: 9px;
-  margin-top: 2px;
+  font-size: 8px;
+  margin-top: 1px;
   display: block;
 }
 
@@ -696,6 +699,7 @@ h1 {
   color: var(--success);
 }
 
+.trend-down {
   color: var(--danger);
 }
 

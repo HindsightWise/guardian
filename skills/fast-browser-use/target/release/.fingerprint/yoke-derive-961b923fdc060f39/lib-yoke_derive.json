@@ -1,0 +1,25 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 1654536213780382264,
+  "profile": 1369601567987815722,
+  "path": 13783527743572827890,
+  "deps": [
+    [4289358735036141001, "proc_macro2", false, 5745514945756180680],
+    [4621990586401870511, "synstructure", false, 3158304629621933196],
+    [6100504282945712449, "quote", false, 16213597178756147287],
+    [6490058671768129134, "syn", false, 8352537630469600078]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/yoke-derive-961b923fdc060f39/dep-lib-yoke_derive",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

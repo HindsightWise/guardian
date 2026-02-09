@@ -1,0 +1,25 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[\"backtrace\", \"deadlock_detection\", \"nightly\", \"petgraph\"]",
+  "target": 12558056885032795287,
+  "profile": 2040997289075261528,
+  "path": 16749989724277266570,
+  "deps": [
+    [203594543813181569, "libc", false, 17670824037116592602],
+    [3666196340704888985, "smallvec", false, 12002398233262355554],
+    [6545091685033313457, "build_script_build", false, 3852035020574783621],
+    [7667230146095136825, "cfg_if", false, 12902182802708373103]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/parking_lot_core-15794d148c399004/dep-lib-parking_lot_core",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

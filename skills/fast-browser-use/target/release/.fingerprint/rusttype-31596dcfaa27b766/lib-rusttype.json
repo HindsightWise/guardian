@@ -1,0 +1,23 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"has-atomics\", \"std\"]",
+  "declared_features": "[\"crossbeam-deque\", \"crossbeam-utils\", \"default\", \"gpu_cache\", \"has-atomics\", \"libm\", \"libm-math\", \"linked-hash-map\", \"num_cpus\", \"rustc-hash\", \"std\"]",
+  "target": 4983877632344945853,
+  "profile": 2040997289075261528,
+  "path": 9904360706079706707,
+  "deps": [
+    [4945662571602681759, "ab_glyph_rasterizer", false, 17355558380816768897],
+    [13485517180711369898, "owned_ttf_parser", false, 11917775234851195443]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/rusttype-31596dcfaa27b766/dep-lib-rusttype",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

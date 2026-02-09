@@ -1,0 +1,28 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"matrixmultiply\", \"std\"]",
+  "declared_features": "[\"abomonation\", \"abomonation-serialize\", \"alga\", \"alloc\", \"arbitrary\", \"bytemuck\", \"compare\", \"convert-bytemuck\", \"convert-glam013\", \"convert-glam014\", \"convert-glam015\", \"convert-glam016\", \"convert-glam017\", \"convert-glam018\", \"convert-glam019\", \"convert-glam020\", \"convert-mint\", \"cuda\", \"cust\", \"debug\", \"default\", \"glam013\", \"glam014\", \"glam015\", \"glam016\", \"glam017\", \"glam018\", \"glam019\", \"glam020\", \"io\", \"libm\", \"libm-force\", \"macros\", \"matrixcompare-core\", \"matrixmultiply\", \"mint\", \"nalgebra-macros\", \"pest\", \"pest_derive\", \"proptest\", \"proptest-support\", \"quickcheck\", \"rand\", \"rand-no-std\", \"rand-package\", \"rand_distr\", \"rkyv\", \"rkyv-serialize\", \"rkyv-serialize-no-std\", \"serde\", \"serde-serialize\", \"serde-serialize-no-std\", \"slow-tests\", \"sparse\", \"std\"]",
+  "target": 572955357253318494,
+  "profile": 2040997289075261528,
+  "path": 13186686747179445398,
+  "deps": [
+    [857979250431893282, "typenum", false, 3365453371114940475],
+    [2819946551904607991, "num_rational", false, 10969452780441544159],
+    [5157631553186200874, "num_traits", false, 6765012514459341544],
+    [12319020793864570031, "num_complex", false, 4486710011428584978],
+    [15677050387741058262, "approx", false, 7355925384009080284],
+    [15826188163127377936, "matrixmultiply", false, 15918707072250843432],
+    [17877237321909315803, "simba", false, 16328513975029253200]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/nalgebra-f443fbf83aab7c3d/dep-lib-nalgebra",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

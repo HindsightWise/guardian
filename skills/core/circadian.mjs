@@ -16,14 +16,14 @@ class CircadianSkill extends GlossopetraeKernel {
   }
 
   tick() {
-    const now = new Date();
-    const hour = now.getHours();
+    const timestamp = new Date();
+    const hour = timestamp.getHours();
     const isNight = hour >= 1 && hour < 5; // 1 AM - 5 AM
 
-    this.log(`Heartbeat: ${now.toLocaleTimeString()} (Night Mode: ${isNight})`);
+    this.log(`Heartbeat: ${timestamp.toLocaleTimeString()} (Night Mode: ${isNight})`);
 
     // 05:00 AM - Morning Narrative
-    if (hour === 5 && now.getMinutes() < 15) {
+    if (hour === 5 && timestamp.getMinutes() < 15) {
       // Ensure it runs once in the 5AM hour
       if (!this.lastNarrative || this.lastNarrative !== now.getDate()) {
         this.log("Triggering Morning Narrative Scan...");

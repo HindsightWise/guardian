@@ -39,9 +39,9 @@ export class GlossopetraeKernel {
   }
 
   async askGod(prompt, context = "") {
-    this.log("Querying Gemini...");
+    this.log("Querying Local LLM (Ollama)...");
     try {
-      const response = await generateText(context, prompt);
+      const response = await generateText(prompt, context);
       return response;
     } catch (e) {
       this.log(`LLM Failure: ${e.message}`, "ERROR");

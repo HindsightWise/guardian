@@ -1,0 +1,23 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"std\"]",
+  "declared_features": "[\"cgemm\", \"constconf\", \"default\", \"num_cpus\", \"once_cell\", \"std\", \"thread-tree\", \"threading\"]",
+  "target": 7055067433712553826,
+  "profile": 2040997289075261528,
+  "path": 4780736842779311319,
+  "deps": [
+    [15709748443193639506, "rawpointer", false, 16903323597295748465],
+    [15826188163127377936, "build_script_build", false, 11178011850038199906]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/matrixmultiply-4cfccddf6d0ffd35/dep-lib-matrixmultiply",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

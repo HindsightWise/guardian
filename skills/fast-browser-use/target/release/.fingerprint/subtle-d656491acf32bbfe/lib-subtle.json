@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[\"const-generics\", \"core_hint_black_box\", \"default\", \"i128\", \"nightly\", \"std\"]",
+  "target": 13005322332938347306,
+  "profile": 1369601567987815722,
+  "path": 11036500186643350502,
+  "deps": [],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/subtle-d656491acf32bbfe/dep-lib-subtle",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

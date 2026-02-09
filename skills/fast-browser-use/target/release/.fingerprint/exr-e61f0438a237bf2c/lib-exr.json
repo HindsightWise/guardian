@@ -1,0 +1,28 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"rayon\"]",
+  "declared_features": "[\"default\", \"rayon\"]",
+  "target": 5906544163017385670,
+  "profile": 2040997289075261528,
+  "path": 9742291187150929150,
+  "deps": [
+    [2328992793207497738, "bit_field", false, 5063261219957534239],
+    [3666196340704888985, "smallvec", false, 12002398233262355554],
+    [3746573929696391749, "rayon_core", false, 7686542085344844397],
+    [5311759941895549171, "lebe", false, 11772098795491275936],
+    [7636735136738807108, "miniz_oxide", false, 12953122832675757943],
+    [11952083740819019228, "zune_inflate", false, 6985767859372268562],
+    [16598877151661132269, "half", false, 15028123702379142965]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/exr-e61f0438a237bf2c/dep-lib-exr",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

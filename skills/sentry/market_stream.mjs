@@ -16,7 +16,7 @@ class SentrySkill extends GlossopetraeKernel {
       "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,cardano,ripple&vs_currencies=usd&include_24hr_change=true";
     this.alpacaDataUrl = "https://data.alpaca.markets/v2/stocks/snapshots";
     this.alpacaKey = process.env.ALPACA_API_KEY;
-    this.alpacaSecret = process.env.ALPACA_API_SECRET;
+    this.alpacaSecret = process.env.ALPACA_SECRET_KEY;
   }
 
   async start() {
@@ -27,7 +27,7 @@ class SentrySkill extends GlossopetraeKernel {
       } catch (e) {
         this.log(`Cycle Error: ${e.message}`, "ERROR");
       }
-      await new Promise((r) => setTimeout(r, 60000)); // 60s
+      await new Promise((r) => setTimeout(r, 1000 * 120)); // 120s to be safe with Coingecko
     }
   }
 

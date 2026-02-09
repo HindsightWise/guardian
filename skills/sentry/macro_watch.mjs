@@ -28,44 +28,83 @@ class ObserverSkill extends GlossopetraeKernel {
 
   async runCycle() {
     const timestamp = new Date().toISOString();
-    this.log("Fetching Macro Data...");
+    this.log("Fetching Macro Data (24-Week History)...");
 
-    // 1. CFTC Data (Real)
-    const btcData = await this.fetchSocrata("jun7-fc8e", "&cftc_contract_market_code=133741").catch(
-      (e) => [],
-    );
+    const assets = [
+      { name: "BTC", code: "133741" },
+      { name: "ES", code: "13874A" },
+      { name: "NQ", code: "209742" },
+      { name: "GC", code: "088691" },
+      { name: "SI", code: "084691" },
+    ];
 
-    // 2. Futures & Yields (Simulated for now - waiting on data provider)
-    // In a real scenario, this would hit Yahoo Finance or similar
+    const cotData = [];
+
+    for (const asset of assets) {
+      try {
+        const data = await this.fetchSocrata(
+          "jun7-fc8e",
+          `&cftc_contract_market_code=${asset.code}`,
+        );
+
+        if (data && data.length > 0) {
+          // 1. Large Speculators (Funds)
+          const specNet = data
+            .map(
+              (e) =>
+                parseFloat(e.noncomm_positions_long_all || 0) -
+                parseFloat(e.noncomm_positions_short_all || 0),
+            )
+            .reverse();
+
+          // 2. Commercials (Hedgers)
+          const commNet = data
+            .map(
+              (e) =>
+                parseFloat(e.comm_positions_long_all || 0) -
+                parseFloat(e.comm_positions_short_all || 0),
+            )
+            .reverse();
+
+          const calcOsc = (netArr) => {
+            const min = Math.min(...netArr);
+            const max = Math.max(...netArr);
+            const range = max - min || 1;
+            return netArr.map((val) => Math.round(((val - min) / range - 0.5) * 200));
+          };
+
+          cotData.push({
+            asset: asset.name,
+            spec_history: calcOsc(specNet),
+            comm_history: calcOsc(commNet),
+            latest_spec: calcOsc(specNet).slice(-1)[0],
+            latest_comm: calcOsc(commNet).slice(-1)[0],
+            sentiment: specNet[specNet.length - 1] > 0 ? "BULLISH" : "BEARISH",
+          });
+        }
+      } catch (e) {
+        this.log(`Error fetching ${asset.name}: ${e.message}`, "WARN");
+      }
+    }
+
+    // 2. Futures & Yields (Simulated for now)
     const marketInternals = this.simulateMarketInternals();
 
     let macroSnapshot = {
       updated: timestamp,
-      cot: {
-        btc: { net_smart_money: 0, sentiment: "NEUTRAL" },
-      },
-      ...marketInternals, // Spread simulated futures/yields
+      cot_data: cotData,
+      global_sentiment:
+        cotData.filter((d) => d.sentiment === "BULLISH").length > cotData.length / 2
+          ? "RISK_ON"
+          : "RISK_OFF",
+      ...marketInternals,
     };
 
-    if (btcData && btcData.length > 0) {
-      const latest = btcData[0];
-      const levNet =
-        parseFloat(latest.lev_money_positions_long_all) -
-        parseFloat(latest.lev_money_positions_short_all);
-
-      macroSnapshot.cot.btc = {
-        report_date: latest.report_date_as_yyyy_mm_dd,
-        lev_money_net: levNet,
-        sentiment: levNet > 0 ? "BULLISH" : "BEARISH",
-      };
-    }
-
     fs.writeFileSync(this.dataFile, JSON.stringify(macroSnapshot, null, 2));
-    this.log("Synced Macro Data (CFTC + Futures/Yields).");
+    this.log(`Synced Macro Data for ${cotData.length} assets.`);
   }
 
   simulateMarketInternals() {
-    // Random walk simulation to generic realistic movements
     return {
       futures: [
         { symbol: "/ES", name: "S&P 500", price: 5842.5, change_pct: 0.45 },
@@ -83,7 +122,8 @@ class ObserverSkill extends GlossopetraeKernel {
 
   fetchSocrata(datasetId, params = "") {
     return new Promise((resolve, reject) => {
-      const url = `https://publicreporting.cftc.gov/resource/${datasetId}.json?$limit=5&$order=report_date_as_yyyy_mm_dd DESC${params}`;
+      // Fetch 24 weeks
+      const url = `https://publicreporting.cftc.gov/resource/${datasetId}.json?$limit=24&$order=report_date_as_yyyy_mm_dd DESC${params}`;
       https
         .get(url, { headers: { "User-Agent": "Aion/1.0" } }, (res) => {
           let body = "";

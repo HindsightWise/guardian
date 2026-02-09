@@ -1,0 +1,35 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"offline\"]",
+  "declared_features": "[\"default\", \"directories\", \"fetch\", \"native-tls\", \"nightly\", \"offline\", \"rustls\", \"ureq\", \"walkdir\", \"zip\"]",
+  "target": 6765718376882695235,
+  "profile": 2040997289075261528,
+  "path": 11721396834467806963,
+  "deps": [
+    [195694931015811426, "tempfile", false, 3782977190539927370],
+    [1528297757488249563, "url", false, 15827893409441195981],
+    [2186951887354108979, "which", false, 4136034535649081199],
+    [2448563160050429386, "thiserror", false, 12364065441228961376],
+    [4254813506600451364, "tungstenite", false, 12500497654649484992],
+    [6219554740863759696, "derive_builder", false, 10018100536133893179],
+    [10630857666389190470, "log", false, 1948912650598144518],
+    [11916940916964035392, "rand", false, 15666604087874804951],
+    [12873631326246480134, "anyhow", false, 16990176020046535706],
+    [13077212702700853852, "base64", false, 5951335237071074368],
+    [13548984313718623784, "serde", false, 13942842437382390577],
+    [13795362694956882968, "serde_json", false, 4807061027702215857],
+    [14027278043718117867, "build_script_build", false, 585224662353432736],
+    [17109794424245468765, "regex", false, 3726584705710574015]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/headless_chrome-9405ab424f058607/dep-lib-headless_chrome",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

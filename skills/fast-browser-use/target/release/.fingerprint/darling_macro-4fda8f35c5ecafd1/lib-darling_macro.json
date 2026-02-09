@@ -1,0 +1,24 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 15692157989113707310,
+  "profile": 1369601567987815722,
+  "path": 11658239571832068486,
+  "deps": [
+    [6100504282945712449, "quote", false, 16213597178756147287],
+    [6490058671768129134, "syn", false, 8352537630469600078],
+    [7492649247881633246, "darling_core", false, 15412125320497813538]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/darling_macro-4fda8f35c5ecafd1/dep-lib-darling_macro",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

@@ -4,684 +4,533 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AION MISSION CONTROL</title>
-    <link rel="stylesheet" href="style.css?v=13" />
+    <!-- Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- GRIDSTACK -->
     <link
       href="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack.min.css"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack-all.js"></script>
+
+    <style>
+      /* CORE THEME */
+      :root {
+        --bg-color: #d1d7da;
+        --card-bg: rgba(240, 242, 245, 0.85);
+        --text-primary: #1a1c1d;
+        --text-secondary: #4a4f52;
+        --success: #2d8a39;
+        --danger: #c42b2b;
+        --accent: #268bd2;
+        --font-stack: "JetBrains Mono", "Courier New", monospace;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: var(--font-stack);
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+      /* GRIDSTACK CARD STYLES */
+      .grid-stack-item-content {
+        background: var(--card-bg) !important;
+        border-radius: 6px;
+        padding: 8px !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      h3 {
+        margin: 0 0 8px 0;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 4px;
+        flex-shrink: 0;
+      }
+
+      .scroll-area {
+        flex-grow: 1;
+        overflow-y: auto;
+        min-height: 0;
+        font-size: 11px;
+        font-weight: 600; /* BOLD requested */
+      }
+
+      /* DATA TABLES */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10px;
+      }
+      .data-table th {
+        text-align: left;
+        opacity: 0.6;
+        padding-bottom: 4px;
+        position: sticky;
+        top: 0;
+        background: var(--card-bg);
+        z-index: 10;
+      }
+      .data-table td {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 3px 0;
+      }
+
+      /* MACRO GRID */
+      .cot-row {
+        display: grid;
+        grid-template-columns: 40px 1fr 1fr; /* Rigid Columns */
+        gap: 10px;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 8px 0;
+      }
+
+      .hist-container {
+        height: 45px;
+        background: rgba(0, 0, 0, 0.03);
+        position: relative;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .zero-line {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 0;
+      }
+
+      .bar-wrapper {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        padding: 0 1px;
+        gap: 1px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .bar-col {
+        flex: 1;
+        height: 100%;
+        position: relative;
+      }
+
+      .bar-fill {
+        position: absolute;
+        width: 100%;
+        opacity: 0.85;
+      }
+
+      .hist-label {
+        position: absolute;
+        top: 1px;
+        left: 2px;
+        font-size: 8px;
+        font-weight: 900;
+        z-index: 2;
+        opacity: 0.6;
+      }
+
+      /* SCROLLBARS */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+      }
+    </style>
   </head>
-
   <body>
-    <div class="crt-overlay"></div>
-
-    <!-- Header -->
-    <!-- Fixed Compact Header -->
+    <!-- FIXED HEADER -->
     <div
       style="
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 40px;
-        background: rgba(253, 246, 227, 0.95);
-        backdrop-filter: blur(5px);
+        height: 35px;
+        background: rgba(210, 215, 218, 0.98);
         z-index: 9999;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
-        box-sizing: border-box;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 0 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       "
     >
-      <div style="display: flex; align-items: center; gap: 15px">
-        <h1 style="margin: 0; font-size: 16px; display: flex; align-items: center; gap: 8px">
-          <span>💠</span>
-          <span style="font-weight: 700; letter-spacing: -0.5px">AION MISSION CONTROL</span>
-        </h1>
-        <div
-          style="
-            font-size: 11px;
-            opacity: 0.6;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            transform: translateY(1px);
-          "
-        >
-          <span id="clock">--:--</span> • <span id="date">---</span> •
-          <span style="color: var(--success)">● LIVE</span>
-        </div>
-      </div>
       <div style="display: flex; gap: 10px; align-items: center">
+        <span style="font-weight: 900; font-size: 14px">💠 AION CONTROL</span>
+        <span id="clock" style="font-size: 10px; font-family: monospace; opacity: 0.6">--:--</span>
+      </div>
+      <div>
         <button
-          id="btn-lock"
-          onclick="toggleLock()"
+          onclick="resetDashboard()"
           style="
-            background: transparent;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            color: var(--text-secondary);
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 10px;
             cursor: pointer;
-            height: 24px;
-            min-width: 60px;
+            padding: 2px 8px;
+            font-size: 10px;
+            border: 1px solid #aaa;
+            background: transparent;
+            border-radius: 3px;
           "
         >
-          🔓 Unlock
+          🔄 RESET LAYOUT
         </button>
-        <button
-          onclick="
-            if (confirm('Reset Layout?')) {
-              localStorage.removeItem('dashboard_grid_layout');
-              location.reload();
-            }
-          "
-          style="
-            background: transparent;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            color: var(--text-secondary);
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 10px;
-            cursor: pointer;
-            height: 24px;
-          "
-        ></button>
-        <div class="status-indicator" id="status-indicator" style="width: 8px; height: 8px"></div>
       </div>
     </div>
 
-    <!-- GridStack Container (Pushed down for fixed header) -->
-    <div class="grid-stack" style="margin-top: 50px">
-      <!-- 1. Market Overview (Top Left) -->
-      <div class="grid-stack-item" gs-w="3" gs-h="4" gs-x="0" gs-y="0" id="item-market">
+    <!-- GRID CONTAINER -->
+    <div class="grid-stack" style="margin-top: 45px">
+      <!-- MARKET OVERVIEW -->
+      <div class="grid-stack-item" gs-w="3" gs-h="4" gs-x="0" gs-y="0" id="card-market">
         <div class="grid-stack-item-content">
-          <h3>📊 Market Overview</h3>
-          <div id="market-news" class="scroll-area">Connecting to Explorer Channel...</div>
+          <h3>📊 Market Intel</h3>
+          <div id="market-content" class="scroll-area">Loading...</div>
         </div>
       </div>
 
-      <!-- 2. Portfolio (Middle Left) -->
-      <div class="grid-stack-item" gs-w="3" gs-h="4" gs-x="3" gs-y="0" id="item-portfolio">
+      <!-- MACRO INTELLIGENCE -->
+      <div class="grid-stack-item" gs-w="6" gs-h="4" gs-x="3" gs-y="0" id="card-macro">
         <div class="grid-stack-item-content">
-          <h3 style="display: flex; justify-content: space-between">
-            <span>💼 Aion Active Positions</span>
-            <span id="p-total" style="font-size: 12px; opacity: 0.8">$0.00</span>
-          </h3>
-          <div class="scroll-area table-container">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>ASSET</th>
-                  <th>QTY</th>
-                  <th>AVG</th>
-                  <th>PRICE</th>
-                  <th>VAL</th>
-                  <th>P/L</th>
-                  <th>24H</th>
-                </tr>
-              </thead>
-              <tbody id="portfolio-aion-body"></tbody>
-            </table>
-          </div>
+          <h3>👁️ Macro Intelligence</h3>
+          <div id="macro-content" class="scroll-area">Loading...</div>
         </div>
       </div>
 
-      <!-- 3. Macro Oscillators (Top Right - Wide) -->
-      <div class="grid-stack-item" gs-w="6" gs-h="4" gs-x="6" gs-y="0" id="item-macro">
+      <!-- STRATEGIC PROPOSALS -->
+      <div class="grid-stack-item" gs-w="3" gs-h="4" gs-x="9" gs-y="0" id="card-proposals">
         <div class="grid-stack-item-content">
-          <h3>👁️ Macro Oscillators</h3>
-          <div
-            id="macro-grid"
-            class="scroll-area"
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start"
-          ></div>
+          <h3>📜 Proposals</h3>
+          <div id="proposals-content" class="scroll-area">Loading...</div>
         </div>
       </div>
 
-      <!-- 4a. Neural State (Bottom Left - Top Half) -->
-      <div class="grid-stack-item" gs-w="3" gs-h="2" gs-x="0" gs-y="4" id="item-neural">
+      <!-- NEURAL STATE -->
+      <div class="grid-stack-item" gs-w="3" gs-h="3" gs-x="0" gs-y="4" id="card-neural">
         <div class="grid-stack-item-content">
           <h3>🧠 Neural State</h3>
           <div
+            id="neural-content"
+            class="scroll-area"
             style="
               display: flex;
-              justify-content: space-between;
+              flex-direction: column;
+              justify-content: center;
               align-items: center;
-              margin-bottom: 5px;
             "
           >
-            <div style="font-size: 10px">
-              STATUS: <strong id="ai-status" style="color: var(--success)">...</strong>
+            <div style="font-size: 12px; margin-bottom: 5px">
+              STATUS: <span id="status-text" style="color: var(--success)">ONLINE</span>
             </div>
-            <div style="font-size: 10px">SYNC: <strong id="pulse-rate">98%</strong></div>
-          </div>
-          <div class="orb-container" style="padding: 2px 0; display: flex; justify-content: center">
-            <div id="ai-orb" class="orb" style="width: 25px; height: 25px"></div>
+            <div
+              style="
+                width: 30px;
+                height: 30px;
+                background: var(--accent);
+                border-radius: 50%;
+                box-shadow: 0 0 10px var(--accent);
+              "
+            ></div>
           </div>
         </div>
       </div>
 
-      <!-- 4b. Dream State (Bottom Left - Bottom Half) -->
-      <div class="grid-stack-item" gs-w="3" gs-h="2" gs-x="0" gs-y="6" id="item-dream">
+      <!-- DREAM STATE -->
+      <div class="grid-stack-item" gs-w="3" gs-h="3" gs-x="0" gs-y="7" id="card-dream">
         <div class="grid-stack-item-content">
           <h3>💭 Dream State</h3>
-          <div
-            id="dream-box"
-            class="scroll-area"
-            style="font-size: 10px; color: var(--text-secondary); height: 100%"
-          >
-            Initializing dreamstream...
+          <div id="dream-content" class="scroll-area" style="font-size: 10px; line-height: 1.2">
+            ...
           </div>
         </div>
       </div>
 
-      <!-- 5. Strategic Proposals (Bottom Middle) -->
-      <div class="grid-stack-item" gs-w="5" gs-h="4" gs-x="3" gs-y="4" id="item-proposals">
+      <!-- PORTFOLIOS -->
+      <div class="grid-stack-item" gs-w="9" gs-h="6" gs-x="3" gs-y="4" id="card-portfolio">
         <div class="grid-stack-item-content">
-          <h3>📜 Strategic Proposals</h3>
-          <div id="proposals-list" class="scroll-area"></div>
-        </div>
-      </div>
-
-      <!-- 6. User Holdings (Bottom Right) -->
-      <div class="grid-stack-item" gs-w="4" gs-h="4" gs-x="8" gs-y="4" id="item-holdings">
-        <div class="grid-stack-item-content">
-          <h3>👤 User Holdings</h3>
-          <div class="scroll-area table-container">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>ASSET</th>
-                  <th>QTY</th>
-                  <th>AVG</th>
-                  <th>PRICE</th>
-                  <th>VAL</th>
-                  <th>P/L</th>
-                  <th>24H</th>
-                </tr>
-              </thead>
-              <tbody id="portfolio-user-body">
-                <tr>
-                  <td colspan="6" style="text-align: center">Connecting...</td>
-                </tr>
-              </tbody>
-            </table>
+          <h3>💼 Active Portfolios</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; height: 100%">
+            <div style="display: flex; flex-direction: column">
+              <div style="font-size: 9px; font-weight: bold; margin-bottom: 2px; opacity: 0.5">
+                AION (ALGO)
+              </div>
+              <div class="scroll-area">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>ASSET</th>
+                      <th>QTY</th>
+                      <th>BASIS</th>
+                      <th>PRICE</th>
+                      <th>VALUE</th>
+                      <th>P/L</th>
+                      <th>24H</th>
+                    </tr>
+                  </thead>
+                  <tbody id="port-aion"></tbody>
+                </table>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column">
+              <div style="font-size: 9px; font-weight: bold; margin-bottom: 2px; opacity: 0.5">
+                USER (MANUAL)
+              </div>
+              <div class="scroll-area">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>ASSET</th>
+                      <th>QTY</th>
+                      <th>BASIS</th>
+                      <th>PRICE</th>
+                      <th>VALUE</th>
+                      <th>P/L</th>
+                      <th>24H</th>
+                    </tr>
+                  </thead>
+                  <tbody id="port-user"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <!-- 7. Allocation Chart (Far Right Sidebar/Bottom) -->
-      <div class="grid-stack-item" gs-w="4" gs-h="4" gs-x="0" gs-y="8" id="item-alloc">
-        <div class="grid-stack-item-content" id="p-alloc">
-          <h3>🥧 Asset Allocation</h3>
-          <div style="position: relative; height: 100%; width: 100%; min-height: 150px">
-            <canvas id="chartAion"></canvas>
-          </div>
-          <div id="legendAion" style="margin-top: 5px; font-size: 9px"></div>
-        </div>
-      </div>
-
-      <!-- 8. User Chart -->
-      <div class="grid-stack-item" gs-w="4" gs-h="4" gs-x="4" gs-y="8" id="item-user-chart">
-        <div class="grid-stack-item-content">
-          <h3>🥧 User Allocation</h3>
-          <div style="position: relative; height: 100%; width: 100%; min-height: 150px">
-            <canvas id="chartUser"></canvas>
-          </div>
-          <div id="legendUser" style="margin-top: 5px; font-size: 9px"></div>
         </div>
       </div>
     </div>
 
     <script>
+      // --- UTILS ---
+      const $ = (id) => document.getElementById(id);
+
+      function resetDashboard() {
+        if (confirm("Reset Dashboard Layout?")) {
+          localStorage.removeItem("dashboard_grid_layout");
+          location.reload();
+        }
+      }
+
       function updateClock() {
         const now = new Date();
-        if (document.getElementById("clock"))
-          document.getElementById("clock").innerText = now.toLocaleTimeString();
-        if (document.getElementById("date"))
-          document.getElementById("date").innerText = now.toLocaleDateString();
-      }
-      setInterval(updateClock, 1000);
-
-      /* Chart Instances */
-      let chartAion = null;
-      let chartUser = null;
-
-      Chart.defaults.color = "#657b83";
-      Chart.defaults.borderColor = "rgba(0,0,0,0.05)";
-
-      const commonOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "60%",
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                return context.label + ": " + context.parsed + "%";
-              },
-            },
-          },
-        },
-      };
-
-      function initCharts() {
-        // AION CHART
-        const ctxAion = document.getElementById("chartAion");
-        if (ctxAion) {
-          chartAion = new Chart(ctxAion.getContext("2d"), {
-            type: "doughnut",
-            data: {
-              labels: [],
-              datasets: [
-                {
-                  data: [],
-                  backgroundColor: ["#30d158", "#208b3a", "#155d27"],
-                  borderWidth: 0,
-                  hoverOffset: 5,
-                },
-              ],
-            },
-            options: commonOptions,
-          });
-        }
-
-        // USER CHART
-        const ctxUser = document.getElementById("chartUser");
-        if (ctxUser) {
-          chartUser = new Chart(ctxUser.getContext("2d"), {
-            type: "doughnut",
-            data: {
-              labels: [],
-              datasets: [
-                {
-                  data: [],
-                  backgroundColor: [
-                    "#0a84ff",
-                    "#5e5ce6",
-                    "#bf5af2",
-                    "#ac8e68",
-                    "#ff9f0a",
-                    "#ff453a",
-                    "#ffd60a",
-                    "#64d2ff",
-                    "#ffffff",
-                  ],
-                  borderWidth: 0,
-                  hoverOffset: 5,
-                },
-              ],
-            },
-            options: commonOptions,
-          });
-        }
-
-        // RESIZE OBSERVER
-        const pAlloc = document.getElementById("p-alloc");
-        if (pAlloc) {
-          const ro = new ResizeObserver(() => {
-            if (chartAion) chartAion.resize();
-            if (chartUser) chartUser.resize();
-          });
-          ro.observe(pAlloc);
-        }
+        if ($("clock")) $("clock").innerText = now.toLocaleTimeString();
       }
 
-      async function fetchData() {
+      // --- RENDERERS ---
+
+      function renderNews(news) {
+        if (!news || !news.length)
+          return '<div style="opacity:0.5; padding:5px;">No Market Intel</div>';
+        return news
+          .slice(0, 100)
+          .map((n) => {
+            const sentimentColor =
+              n.sentiment === "Bullish"
+                ? "var(--success)"
+                : n.sentiment === "Bearish"
+                  ? "var(--danger)"
+                  : "var(--text-secondary)";
+            const time = n.timestamp ? n.timestamp.split("T")[1].substring(0, 5) : "--:--";
+            return `
+                <div style="border-bottom: 1px solid rgba(0,0,0,0.05); padding: 3px 0; line-height: 1.1;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1px;">
+                        <span style="opacity:0.5; font-size:9px;">${time}</span>
+                        <span style="color:${sentimentColor}; font-size:9px; font-weight:900;">${n.sentiment ? n.sentiment.toUpperCase() : "N/A"}</span>
+                    </div>
+                    <div style="color:var(--text-primary); font-size:10px;">${n.headline}</div>
+                </div>`;
+          })
+          .join("");
+      }
+
+      function renderProposals(props) {
+        if (!props || !props.length)
+          return '<div style="opacity:0.5; padding:5px;">No Proposals</div>';
+        return props
+          .slice(0, 100)
+          .map((p) => {
+            const statusColor =
+              p.status === "EXECUTED" ? "var(--success)" : "var(--text-secondary)";
+            return `
+                <div style="border-bottom: 1px solid rgba(0,0,0,0.05); padding: 3px 0; line-height: 1.1;">
+                    <div style="display:flex; justify-content:space-between; font-weight:900;">
+                        <span>${p.action} ${p.asset}</span>
+                        <span style="color:${statusColor}; font-size:9px;">[${p.status.substring(0, 3)}]</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:9px; opacity:0.7;">
+                        <span>${p.size} @ ${p.price}</span>
+                        <span>${p.created_at || ""}</span>
+                    </div>
+                </div>`;
+          })
+          .join("");
+      }
+
+      function renderMacro(macro) {
+        if (!macro) return "<div>No Macro Data</div>";
+
+        let html = '<div style="display:flex; flex-direction:column; gap:8px;">';
+
+        // 1. Futures & Yields
+        if (macro.futures) {
+          html += `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:10px;">
+                    <div>
+                        <div style="opacity:0.5; font-size:8px; font-weight:900;">FUTURES</div>
+                        ${macro.futures
+                          .map(
+                            (f) => `
+                            <div style="display:flex; justify-content:space-between;">
+                                <span>${f.symbol}</span>
+                                <span style="color:${f.change_pct >= 0 ? "var(--success)" : "var(--danger)"}">${f.price.toLocaleString()}</span>
+                            </div>`,
+                          )
+                          .join("")}
+                    </div>
+                    <div>
+                        <div style="opacity:0.5; font-size:8px; font-weight:900;">YIELDS</div>
+                        ${(macro.yields || [])
+                          .map(
+                            (y) => `
+                            <div style="display:flex; justify-content:space-between;">
+                                <span>${y.symbol}</span>
+                                <span style="color:${y.change_bps >= 0 ? "var(--danger)" : "var(--success)"}">${y.value.toFixed(3)}%</span>
+                            </div>`,
+                          )
+                          .join("")}
+                    </div>
+                </div>`;
+        }
+
+        // 2. COT
+        if (macro.cot_data) {
+          html += `<div style="opacity:0.5; font-size:8px; font-weight:900; margin-top:4px;">INSTITUTIONAL FLOW (24W)</div>`;
+
+          const drawHist = (hist, pColor, nColor) => {
+            if (!hist || !hist.length) return "";
+            // Limit to last 24 weeks
+            const data = hist.slice(-24);
+            return data
+              .map((val) => {
+                const pct = Math.min((Math.abs(val) / 100) * 100, 100);
+                const isPos = val >= 0;
+                const col = isPos ? pColor : nColor;
+                return `<div class="bar-col"><div class="bar-fill" style="background:${col}; height:${pct / 2}%; ${isPos ? "bottom:50%" : "top:50%"}"></div></div>`;
+              })
+              .join("");
+          };
+
+          const fPos = "#007aff",
+            fNeg = "#ff3b30";
+          const cPos = "#34c759",
+            cNeg = "#ff9500";
+
+          macro.cot_data.forEach((m) => {
+            html += `
+                    <div class="cot-row">
+                        <div style="font-weight:900; font-size:11px;">${m.asset}</div>
+                        
+                        <div class="hist-container">
+                            <div class="zero-line"></div>
+                            <div class="bar-wrapper">${drawHist(m.spec_history, fPos, fNeg)}</div>
+                            <span class="hist-label" style="color:${fPos}">FUNDS: ${m.latest_spec}</span>
+                        </div>
+
+                        <div class="hist-container">
+                            <div class="zero-line"></div>
+                            <div class="bar-wrapper">${drawHist(m.comm_history, cPos, cNeg)}</div>
+                            <span class="hist-label" style="color:${cPos}">COMM: ${m.latest_comm}</span>
+                        </div>
+                    </div>`;
+          });
+        }
+
+        html += "</div>";
+        return html;
+      }
+
+      function renderPortfolio(port, targetId) {
+        const el = $(targetId);
+        if (!el) return;
+        if (!port || !port.length) {
+          el.innerHTML = "<tr><td colspan='7'>Empty</td></tr>";
+          return;
+        }
+
+        el.innerHTML = port
+          .map((p) => {
+            const val = p.market_value || p.qty * p.current_price;
+            const pl = p.pl_pct || 0;
+            const chg = p.change_24h || 0;
+            return `<tr>
+                    <td style="font-weight:bold;">${p.symbol}</td>
+                    <td>${p.qty}</td>
+                    <td>$${(p.cost_basis || 0).toFixed(2)}</td>
+                    <td>$${(p.current_price || 0).toFixed(2)}</td>
+                    <td>$${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
+                    <td style="color:${pl >= 0 ? "var(--success)" : "var(--danger)"}; font-weight:bold;">${pl >= 0 ? "+" : ""}${pl.toFixed(2)}%</td>
+                    <td style="color:${chg >= 0 ? "var(--success)" : "var(--danger)"}; opacity:0.8;">${chg >= 0 ? "+" : ""}${chg.toFixed(2)}%</td>
+                </tr>`;
+          })
+          .join("");
+      }
+
+      // --- MAIN LOOP ---
+      async function runCycle() {
         try {
           const res = await fetch("/api/data");
+          if (!res.ok) throw new Error("API Failed");
           const data = await res.json();
 
-          // DREAM
-          if (data.dream) {
-            const rawDream = data.dream.replace(/## 🌌 Dream Cycle .*/, "").trim();
-            const el = document.getElementById("dream-box");
-            if (el) el.innerText = rawDream;
-          }
+          // Populate Sections
+          if ($("market-content")) $("market-content").innerHTML = renderNews(data.news);
+          if ($("proposals-content"))
+            $("proposals-content").innerHTML = renderProposals(data.proposals);
+          if ($("macro-content")) $("macro-content").innerHTML = renderMacro(data.macro);
+          if ($("dream-content") && data.dream)
+            $("dream-content").innerText = data.dream.replace(/##/g, "").trim();
+          if ($("status-text") && data.state)
+            $("status-text").innerText = data.state.status || "ONLINE";
 
-          // STATE
-          if (data.state) {
-            const elStatus = document.getElementById("ai-status");
-            if (elStatus) elStatus.innerText = data.state.status || "IDLE";
-
-            const elPulse = document.getElementById("pulse-rate");
-            if (elPulse) elPulse.innerText = (data.state.sync || "98") + "%";
-          }
-
-          if (!chartAion || !chartUser) initCharts();
-
-          // RENDER PORTFOLIOS
-          const portUserBody = document.getElementById("portfolio-user-body");
-          const portAionBody = document.getElementById("portfolio-aion-body");
-
-          function updateChart(chart, assets, legendId) {
-            if (!chart || !assets || assets.length === 0) return;
-            const sig = assets.filter((p) => (p.market_value || p.qty * p.current_price) > 50);
-            sig.sort((a, b) => (b.market_value || 0) - (a.market_value || 0));
-            const totalVal = sig.reduce(
-              (acc, p) => acc + (p.market_value || p.qty * p.current_price),
-              0,
-            );
-            chart.data.labels = sig.map((p) => p.symbol);
-            chart.data.datasets[0].data = sig.map((p) => {
-              const val = p.market_value || p.qty * p.current_price;
-              return ((val / totalVal) * 100).toFixed(1);
-            });
-            chart.update("none");
-
-            const legendEl = document.getElementById(legendId);
-            if (legendEl) {
-              legendEl.innerHTML = sig
-                .slice(0, 5)
-                .map((p, i) => {
-                  const val = p.market_value || p.qty * p.current_price;
-                  const pct = ((val / totalVal) * 100).toFixed(1);
-                  const color =
-                    chart.data.datasets[0].backgroundColor[
-                      i % chart.data.datasets[0].backgroundColor.length
-                    ];
-                  return `<div style="display:flex; justify-content:space-between; align-items:center;">
-                          <div style="display:flex; align-items:center; gap:4px;">
-                            <div style="width:6px; height:6px; background:${color}; border-radius:50%;"></div>
-                            <span>${p.symbol}</span>
-                          </div>
-                          <span style="color:${color}; font-weight:bold;">${pct}%</span>
-                        </div>`;
-                })
-                .join("");
-            }
-          }
-
-          // USER PORTFOLIO
-          if (data.portfolio && data.portfolio.user) {
-            const userAssets = data.portfolio.user;
-            updateChart(chartUser, userAssets, "legendUser");
-            if (portUserBody) {
-              portUserBody.innerHTML = userAssets
-                .map((p) => {
-                  const marketVal = p.market_value || p.qty * p.current_price;
-                  const plClass = p.pl_pct >= 0 ? "trend-up" : "trend-down";
-                  const plSign = p.pl_pct >= 0 ? "+" : "";
-                  const chgClass = p.change_24h >= 0 ? "trend-up" : "trend-down";
-                  const chgSign = p.change_24h >= 0 ? "+" : "";
-                  return `<tr>
-                    <td style="font-weight:700;">${p.symbol}</td>
-                    <td>${p.qty}</td>
-                    <td style="color:var(--text-secondary);">$${p.cost_basis ? p.cost_basis.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "-"}</td>
-                    <td>$${p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td>$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
-                    <td class="${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                    <td class="${chgClass}">${chgSign}${p.change_24h ? p.change_24h.toFixed(2) : "0.00"}%</td>
-                </tr>`;
-                })
-                .join("");
-            }
-            const total = userAssets.reduce(
-              (acc, p) => acc + (p.market_value || p.qty * p.current_price),
-              0,
-            );
-            const elTotal = document.getElementById("p-total");
-            if (elTotal)
-              elTotal.innerText =
-                "$" + total.toLocaleString(undefined, { maximumFractionDigits: 2 });
-          }
-
-          // AION PORTFOLIO
-          if (data.portfolio && data.portfolio.aion) {
-            const aionAssets = data.portfolio.aion;
-            updateChart(chartAion, aionAssets, "legendAion");
-            if (portAionBody) {
-              portAionBody.innerHTML = aionAssets
-                .map((p) => {
-                  const marketVal = p.market_value || p.qty * p.current_price || 0;
-                  const plClass = p.pl_pct >= 0 ? "trend-up" : "trend-down";
-                  const plSign = p.pl_pct >= 0 ? "+" : "";
-                  const isCash = p.symbol === "CASH";
-                  return `<tr>
-                  <td style="font-weight:700;">${p.symbol}</td>
-                  <td>${isCash ? "-" : p.qty}</td>
-                  <td>${isCash ? "-" : "$" + (p.cost_basis ? p.cost_basis.toLocaleString(undefined, { minimumFractionDigits: 2 }) : "0.00")}</td>
-                  <td>${isCash ? "-" : "$" + p.current_price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                  <td>$${marketVal.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
-                  <td class="${plClass}">${plSign}${p.pl_pct ? p.pl_pct.toFixed(2) : "0.00"}%</td>
-                  <td>${isCash ? "-" : (p.change_24h ? p.change_24h.toFixed(2) : "0.00") + "%"}</td>
-                </tr>`;
-                })
-                .join("");
-            }
-          }
-
-          // MACRO OSCILLATORS & LEVELS
-          if (data.macro) {
-            const container = document
-              .getElementById("item-macro")
-              .querySelector(".grid-stack-item-content");
-            let contentHtml =
-              '<h3>👁️ Macro Watch</h3><div class="scroll-area" style="display:flex; flex-direction:column; gap:10px;">';
-
-            // 1. FUTURES & YIELDS (Table View)
-            if (data.macro.futures || data.macro.yields) {
-              contentHtml += `
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                    <!-- Futures -->
-                    <div style="background:rgba(0,0,0,0.02); padding:5px; border-radius:4px;">
-                        <div style="font-size:10px; font-weight:bold; margin-bottom:4px; opacity:0.7;">FUTURES</div>
-                        ${(data.macro.futures || [])
-                          .map((f) => {
-                            const color = f.change_pct >= 0 ? "var(--success)" : "var(--danger)";
-                            return `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;">
-                                <span>${f.symbol}</span>
-                                <span style="font-weight:bold;">${f.price.toLocaleString()}</span>
-                                <span style="color:${color}">${f.change_pct > 0 ? "+" : ""}${f.change_pct}%</span>
-                            </div>`;
-                          })
-                          .join("")}
-                    </div>
-                    <!-- Yields -->
-                    <div style="background:rgba(0,0,0,0.02); padding:5px; border-radius:4px;">
-                        <div style="font-size:10px; font-weight:bold; margin-bottom:4px; opacity:0.7;">YIELDS</div>
-                        ${(data.macro.yields || [])
-                          .map((y) => {
-                            const color = y.change_bps >= 0 ? "var(--danger)" : "var(--success)"; // Yield up = usually bad for risk assets
-                            return `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;">
-                                <span>${y.symbol}</span>
-                                <span style="font-weight:bold;">${y.value.toFixed(3)}%</span>
-                                <span style="color:${color}">${y.change_bps > 0 ? "+" : ""}${y.change_bps} bps</span>
-                            </div>`;
-                          })
-                          .join("")}
-                    </div>
-                </div>
-                <div style="height:1px; background:rgba(0,0,0,0.05); margin:0 5px;"></div>
-                `;
-            }
-
-            // 2. COT OSCILLATORS
-            if (data.macro.cot_data) {
-              contentHtml += '<div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">';
-              contentHtml += data.macro.cot_data
-                .map((m) => {
-                  const history = m.history.slice(-24);
-                  const last = history[history.length - 1];
-                  const color = last >= 0 ? "var(--success)" : "var(--danger)";
-                  const maxAbs = Math.max(...history.map(Math.abs), 1);
-
-                  const barsHtml = history
-                    .map((v) => {
-                      const pct = Math.min((Math.abs(v) / maxAbs) * 100, 100);
-                      const isPos = v >= 0;
-                      const barColor = isPos ? "var(--success)" : "var(--danger)";
-
-                      // VISUAL SPEC: Anchored to Zero Line
-                      // isPos: bottom: 50% (on line), grows up
-                      // !isPos: top: 50% (on line), grows down
-                      // Width 60% with auto margins for centering
-                      return `<div style="flex:1; position:relative; height:100%;">
-                          <div style="
-                            position: absolute;
-                            left: 20%; width: 60%;
-                            background: ${barColor};
-                            opacity: 1.0;
-                            border-radius: 1px;
-                            height: ${pct / 2}%;
-                            ${isPos ? "bottom: 50%;" : "top: 50%;"}
-                          "></div>
-                        </div>`;
-                    })
-                    .join("");
-
-                  return `<div style="background:var(--card-bg); border:1px solid rgba(0,0,0,0.05); padding:6px 8px; border-radius:6px; display:flex; flex-direction:column; gap:2px;">
-                      <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-size:11px; font-weight:bold; color:var(--text-secondary);">${m.asset}</span>
-                        <span style="font-size:11px; font-weight:bold; color:${color}">${last}</span>
-                      </div>
-                      
-                      <div style="height:36px; position:relative; width:100%; background:rgba(0,0,0,0.02); border-radius:2px;">
-                        <!-- Zero Line -->
-                        <div style="position:absolute; top:50%; width:100%; height:1px; background:rgba(0,0,0,0.2); z-index:0;"></div>
-                        
-                        <!-- Bars Container -->
-                        <div style="display:flex; width:100%; height:100%; gap:2px; z-index:1; padding:0 4px;">
-                           ${barsHtml}
-                        </div>
-                      </div>
-                    </div>`;
-                })
-                .join("");
-              contentHtml += "</div>";
-            }
-            contentHtml += "</div>"; // Close scroll-area
-
-            // Replace content safely
-            // Note: We are replacing the entire innerHTML of the content div, so we need to preserve H3 if we want it,
-            // but the snippet above includes H3.
-            container.innerHTML = contentHtml;
-          }
-
-          // PROPOSALS
-          if (data.proposals && data.proposals.length > 0) {
-            const propBody = document.getElementById("proposals-list");
-            if (propBody) {
-              propBody.innerHTML = data.proposals
-                .slice(0, 10)
-                .map((p) => {
-                  const statusColor =
-                    p.status === "EXECUTED" ? "var(--success)" : "var(--text-secondary)";
-                  return `<div class="compact-row" style="border-bottom:1px solid rgba(0,0,0,0.05); padding:4px 0;">
-                        <div style="display:flex; justify-content:space-between;">
-                          <span style="font-weight:bold;">${p.action} ${p.asset}</span>
-                          <span style="color:${statusColor}; font-size:9px; border:1px solid ${statusColor}; padding:0 3px; border-radius:3px;">${p.status}</span>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; color:var(--text-secondary);">
-                          <span>${p.size} @ ${p.price}</span>
-                          <span>${p.created_at || ""}</span>
-                        </div>
-                      </div>`;
-                })
-                .join("");
-            }
-          }
-
-          // NEWS
-          if (data.news && data.news.length > 0) {
-            const newsDiv = document.getElementById("market-news");
-            if (newsDiv) {
-              newsDiv.innerHTML = data.news
-                .slice(0, 8)
-                .map(
-                  (n) => `
-                <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
-                  <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:11px; line-height:1.2; font-weight: 500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%;" title="${n.headline}">${n.headline}</span>
-                    <div style="text-align:right;">
-                      <span style="font-size:9px; color:var(--text-secondary); display:block;">${n.timestamp ? n.timestamp.split("T")[1].split(".")[0] : ""}</span>
-                      <span style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : n.sentiment === "Bearish" ? "var(--danger)" : "var(--text-secondary)"}">${n.sentiment ? n.sentiment.toUpperCase() : ""}</span>
-                    </div>
-                  </div>
-                </div>`,
-                )
-                .join("");
-            }
+          if (data.portfolio) {
+            renderPortfolio(data.portfolio.aion, "port-aion");
+            renderPortfolio(data.portfolio.user, "port-user");
           }
         } catch (e) {
-          console.error("Fetch Data Error:", e);
+          console.error("Dashboard Sync Error:", e);
         }
       }
 
-      let grid = null;
-      let isLocked = false;
-
-      function toggleLock() {
-        isLocked = !isLocked;
-        grid.setStatic(isLocked);
-        localStorage.setItem("dashboard_locked", isLocked);
-        updateLockButton();
-      }
-
-      function updateLockButton() {
-        const btn = document.getElementById("btn-lock");
-        if (btn) {
-          btn.innerHTML = isLocked ? "🔒 Locked" : "🔓 Unlock";
-          btn.style.color = isLocked ? "var(--success)" : "var(--text-secondary)";
-          btn.style.borderColor = isLocked ? "var(--success)" : "rgba(0,0,0,0.2)";
-        }
-      }
-
+      // --- INIT ---
       document.addEventListener("DOMContentLoaded", () => {
-        // Check saved lock state
-        isLocked = localStorage.getItem("dashboard_locked") === "true";
-
-        grid = GridStack.init({
+        // 1. Init Grid
+        GridStack.init({
           float: true,
-          minRow: 1,
           cellHeight: 80,
-          margin: 10,
-          disableResize: false, // Will be overridden by setStatic
-          disableDrag: false,
+          minRow: 1,
+          margin: 8,
           column: 12,
-          staticGrid: isLocked, // Initialize with saved state
         });
 
-        updateLockButton();
+        // 2. Load Layout
+        // (Optional, if we want to restore positions)
 
-        // Smart Load
-        try {
-          const savedRaw = localStorage.getItem("dashboard_grid_layout");
-          if (savedRaw) {
-            const savedLayout = JSON.parse(savedRaw);
-            const hasModernIDs = savedLayout.some(
-              (item) => item.id && (item.id === "item-news" || item.id === "item-macro"),
-            );
-            // Reset if corrupted
-            if (hasModernIDs) {
-              savedLayout.forEach((node) => {
-                const el = document.getElementById(node.id);
-                if (el && el.gridstackNode) {
-                  grid.update(el, { x: node.x, y: node.y, w: node.w, h: node.h });
-                }
-              });
-            } else {
-              localStorage.removeItem("dashboard_grid_layout");
-            }
-          }
-        } catch (e) {
-          localStorage.removeItem("dashboard_grid_layout");
-        }
+        // 3. Start Loops
+        updateClock();
+        setInterval(updateClock, 1000);
 
-        grid.on("change", function (event, items) {
-          const state = grid.save(false);
-          localStorage.setItem("dashboard_grid_layout", JSON.stringify(state));
-        });
-
-        fetchData();
-        setInterval(fetchData, 3000);
+        runCycle();
+        setInterval(runCycle, 2000);
       });
     </script>
   </body>

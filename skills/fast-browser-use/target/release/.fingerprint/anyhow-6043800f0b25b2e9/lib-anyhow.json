@@ -1,0 +1,20 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"default\", \"std\"]",
+  "declared_features": "[\"backtrace\", \"default\", \"std\"]",
+  "target": 1563897884725121975,
+  "profile": 2040997289075261528,
+  "path": 12248003802602309449,
+  "deps": [[12873631326246480134, "build_script_build", false, 12785696409787400284]],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/anyhow-6043800f0b25b2e9/dep-lib-anyhow",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}

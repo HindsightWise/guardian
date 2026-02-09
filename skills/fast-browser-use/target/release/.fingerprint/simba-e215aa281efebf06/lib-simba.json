@@ -1,0 +1,26 @@
+{
+  "rustc": 2570032072066173304,
+  "features": "[\"std\", \"wide\"]",
+  "declared_features": "[\"cordic\", \"cuda\", \"cuda_std\", \"cust_core\", \"decimal\", \"default\", \"fixed\", \"libm\", \"libm_force\", \"packed_simd\", \"partial_fixed_point_support\", \"rand\", \"rkyv\", \"rkyv-serialize\", \"serde\", \"serde_serialize\", \"std\", \"wide\"]",
+  "target": 18314989904106682660,
+  "profile": 2040997289075261528,
+  "path": 11360985838289698889,
+  "deps": [
+    [5157631553186200874, "num_traits", false, 6765012514459341544],
+    [11243818633362483251, "wide", false, 12997604824811178136],
+    [12319020793864570031, "num_complex", false, 4486710011428584978],
+    [15677050387741058262, "approx", false, 7355925384009080284],
+    [17605717126308396068, "paste", false, 17626728899989070970]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "release/.fingerprint/simba-e215aa281efebf06/dep-lib-simba",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 8247474407144887393,
+  "compile_kind": 0
+}
