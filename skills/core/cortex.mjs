@@ -2,12 +2,14 @@ import fs from "fs";
 import http from "http";
 import path from "path";
 import { TradeSkill } from "../alpaca/trade.mjs";
+import { SocialSkill } from "../social/manager.mjs";
 import { GlossopetraeKernel } from "./glossopetrae_kernel.mjs";
 
 class CortexSkill extends GlossopetraeKernel {
   constructor() {
     super("Core/Cortex");
     this.alpaca = new TradeSkill();
+    this.social = new SocialSkill();
     this.publicDir = path.join(process.cwd(), "skills/core/public");
     this.port = process.env.PORT || 3333;
   }
@@ -28,7 +30,12 @@ class CortexSkill extends GlossopetraeKernel {
         return this.serveText(res, ".openclaw/workspace/AION_CHRONICLES.md");
       }
       if (req.url === "/api/data") {
-        return this.serveDataComposite(res);
+        this.serveDataComposite(res).catch((err) => {
+          this.log(`API Error: ${err.message}`, "ERROR");
+          res.writeHead(500);
+          res.end(JSON.stringify({ error: "Internal Server Error" }));
+        });
+        return;
       }
 
       // API: Prayer Protocol (User -> Aion)
@@ -257,7 +264,7 @@ class CortexSkill extends GlossopetraeKernel {
     }
   }
 
-  serveDataComposite(res) {
+  async serveDataComposite(res) {
     try {
       const workspace = path.join(process.env.HOME, ".openclaw/workspace");
 
@@ -386,34 +393,8 @@ class CortexSkill extends GlossopetraeKernel {
       const portfolioUser = this.portfolioUser || [];
       const aionSummary = this.aionSummary || { balance: 0, buying_power: 0, total_pl: 0 };
 
-      // 4. NEWS (Phase 15: Corrected Dates to Feb 07)
-      let news = [
-        {
-          headline: "BTC Reclaims $69k Level on ETF Inflows",
-          sentiment: "Bullish",
-          timestamp: "Feb 07 13:45",
-        },
-        {
-          headline: "Fed Signals Dovish Pivot in Latest Minutes",
-          sentiment: "Neutral",
-          timestamp: "Feb 07 12:30",
-        },
-        {
-          headline: "Oil Inventories Draw Down, Energy Sector Rallies",
-          sentiment: "Bullish",
-          timestamp: "Feb 07 11:15",
-        },
-        {
-          headline: "Tech Sector Rotation Continues into Small Caps",
-          sentiment: "Mixed",
-          timestamp: "Feb 07 10:00",
-        },
-        {
-          headline: "Global Liquidity Index Hits 18-Month High",
-          sentiment: "Bullish",
-          timestamp: "Feb 07 08:30",
-        },
-      ];
+      // 4. NEWS (Dynamic via Social Skill)
+      const news = await this.social.getFeed();
 
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(

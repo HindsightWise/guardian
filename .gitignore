@@ -79,3 +79,7 @@ memory/
 # Unignore critical skills
 !skills/core/
 !skills/memory/
+
+# Credentials
+twitter_auth.json
+**/twitter_auth.json
