@@ -22,8 +22,17 @@ class CircadianSkill extends GlossopetraeKernel {
 
     this.log(`Heartbeat: ${now.toLocaleTimeString()} (Night Mode: ${isNight})`);
 
-    // Check if we need to switch modes or trigger events
-    // Logic from original circadian.js would go here
+    // 05:00 AM - Morning Narrative
+    if (hour === 5 && now.getMinutes() < 15) {
+      // Ensure it runs once in the 5AM hour
+      if (!this.lastNarrative || this.lastNarrative !== now.getDate()) {
+        this.log("Triggering Morning Narrative Scan...");
+        import("../research/narrative.mjs").then(({ NarrativeSkill }) => {
+          new NarrativeSkill().wakeUp();
+        });
+        this.lastNarrative = now.getDate();
+      }
+    }
   }
 }
 

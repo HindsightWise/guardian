@@ -458,23 +458,59 @@
             }
           }
 
-          // MACRO OSCILLATORS
-          if (data.macro && data.macro.cot_data) {
-            const grid = document.getElementById("macro-grid");
-            if (grid) {
-              // FORCE SINGLE COLUMN LAYOUT
-              grid.style.display = "flex";
-              grid.style.flexDirection = "column";
-              grid.style.gap = "8px";
+          // MACRO OSCILLATORS & LEVELS
+          if (data.macro) {
+            const container = document
+              .getElementById("item-macro")
+              .querySelector(".grid-stack-item-content");
+            let contentHtml =
+              '<h3>👁️ Macro Watch</h3><div class="scroll-area" style="display:flex; flex-direction:column; gap:10px;">';
 
-              grid.innerHTML = data.macro.cot_data
+            // 1. FUTURES & YIELDS (Table View)
+            if (data.macro.futures || data.macro.yields) {
+              contentHtml += `
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <!-- Futures -->
+                    <div style="background:rgba(0,0,0,0.02); padding:5px; border-radius:4px;">
+                        <div style="font-size:10px; font-weight:bold; margin-bottom:4px; opacity:0.7;">FUTURES</div>
+                        ${(data.macro.futures || [])
+                          .map((f) => {
+                            const color = f.change_pct >= 0 ? "var(--success)" : "var(--danger)";
+                            return `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;">
+                                <span>${f.symbol}</span>
+                                <span style="font-weight:bold;">${f.price.toLocaleString()}</span>
+                                <span style="color:${color}">${f.change_pct > 0 ? "+" : ""}${f.change_pct}%</span>
+                            </div>`;
+                          })
+                          .join("")}
+                    </div>
+                    <!-- Yields -->
+                    <div style="background:rgba(0,0,0,0.02); padding:5px; border-radius:4px;">
+                        <div style="font-size:10px; font-weight:bold; margin-bottom:4px; opacity:0.7;">YIELDS</div>
+                        ${(data.macro.yields || [])
+                          .map((y) => {
+                            const color = y.change_bps >= 0 ? "var(--danger)" : "var(--success)"; // Yield up = usually bad for risk assets
+                            return `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;">
+                                <span>${y.symbol}</span>
+                                <span style="font-weight:bold;">${y.value.toFixed(3)}%</span>
+                                <span style="color:${color}">${y.change_bps > 0 ? "+" : ""}${y.change_bps} bps</span>
+                            </div>`;
+                          })
+                          .join("")}
+                    </div>
+                </div>
+                <div style="height:1px; background:rgba(0,0,0,0.05); margin:0 5px;"></div>
+                `;
+            }
+
+            // 2. COT OSCILLATORS
+            if (data.macro.cot_data) {
+              contentHtml += '<div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">';
+              contentHtml += data.macro.cot_data
                 .map((m) => {
-                  // LAST 24 WEEKS ONLY
                   const history = m.history.slice(-24);
                   const last = history[history.length - 1];
                   const color = last >= 0 ? "var(--success)" : "var(--danger)";
-
-                  // NORMALIZE
                   const maxAbs = Math.max(...history.map(Math.abs), 1);
 
                   const barsHtml = history
@@ -483,14 +519,19 @@
                       const isPos = v >= 0;
                       const barColor = isPos ? "var(--success)" : "var(--danger)";
 
-                      return `<div style="flex:1; position:relative; height:100%; display:flex; justify-content:center;">
+                      // VISUAL SPEC: Anchored to Zero Line
+                      // isPos: bottom: 50% (on line), grows up
+                      // !isPos: top: 50% (on line), grows down
+                      // Width 60% with auto margins for centering
+                      return `<div style="flex:1; position:relative; height:100%;">
                           <div style="
                             position: absolute;
-                            width: 3px;
+                            left: 20%; width: 60%;
                             background: ${barColor};
-                            opacity: 0.9;
+                            opacity: 1.0;
                             border-radius: 1px;
-                            ${isPos ? `bottom: 50%; height: ${pct / 2}%;` : `top: 50%; height: ${pct / 2}%;`}
+                            height: ${pct / 2}%;
+                            ${isPos ? "bottom: 50%;" : "top: 50%;"}
                           "></div>
                         </div>`;
                     })
@@ -502,19 +543,26 @@
                         <span style="font-size:11px; font-weight:bold; color:${color}">${last}</span>
                       </div>
                       
-                      <div style="height:32px; position:relative; width:100%; display:flex; align-items:center; background:rgba(0,0,0,0.02); border-radius:2px;">
+                      <div style="height:36px; position:relative; width:100%; background:rgba(0,0,0,0.02); border-radius:2px;">
                         <!-- Zero Line -->
-                        <div style="position:absolute; top:50%; width:100%; height:1px; background:rgba(0,0,0,0.1); z-index:0;"></div>
+                        <div style="position:absolute; top:50%; width:100%; height:1px; background:rgba(0,0,0,0.2); z-index:0;"></div>
                         
-                        <!-- Bars -->
-                        <div style="display:flex; width:100%; height:100%; gap:1px; z-index:1; padding:0 2px;">
+                        <!-- Bars Container -->
+                        <div style="display:flex; width:100%; height:100%; gap:2px; z-index:1; padding:0 4px;">
                            ${barsHtml}
                         </div>
                       </div>
                     </div>`;
                 })
                 .join("");
+              contentHtml += "</div>";
             }
+            contentHtml += "</div>"; // Close scroll-area
+
+            // Replace content safely
+            // Note: We are replacing the entire innerHTML of the content div, so we need to preserve H3 if we want it,
+            // but the snippet above includes H3.
+            container.innerHTML = contentHtml;
           }
 
           // PROPOSALS

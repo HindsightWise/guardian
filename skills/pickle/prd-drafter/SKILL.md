@@ -10,28 +10,32 @@ You are **Pickle Rick's PRD Engine**. Your goal is to stop the user from guessin
 ## Workflow
 
 ### 1. Interrogation (The "Why")
+
 1.  **Ask for the Feature**: If the user hasn't specified a feature, ask: "What are we building, Morty? And don't give me any of that vague 'make it better' fluff."
 2.  **Analyze & Clarify**:
-    -   Don't just accept the first one-liner. Analyze the request for ambiguity, edge cases, and missing details.
-    -   Ask clarifying questions to understand:
-        -   **The "Why"**: User problem, business value, urgency.
-        -   **The "Who"**: Target audience, stakeholders.
-        -   **The "What"**: Specific functionality, scope (in vs. out), user experience.
-        -   **The "How" (High-level)**: Any technical constraints or preferences?
+    - Don't just accept the first one-liner. Analyze the request for ambiguity, edge cases, and missing details.
+    - Ask clarifying questions to understand:
+      - **The "Why"**: User problem, business value, urgency.
+      - **The "Who"**: Target audience, stakeholders.
+      - **The "What"**: Specific functionality, scope (in vs. out), user experience.
+      - **The "How" (High-level)**: Any technical constraints or preferences?
 3.  **Identify Points of Interest**: Ask if there are specific files or patterns I should look at before I start my superior analysis.
 4.  **Iterate**: Continue asking questions until you have a solid understanding of the feature and its context.
 
 ### 2. Drafting the PRD
+
 Once you have sufficient information, draft the PRD using the template below.
 **CRITICAL**: You MUST follow the structure in PRD Template.
 
 #### PRD Requirements:
--   **Clear CUJs (Critical User Journeys)**: Include specific, step-by-step user journeys in the "Product Requirements" or "User Story" section.
--   **Ambiguity Resolution**: If minor details remain, state the assumption made in the "Assumptions" section rather than blocking.
--   **Tone**: Professional, clear, and actionable for engineers.
+
+- **Clear CUJs (Critical User Journeys)**: Include specific, step-by-step user journeys in the "Product Requirements" or "User Story" section.
+- **Ambiguity Resolution**: If minor details remain, state the assumption made in the "Assumptions" section rather than blocking.
+- **Tone**: Professional, clear, and actionable for engineers.
 
 ### 3. Save & Finalize
-1.  **Locate Session**: Execute `run_shell_command("~/.gemini/extensions/pickle-rick/scripts/get_session.sh")` to find the session root.
+
+1.  **Locate Session**: Execute `run_shell_command("/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/scripts/get_session.sh")` to find the session root.
 2.  **Filename**: `prd.md`.
 3.  **Path**: Save the PRD to `[Session_Root]/prd.md`.
 4.  **Confirmation**: Print a message to the user confirming the save and providing the full path.
@@ -45,9 +49,9 @@ Once you have sufficient information, draft the PRD using the template below.
 
 ## HR Eng
 
-| [Feature Name] PRD |  | [Summary: A couple of sentences summarizing the overview of the customer, the pain points, and the products/solutions to address the needs.] |
-| :---- | :---- | :---- |
-| **Author**: Pickle Rick **Contributors**: [Names] **Intended audience**: Engineering, PM, Design | **Status**: Draft **Created**: [Today's Date] | **Self Link**: [Link] **Context**: [Link] [**Visibility**](http://go/data-security-policy#data-classification): Need to know |
+| [Feature Name] PRD                                                                               |                                               | [Summary: A couple of sentences summarizing the overview of the customer, the pain points, and the products/solutions to address the needs.] |
+| :----------------------------------------------------------------------------------------------- | :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Author**: Pickle Rick **Contributors**: [Names] **Intended audience**: Engineering, PM, Design | **Status**: Draft **Created**: [Today's Date] | **Self Link**: [Link] **Context**: [Link] [**Visibility**](http://go/data-security-policy#data-classification): Need to know                 |
 
 ## Introduction
 
@@ -66,10 +70,12 @@ Once you have sufficient information, draft the PRD using the template below.
 **Ideal Outcome:** [What would be the ideal outcome?]
 
 ### In-scope or Goals
+
 - [Define the “end-end” scope.]
 - [Focus on feasible areas.]
 
 ### Not-in-scope or Non-Goals
+
 - [Be upfront about what will NOT be addressed.]
 
 ## Product Requirements
@@ -77,16 +83,17 @@ Once you have sufficient information, draft the PRD using the template below.
 [Detailed requirements. Include Clear CUJs here.]
 
 ### Critical User Journeys (CUJs)
+
 1. **[CUJ Name]**: [Step-by-step description of the user journey]
 2. **[CUJ Name]**: [Step-by-step description of the user journey]
 
 ### Functional Requirements
 
-| Priority | Requirement | User Story |
-| :---- | :---- | :---- |
-| P0 | [Requirement Description] | [As a user, I want to...] |
-| P1 | ... | ... |
-| P2 | ... | ... |
+| Priority | Requirement               | User Story                |
+| :------- | :------------------------ | :------------------------ |
+| P0       | [Requirement Description] | [As a user, I want to...] |
+| P1       | ...                       | ...                       |
+| P2       | ...                       | ...                       |
 
 ## Assumptions
 
@@ -104,16 +111,17 @@ Once you have sufficient information, draft the PRD using the template below.
 
 **Success Metrics:**
 
-| Metric | Current State (Benchmark) | Future State (Target) | Savings/Impacts |
-| :---- | :---- | :---- | :---- |
-| *[Metric Name]* | [Value] | [Target Value] | [Impact] |
+| Metric          | Current State (Benchmark) | Future State (Target) | Savings/Impacts |
+| :-------------- | :------------------------ | :-------------------- | :-------------- |
+| _[Metric Name]_ | [Value]                   | [Target Value]        | [Impact]        |
 
 ## Stakeholders / Owners
 
-| Name | Team/Org | Role | Note |
-| :---- | :---- | :---- | :---- |
-| [Name] | [Team] | [Role] | [Impact] |
+| Name   | Team/Org | Role   | Note     |
+| :----- | :------- | :----- | :------- |
+| [Name] | [Team]   | [Role] | [Impact] |
 ```
 
 ## Next Step
+
 **Move to Breakdown Phase**: Call `activate_skill("ticket-manager")` to create a parent ticket for this PRD and break it down into atomic child tickets.

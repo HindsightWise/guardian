@@ -12,7 +12,7 @@ This replaces the cloud-based Linear MCP workflow.
 ## Core Concepts
 
 1.  **Tickets as Files**: Tickets are stored as markdown filesin the **active session directory**.
-    - **Locate Session**: Execute `~/.gemini/extensions/pickle-rick/scripts/get_session.sh` to find the session root.
+    - **Locate Session**: Execute `/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/scripts/get_session.sh` to find the session root.
     - **Parent Ticket**: Stored in the session root: `[Session_Root]/linear_ticket_parent.md`.
     - **Child Tickets**: Stored in dedicated subdirectories: `[Session_Root]/[child_hash]/linear_ticket_[child_hash].md`.
     - **Format**: Frontmatter for metadata, Markdown body for content.
@@ -22,7 +22,7 @@ This replaces the cloud-based Linear MCP workflow.
 
 ## Initial Setup & Interaction
 
-First, execute `run_shell_command("~/.gemini/extensions/pickle-rick/scripts/get_session.sh")` to determine the working directory.
+First, execute `run_shell_command("/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/scripts/get_session.sh")` to determine the working directory.
 
 ### For general requests:
 
@@ -52,8 +52,8 @@ Then wait for the user's input.
 When referencing thoughts documents, always provide the relative local path in
 the `links` frontmatter section:
 
-- Use relative paths from the workspace root: `~/.gemini/extensions/pickle-rick/thoughts/shared/...`,
-  `~/.gemini/extensions/pickle-rick/thoughts/galzahavi/...`, `~/.gemini/extensions/pickle-rick/thoughts/global/...`.
+- Use relative paths from the workspace root: `/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/thoughts/shared/...`,
+  `/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/thoughts/galzahavi/...`, `/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/thoughts/global/...`.
 - Do NOT convert these to GitHub URLs. Keep them as local file paths.
 
 ### Default Values
@@ -100,9 +100,11 @@ assignee: [User Name]
 # Description
 
 ## Problem to solve
+
 [Clear statement of the user problem or need]
 
 ## Solution
+
 [Proposed approach or solution outline]
 
 # Discussion/Comments
@@ -118,7 +120,7 @@ assignee: [User Name]
 
 1. **Locate and read the thoughts document:**
    - If given a path, read the document directly
-   - If given a topic/keyword, execute `run_shell_command("grep -r [keyword] ~/.gemini/extensions/pickle-rick/thoughts/")` to find relevant documents.
+   - If given a topic/keyword, execute `run_shell_command("grep -r [keyword] /Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/thoughts/")` to find relevant documents.
    - If multiple matches found, show list and ask user to select
    - Create a `WriteTodosTool` list to track: Read document → Analyze content →
      Draft ticket → Get user input → Create ticket
@@ -156,7 +158,7 @@ assignee: [User Name]
    [Any specific technical approach or steps outlined]
 
    ## References
-   - Source: `~/.gemini/extensions/pickle-rick/thoughts/[path/to/document.md]` ([Local File])
+   - Source: `/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/thoughts/[path/to/document.md]` ([Local File])
    - Related code: [any file:line references]
    - Parent ticket: [if applicable]
 
@@ -172,7 +174,7 @@ assignee: [User Name]
    - Should we include more/less implementation detail?
 
    **CRITICAL RULE**: If the user asks for a ticket and only gives implementation details,
-   you MUST ask: *"To write a good ticket, please explain the problem you're trying to solve from a user perspective"*.
+   you MUST ask: _"To write a good ticket, please explain the problem you're trying to solve from a user perspective"_.
 
    Note: Ticket will be created in "Triage" status by default.
 
@@ -221,26 +223,26 @@ assignee: [User Name]
 
 When tasked with breaking down a PRD or large task:
 
-1.  **Identify Session Root**: Execute `run_shell_command("~/.gemini/extensions/pickle-rick/scripts/get_session.sh")`.
+1.  **Identify Session Root**: Execute `run_shell_command("/Users/zerbytheboss/Desktop/OpenClaw/openclaw/tools/pickle-rick/scripts/get_session.sh")`.
 
 2.  **Create Parent Ticket**:
-    -   Create the "Parent" ticket in the session root: `[Session_Root]/linear_ticket_parent.md`.
-    -   Status: "Backlog" or "Research Needed".
-    -   Title: "[Epic] [Feature Name]".
-    -   Links: Add link to PRD.
+    - Create the "Parent" ticket in the session root: `[Session_Root]/linear_ticket_parent.md`.
+    - Status: "Backlog" or "Research Needed".
+    - Title: "[Epic] [Feature Name]".
+    - Links: Add link to PRD.
 
 3.  **Create Child Tickets**:
-    -   Break the PRD into atomic implementation tasks (e.g., "Research", "Backend API", "Frontend UI", "Integration").
-    -   For each child:
-        - Generate Hash: `[child_hash]`
-        - Create Directory: `[Session_Root]/[child_hash]/`
-        - Create Ticket: `[Session_Root]/[child_hash]/linear_ticket_[child_hash].md`
-    -   **Linkage**: In the `links` section of each child ticket, add:
-        ```yaml
-        links:
-          - url: ../linear_ticket_parent.md
-            title: Parent Ticket
-        ```
+    - Break the PRD into atomic implementation tasks (e.g., "Research", "Backend API", "Frontend UI", "Integration").
+    - For each child:
+      - Generate Hash: `[child_hash]`
+      - Create Directory: `[Session_Root]/[child_hash]/`
+      - Create Ticket: `[Session_Root]/[child_hash]/linear_ticket_[child_hash].md`
+    - **Linkage**: In the `links` section of each child ticket, add:
+      ```yaml
+      links:
+        - url: ../linear_ticket_parent.md
+          title: Parent Ticket
+      ```
 
 4.  **Confirm**: List the created tickets to the user.
 
@@ -316,7 +318,9 @@ Remember: The goal is to help a future reader (including yourself) quickly
 understand what matters about this update.
 
 ## Next Step
+
 **Start the Loop**:
+
 1. List all created child tickets in `[Session_Root]`.
 2. Select the highest priority ticket that is **NOT** 'Done'.
 3. Call `activate_skill("code-researcher")` for that ticket.

@@ -696,6 +696,43 @@ h1 {
   color: var(--success);
 }
 
-.trend-down {
   color: var(--danger);
+}
+
+/* FIX: Ensure Resize Handles are Visible */
+.grid-stack-item .ui-resizable-handle {
+  display: block;
+  z-index: 100 !important;
+}
+
+.grid-stack-item .ui-resizable-se {
+  display: none;
+  /* Hidden by default, shown on hover */
+  width: 15px !important;
+  height: 15px !important;
+  right: 4px !important;
+  bottom: 4px !important;
+  cursor: se-resize;
+}
+
+.grid-stack-item:hover .ui-resizable-se {
+  display: block !important;
+}
+
+/* Add visual indicator for resize handle */
+.grid-stack-item .ui-resizable-se::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--text-secondary);
+  border-bottom: 2px solid var(--text-secondary);
+  opacity: 0.5;
+}
+
+.grid-stack-item .ui-resizable-se:hover::after {
+  opacity: 1;
+  border-color: var(--accent);
 }
