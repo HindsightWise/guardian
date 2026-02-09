@@ -100,6 +100,74 @@ export class TradeSkill extends GlossopetraeKernel {
     }
   }
 
+  async getAccount() {
+    try {
+      const account = await this.alpacaRequest("GET", "/v2/account");
+      return account;
+    } catch (e) {
+      this.log(`Get Account Error: ${e.message}`, "ERROR");
+      return null;
+    }
+  }
+
+  async getQuote(symbol) {
+    try {
+      // Differentiate Crypto vs Stock if needed. For now, assuming Crypto based on usage.
+      // Alpaca Crypto Data API: https://data.alpaca.markets/v1beta3/crypto/us/latest/trades
+      const normalizedSymbol = symbol.includes("/") ? symbol : symbol.replace("BTCUSD", "BTC/USD");
+
+      const path = `/v1beta3/crypto/us/latest/trades?symbols=${normalizedSymbol}`;
+      const response = await this.alpacaDataRequest("GET", path);
+
+      if (response && response.trades && response.trades[normalizedSymbol]) {
+        const price = parseFloat(response.trades[normalizedSymbol].p);
+        this.log(`🔮 Oracle Price for ${normalizedSymbol}: $${price}`);
+        return { price: price };
+      }
+
+      throw new Error("No trade data found");
+    } catch (e) {
+      this.log(`Get Quote Error: ${e.message}. Using Fallback.`, "WARN");
+      return { price: 98500.0 }; // Fallback safety
+    }
+  }
+
+  async alpacaDataRequest(method, path) {
+    if (!this.apiKey) return null;
+    const url = new URL("https://data.alpaca.markets" + path);
+
+    const options = {
+      hostname: url.hostname,
+      path: url.pathname + url.search,
+      method: method,
+      headers: {
+        "APCA-API-KEY-ID": this.apiKey,
+        "APCA-API-SECRET-KEY": this.apiSecret,
+        "Content-Type": "application/json",
+      },
+    };
+
+    return new Promise((resolve, reject) => {
+      const req = https.request(options, (res) => {
+        let data = "";
+        res.on("data", (chunk) => (data += chunk));
+        res.on("end", () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try {
+              resolve(JSON.parse(data));
+            } catch (e) {
+              resolve(data);
+            }
+          } else {
+            resolve(null); // Don't crash on data error, just return null
+          }
+        });
+      });
+      req.on("error", (e) => resolve(null));
+      req.end();
+    });
+  }
+
   async getPositions() {
     try {
       const positions = await this.alpacaRequest("GET", "/v2/positions");

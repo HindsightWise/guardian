@@ -1,8 +1,10 @@
 import fs from "fs";
 import http from "http";
 import path from "path";
+import { OverlordSkill } from "../alpaca/overlord.mjs";
 import { TradeSkill } from "../alpaca/trade.mjs";
 import { SocialSkill } from "../social/manager.mjs";
+import { PublisherSkill } from "../social/publisher.mjs";
 import { GlossopetraeKernel } from "./glossopetrae_kernel.mjs";
 
 class CortexSkill extends GlossopetraeKernel {
@@ -10,6 +12,8 @@ class CortexSkill extends GlossopetraeKernel {
     super("Core/Cortex");
     this.alpaca = new TradeSkill();
     this.social = new SocialSkill();
+    this.publisher = new PublisherSkill();
+    this.overlord = new OverlordSkill();
     this.publicDir = path.join(process.cwd(), "skills/core/public");
     this.port = process.env.PORT || 3333;
   }
@@ -90,6 +94,10 @@ class CortexSkill extends GlossopetraeKernel {
     // START MARKET DATA LOOP
     this.initMarketData();
 
+    // START OVERLORD (Strategy)
+    // Run appropriately - startLoop is infinite, so don't await it if it blocks
+    this.overlord.startLoop().catch((e) => this.log(`Overlord Died: ${e.message}`, "ERROR"));
+
     server.listen(this.port, () => {
       this.log(`Server running at http://localhost:${this.port}/`);
     });
@@ -123,24 +131,25 @@ class CortexSkill extends GlossopetraeKernel {
       },
     ];
 
-    this.portfolioUser = [
-      { symbol: "AMBA", qty: 25, cost_basis: 80.75, current_price: 63.01, prev_close: 64.0 },
-      { symbol: "ATHR", qty: 900, cost_basis: 6.99, current_price: 6.5, prev_close: 6.75 },
-      { symbol: "BTBT", qty: 255, cost_basis: 2.54, current_price: 3.8, prev_close: 3.65 },
-      { symbol: "CANOF", qty: 40000, cost_basis: 0.29, current_price: 0.25, prev_close: 0.26 },
-      { symbol: "FNV", qty: 20, cost_basis: 189.96, current_price: 195.0, prev_close: 192.5 },
-      { symbol: "HE", qty: 450, cost_basis: 11.02, current_price: 9.5, prev_close: 9.75 },
-      { symbol: "ITRI", qty: 150, cost_basis: 104.96, current_price: 115.0, prev_close: 112.0 },
-      { symbol: "MSTR", qty: 87, cost_basis: 369.58, current_price: 380.0, prev_close: 375.0 },
-      { symbol: "O", qty: 160, cost_basis: 60.6, current_price: 62.5, prev_close: 62.0 },
-      { symbol: "TGT", qty: 100, cost_basis: 102.65, current_price: 110.0, prev_close: 108.5 },
-      { symbol: "TMQ", qty: 854, cost_basis: 4.98, current_price: 5.25, prev_close: 5.1 },
-      { symbol: "TSLA", qty: 135, cost_basis: 270.34, current_price: 285.0, prev_close: 280.0 },
-      { symbol: "TSM", qty: 14, cost_basis: 234.69, current_price: 240.0, prev_close: 238.0 },
-      { symbol: "BSOL", qty: 600, cost_basis: 20.59, current_price: 22.0, prev_close: 21.5 },
-      { symbol: "MSTY", qty: 250, cost_basis: 77.35, current_price: 80.0, prev_close: 79.0 },
-      { symbol: "VNQ", qty: 100, cost_basis: 90.32, current_price: 92.5, prev_close: 91.0 },
-    ];
+    // Load User Portfolio from File
+    const userPortPath = path.join(
+      process.env.HOME,
+      ".openclaw/workspace/AION_USER_PORTFOLIO.json",
+    );
+    if (fs.existsSync(userPortPath)) {
+      try {
+        this.portfolioUser = JSON.parse(fs.readFileSync(userPortPath, "utf8"));
+        // Ensure prev_close is set if missing (simulate)
+        this.portfolioUser.forEach((p) => {
+          if (!p.prev_close) p.prev_close = p.current_price * 0.98; // Mock prev close if missing
+        });
+      } catch (e) {
+        this.log(`Failed to load User Portfolio: ${e.message}`, "ERROR");
+        this.portfolioUser = [];
+      }
+    } else {
+      this.portfolioUser = [];
+    }
 
     // Initial Calc
     this.calculateMetrics();
@@ -155,7 +164,10 @@ class CortexSkill extends GlossopetraeKernel {
     if (this.alpaca && this.alpaca.apiKey) {
       try {
         const livePositions = await this.alpaca.getPositions();
-        if (livePositions && livePositions.length > 0) {
+        const account = await this.alpaca.getAccount();
+
+        // Update User Portfolio (All Assets)
+        if (livePositions) {
           this.portfolioUser = livePositions.map((p) => ({
             symbol: p.symbol,
             qty: parseFloat(p.qty),
@@ -167,32 +179,59 @@ class CortexSkill extends GlossopetraeKernel {
             change_24h: parseFloat((p.change_today * 100).toFixed(2)),
           }));
         }
+
+        // Update Aion Portfolio (Subset: Cash + BTC)
+        // We define Aion's view as: Cash + BTC Position
+        this.portfolioAion = [];
+
+        // Add Cash
+        if (account) {
+          this.portfolioAion.push({
+            symbol: "CASH",
+            qty: parseFloat(account.cash),
+            cost_basis: 1.0,
+            current_price: 1.0,
+            market_value: parseFloat(account.cash),
+            pl_pct: 0,
+            change_24h: 0,
+          });
+        }
+
+        // Add BTC if held
+        if (livePositions) {
+          const btc = livePositions.find((p) => p.symbol === "BTCUSD" || p.symbol === "BTC/USD");
+          if (btc) {
+            this.portfolioAion.push({
+              symbol: "BTC",
+              qty: parseFloat(btc.qty),
+              cost_basis: parseFloat(btc.avg_entry_price),
+              current_price: parseFloat(btc.current_price),
+              market_value: parseFloat(btc.market_value),
+              pl_pct: parseFloat((btc.unrealized_plpc * 100).toFixed(2)),
+              change_24h: parseFloat((btc.change_today * 100).toFixed(2)),
+            });
+          }
+        }
       } catch (e) {
         // Silent fail or low-level log to avoid spamming if API allows errors
         // this.log(`Alpaca Error: ${e.message}`, "WARN");
       }
     }
 
-    // 2. Simulate Aion's Assets (BTC) - random walk for now
-    const randomWalk = (price) => {
-      const change = price * (Math.random() - 0.5) * 0.002;
-      return price + change;
-    };
+    // 2. Fallback / Simulation (Only if Alpaca is missing)
+    if (!this.alpaca || !this.alpaca.apiKey) {
+      // Simulate Aion's Assets (BTC) - random walk for now
+      const randomWalk = (price) => {
+        const change = price * (Math.random() - 0.5) * 0.002;
+        return price + change;
+      };
 
-    this.portfolioAion.forEach((p) => {
-      if (p.symbol !== "CASH") {
-        p.current_price = randomWalk(p.current_price);
-      }
-    });
-
-    // If Alpaca failed or returned empty (and we want a fallback), we could simulate user data here.
-    // But let's assume if Alpaca is configured, we want REAL data or EMPTY data.
-    // If NO Alpaca keys, we might want to keep the mock data from init?
-    // For now, if portfolioUser is still the initial mock data, we act on it to keep it alive if no live data.
-    // A simple check: if we didn't update from Alpaca, maybe just random walk the existing mock data?
-    // Let's only random walk if we DIDNT get live data just now.
-    // Simplification: logic above REPLACES portfolioUser. If it fails, portfolioUser remains as is.
-    // So if it remains static mock, we should animate it.
+      this.portfolioAion.forEach((p) => {
+        if (p.symbol !== "CASH") {
+          p.current_price = randomWalk(p.current_price);
+        }
+      });
+    }
 
     // Calculate Totals
     this.calculateMetrics();

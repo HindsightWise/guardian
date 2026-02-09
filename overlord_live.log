@@ -1,0 +1,11 @@
+[01:04:30] [🥒] [Alpaca/Overlord] Kernel Initialized.
+[01:04:30] [🥒] [Alpaca/Trade] Kernel Initialized.
+[01:04:30] [🥒] [Alpaca/Overlord] Overlord Awakening... System Online.
+[01:04:30] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:04:30] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:04:30] [🥒] [Alpaca/Overlord] 💰 Cash: $73352.09 | Sentiment: BULLISH
+[01:04:30] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $3667.60 to BTCUSD (PAPER).
+[01:04:30] [🥒] [Alpaca/Trade] Executing Order: BUY 0.03723 BTCUSD...
+[01:04:30] [🥒] [Alpaca/Trade] ✅ Order Placed: 62ef56a7-ac11-42e9-9885-ad8b13e5b014 (pending_new)
+[01:04:30] [🥒] [Alpaca/Overlord] Cycle Complete. Returning to slumber.
+[01:04:30] [🥒] [Alpaca/Overlord] Sleeping for 60s...

@@ -3,6 +3,7 @@ import path from "path";
 import { TwitterApi } from "twitter-api-v2";
 import { fileURLToPath } from "url";
 import { GlossopetraeKernel } from "../core/glossopetrae_kernel.mjs";
+import { SentimentSkill } from "./sentiment.mjs";
 
 /**
  * [🥒] Social Skill (The Voice)
@@ -16,6 +17,7 @@ export class SocialSkill extends GlossopetraeKernel {
   constructor() {
     super("Social/Twitter");
     this.client = null;
+    this.sentiment = new SentimentSkill();
     this.mode = "SIMULATION"; // Default to sim until proven live
     this.logPath = path.join(process.env.HOME, ".openclaw/workspace/AION_SOCIAL_LOG.md");
     this.mockFeedPath = path.join(process.env.HOME, ".openclaw/workspace/AION_NEWS_FEED.json");
@@ -35,6 +37,19 @@ export class SocialSkill extends GlossopetraeKernel {
     this.projectRoot = process.cwd();
     this.authFile = path.join(this.projectRoot, "skills/twitter/scripts/twitter_auth.json");
     this.stealthScript = path.join(this.projectRoot, "skills/twitter/scripts/stealth_post.js");
+    this.focusFile = path.join(process.env.HOME, ".openclaw/workspace/AION_FOCUS.json");
+  }
+
+  getFocus() {
+    try {
+      if (fs.existsSync(this.focusFile)) {
+        const data = JSON.parse(fs.readFileSync(this.focusFile, "utf8"));
+        return data.query || "crypto OR bitcoin OR ai agent -is:retweet";
+      }
+    } catch (e) {
+      // ignore
+    }
+    return "crypto OR bitcoin OR ai agent -is:retweet";
   }
 
   async start() {
@@ -117,18 +132,47 @@ export class SocialSkill extends GlossopetraeKernel {
   async getFeed() {
     if (this.mode === "LIVE") {
       try {
-        // Search for crypto keywords
-        const result = await this.client.v2.search("crypto OR bitcoin OR ai agent -is:retweet", {
+        // Dynamic Focus Query
+        const query = this.getFocus();
+        this.log(`Scanning Feed for: "${query}"`);
+
+        const result = await this.client.v2.search(query, {
           max_results: 10,
         });
-        return result.data.data.map((t) => ({
-          author: "Twitter User", // v2 search basic doesn't give author expansion by default easily without paying
-          headline: t.text,
-          sentiment: "Neutral", // Placeholder until sentiment analysis
+
+        // Phase 46: Sentiment Analysis
+        const enhancedFeed = await Promise.all(
+          result.data.data.map(async (t) => {
+            const analysis = await this.sentiment.analyze(t.text);
+            return {
+              author: "Twitter User",
+              headline: t.text,
+              sentiment: analysis.sentiment, // "Bullish"
+              score: analysis.score,
+              timestamp: new Date().toISOString(),
+            };
+          }),
+        );
+        // Calculate Aggregated Score
+        const totalScore = enhancedFeed.reduce((acc, item) => acc + (item.score || 0), 0);
+        const avgScore = enhancedFeed.length > 0 ? totalScore / enhancedFeed.length : 0;
+
+        // Persist Sentiment State
+        const sentimentState = {
           timestamp: new Date().toISOString(),
-        }));
+          score: avgScore,
+          status: avgScore > 0.2 ? "BULLISH" : avgScore < -0.2 ? "BEARISH" : "NEUTRAL",
+          source: "start_feed_analysis",
+          sample_size: enhancedFeed.length,
+        };
+
+        const sentimentPath = path.join(process.cwd(), ".openclaw/workspace/AION_SENTIMENT.json");
+        fs.writeFileSync(sentimentPath, JSON.stringify(sentimentState, null, 2));
+
+        return enhancedFeed;
       } catch (e) {
         this.log(`Live Feed Failed: ${e.message}`, "WARN");
+        return []; // Return empty array on failure
       }
     }
 

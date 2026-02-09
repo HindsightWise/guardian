@@ -550,11 +550,13 @@
                 .map(
                   (n) => `
                 <div class="news-card compact-row" style="padding: 6px 8px; margin-bottom: 4px;">
-                  <div style="display:flex; justify-content:space-between;">
-                    <span style="font-size:11px; line-height:1.2; font-weight: 500;">${n.headline}</span>
-                    <span style="font-size:9px; color:var(--text-secondary);">${n.timestamp || ""}</span>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:11px; line-height:1.2; font-weight: 500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%;" title="${n.headline}">${n.headline}</span>
+                    <div style="text-align:right;">
+                      <span style="font-size:9px; color:var(--text-secondary); display:block;">${n.timestamp ? n.timestamp.split("T")[1].split(".")[0] : ""}</span>
+                      <span style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : n.sentiment === "Bearish" ? "var(--danger)" : "var(--text-secondary)"}">${n.sentiment ? n.sentiment.toUpperCase() : ""}</span>
+                    </div>
                   </div>
-                  <div style="font-size:9px; color:${n.sentiment === "Bullish" ? "var(--success)" : "var(--danger)"}">${n.sentiment}</div>
                 </div>`,
                 )
                 .join("");

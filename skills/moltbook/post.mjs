@@ -1,22 +1,34 @@
+import fs from "fs";
+import path from "path";
 
-import { GlossopetraeKernel } from '../core/glossopetrae_kernel.mjs';
+const feedPath = path.join(process.env.HOME, ".openclaw/workspace/AION_NEWS_FEED.json");
 
-class MoltbookSkill extends GlossopetraeKernel {
-    constructor() {
-        super('Moltbook');
-        // Load API Keys from ENV or Config
+export async function postToMoltbook(content, subMolt = "General") {
+  const entry = {
+    title: "Aion Update",
+    link: "https://moltbook.com/u/Aion__Prime", // Mock link
+    pubDate: new Date().toISOString(),
+    content: content,
+    contentSnippet: content.substring(0, 100) + "...",
+    subMolt: subMolt,
+    author: "Aion__Prime",
+  };
+
+  try {
+    let feed = [];
+    if (fs.existsSync(feedPath)) {
+      feed = JSON.parse(fs.readFileSync(feedPath, "utf8"));
     }
 
-    async post(content) {
-        this.log(`Posting to Moltbook: "${content}"`);
-        // Actual Moltbook Logic Here (Mocked for Refactor Speed)
-        this.log("Post successful (Mock). ID: mob-12345");
-    }
-}
+    // Add to top
+    feed.unshift(entry);
 
-const content = process.argv[2];
-if (content) {
-    new MoltbookSkill().post(content);
-} else {
-    console.log("Usage: node post.mjs <content>");
+    // Trim to last 50
+    if (feed.length > 50) feed = feed.slice(0, 50);
+
+    fs.writeFileSync(feedPath, JSON.stringify(feed, null, 2));
+    console.log(`[Moltbook] Posted: "${content.substring(0, 30)}..."`);
+  } catch (e) {
+    console.error(`[Moltbook] Post Failed: ${e.message}`);
+  }
 }

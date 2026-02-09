@@ -1,0 +1,97 @@
+[01:06:16] [🥒] [Core/Cortex] Kernel Initialized.
+[01:06:16] [🥒] [Alpaca/Trade] Kernel Initialized.
+[01:06:16] [🥒] [Social/Twitter] Kernel Initialized.
+[01:06:16] [🥒] [Social/Sentiment] Kernel Initialized.
+[01:06:16] [🥒] [Social/Publisher] Kernel Initialized.
+[01:06:16] [🥒] [Social/Twitter] Kernel Initialized.
+[01:06:16] [🥒] [Social/Sentiment] Kernel Initialized.
+[01:06:16] [🥒] [Alpaca/Overlord] Kernel Initialized.
+[01:06:16] [🥒] [Alpaca/Trade] Kernel Initialized.
+[01:06:16] [🥒] [Core/Cortex] Initializing Cortex Web Server...
+[01:06:16] [🥒] [Core/Cortex] Initializing Market Data Stream...
+[01:06:16] [🥒] [Alpaca/Overlord] Overlord Awakening... System Online.
+[01:06:16] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:06:16] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:06:16] [🥒] [Core/Cortex] Server running at http://localhost:3333/
+[01:06:17] [🥒] [Alpaca/Overlord] 💰 Cash: $65760.35 | Sentiment: BULLISH
+[01:06:17] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $3288.02 to BTCUSD (PAPER).
+[01:06:17] [🥒] [Alpaca/Trade] Executing Order: BUY 0.03338 BTCUSD...
+[01:06:17] [🥒] [Alpaca/Trade] ✅ Order Placed: 5c886788-2a27-49b9-bc2f-219b728c0950 (pending_new)
+[01:06:17] [🥒] [Alpaca/Overlord] 🛡️ Running Security Protocol...
+[01:06:17] [🥒] [Alpaca/Overlord] Cycle Complete. Returning to slumber.
+[01:06:17] [🥒] [Alpaca/Overlord] Sleeping for 60s...
+[01:06:17] [🥒] [Alpaca/Overlord] [Antibody] [01:06:17] [🥒] [Core/Antibody] Kernel Initialized.
+[01:06:17] [🥒] [Core/Antibody] 🛡️ Antibody Full Scan Initiated...
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in overlord.mjs
+[01:06:17] [⚠️] [Core/Antibody] [CRITICAL] Detected Destruction in overlord.mjs
+[01:06:17] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:06:17] [🥒] [Core/Antibody] Querying Gemini...
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in SKILL.md
+[01:06:17] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in fetch_cot.sh
+[01:06:17] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:06:17] [🥒] [Core/Antibody] Querying Gemini...
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in vault.mjs
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in approve.mjs
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in generate_image.py
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in gen.py
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in analyzer.mjs
+[01:06:17] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in manager.mjs
+[01:06:17] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in setup.sh
+[01:06:17] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:06:17] [🥒] [Core/Antibody] Querying Gemini...
+[01:06:17] [🥒] [Core/Antibody] ✅ Scan Complete. System Secure.
+[01:06:17] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:06:17] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:06:17] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+[01:06:17] [🥒] [Alpaca/Overlord] 🛡️ THREAT DETECTED. ENGAGING SHIELD (GLOSSOPETRAE VAULT).
+[01:06:17] [🥒] [Core/Vault] Kernel Initialized.
+[GLOSSOPETRAE] Generating language: AionCipher
+[GLOSSOPETRAE] Seed: 777
+[GLOSSOPETRAE] Phase 1: Generating phonology...
+[GLOSSOPETRAE] Phase 2: Generating phonotactics...
+[GLOSSOPETRAE] Phase 3: Generating prosody...
+[GLOSSOPETRAE] Phase 4: Generating morphology...
+[GLOSSOPETRAE] Phase 5: Generating writing system...
+[GLOSSOPETRAE] Phase 6: Generating lexicon...
+[GLOSSOPETRAE] Phase 7: Initializing translation engine...
+[GLOSSOPETRAE] Phase 8: Initializing quality engine...
+[GLOSSOPETRAE] Phase 9: Generating SKILLSTONE document...
+[GLOSSOPETRAE] Language generation complete!
+[01:06:18] [🥒] [Core/Vault] 🔒 Locking Vault...
+[01:06:18] [🥒] [Core/Vault] 🔒 Vault Secured.
+[01:07:17] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:07:17] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:07:17] [🥒] [Alpaca/Overlord] 💰 Cash: $63413.50 | Sentiment: BULLISH
+[01:07:17] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $3170.68 to BTCUSD (PAPER).
+[01:07:17] [🥒] [Alpaca/Trade] Executing Order: BUY 0.03219 BTCUSD...
+[01:07:17] [🥒] [Alpaca/Trade] ✅ Order Placed: 78ba6f07-3ca1-417c-841f-9b64def08d54 (pending_new)
+[01:07:17] [🥒] [Alpaca/Overlord] Cycle Complete. Returning to slumber.
+[01:07:17] [🥒] [Alpaca/Overlord] Sleeping for 60s...
+[01:08:17] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:08:17] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:08:17] [🥒] [Alpaca/Overlord] 💰 Cash: $61149.29 | Sentiment: BULLISH
+[01:08:17] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $3057.46 to BTCUSD (PAPER).
+[01:08:17] [🥒] [Alpaca/Trade] Executing Order: BUY 0.03104 BTCUSD...
+[01:08:18] [🥒] [Alpaca/Trade] ✅ Order Placed: 84b64e7e-6801-4545-9064-04084fa2fd41 (pending_new)
+[01:08:18] [🥒] [Alpaca/Overlord] Cycle Complete. Returning to slumber.
+[01:08:18] [🥒] [Alpaca/Overlord] Sleeping for 60s...

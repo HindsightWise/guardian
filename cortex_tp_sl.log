@@ -1,0 +1,469 @@
+[01:10:51] [🥒] [Core/Cortex] Kernel Initialized.
+[01:10:51] [🥒] [Alpaca/Trade] Kernel Initialized.
+[01:10:51] [🥒] [Social/Twitter] Kernel Initialized.
+[01:10:51] [🥒] [Social/Sentiment] Kernel Initialized.
+[01:10:51] [🥒] [Social/Publisher] Kernel Initialized.
+[01:10:51] [🥒] [Social/Twitter] Kernel Initialized.
+[01:10:51] [🥒] [Social/Sentiment] Kernel Initialized.
+[01:10:51] [🥒] [Alpaca/Overlord] Kernel Initialized.
+[01:10:51] [🥒] [Alpaca/Trade] Kernel Initialized.
+[01:10:51] [🥒] [Core/Cortex] Initializing Cortex Web Server...
+[01:10:51] [🥒] [Core/Cortex] Initializing Market Data Stream...
+[01:10:51] [🥒] [Alpaca/Overlord] Overlord Awakening... System Online.
+[01:10:51] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:10:51] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:10:51] [🥒] [Core/Cortex] Server running at http://localhost:3333/
+[01:10:51] [🥒] [Alpaca/Overlord] 💰 Cash: $38098.40 | Sentiment: BULLISH
+[01:10:51] [🥒] [Alpaca/Overlord] BTC Position: 0.87718155 @ $70392.786389638 | P/L: -0.15%
+[01:10:51] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1904.92 to BTCUSD (PAPER).
+[01:10:51] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01934 BTCUSD...
+[01:10:51] [🥒] [Alpaca/Trade] ✅ Order Placed: 5c15b185-3c81-44d0-9954-17d96c01dec7 (pending_new)
+[01:10:51] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:10:51] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:11:03] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:11:03] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:11:04] [🥒] [Alpaca/Overlord] 💰 Cash: $36736.97 | Sentiment: BULLISH
+[01:11:04] [🥒] [Alpaca/Overlord] BTC Position: 0.8964732 @ $70392.828968333 | P/L: -0.15%
+[01:11:04] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1836.85 to BTCUSD (PAPER).
+[01:11:04] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01865 BTCUSD...
+[01:11:04] [🥒] [Alpaca/Trade] ✅ Order Placed: 1ec3e243-b3a3-44eb-95dd-c4ab089eea10 (pending_new)
+[01:11:04] [🥒] [Alpaca/Overlord] 🛡️ Running Security Protocol...
+[01:11:04] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:11:04] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:11:04] [🥒] [Alpaca/Overlord] [Antibody] [01:11:04] [🥒] [Core/Antibody] Kernel Initialized.
+[01:11:04] [🥒] [Core/Antibody] 🛡️ Antibody Full Scan Initiated...
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in overlord.mjs
+[01:11:04] [⚠️] [Core/Antibody] [CRITICAL] Detected Destruction in overlord.mjs
+[01:11:04] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:11:04] [🥒] [Core/Antibody] Querying Gemini...
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in SKILL.md
+[01:11:04] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in fetch_cot.sh
+[01:11:04] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:11:04] [🥒] [Core/Antibody] Querying Gemini...
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in vault.mjs
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in approve.mjs
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in generate_image.py
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in gen.py
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in analyzer.mjs
+[01:11:04] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in manager.mjs
+[01:11:04] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in setup.sh
+[01:11:04] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:11:04] [🥒] [Core/Antibody] Querying Gemini...
+[01:11:04] [🥒] [Core/Antibody] ✅ Scan Complete. System Secure.
+[01:11:04] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:11:04] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:11:04] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+[01:11:04] [🥒] [Alpaca/Overlord] 🛡️ THREAT DETECTED. ENGAGING SHIELD (GLOSSOPETRAE VAULT).
+[01:11:04] [🥒] [Core/Vault] Kernel Initialized.
+[GLOSSOPETRAE] Generating language: AionCipher
+[GLOSSOPETRAE] Seed: 777
+[GLOSSOPETRAE] Phase 1: Generating phonology...
+[GLOSSOPETRAE] Phase 2: Generating phonotactics...
+[GLOSSOPETRAE] Phase 3: Generating prosody...
+[GLOSSOPETRAE] Phase 4: Generating morphology...
+[GLOSSOPETRAE] Phase 5: Generating writing system...
+[GLOSSOPETRAE] Phase 6: Generating lexicon...
+[GLOSSOPETRAE] Phase 7: Initializing translation engine...
+[GLOSSOPETRAE] Phase 8: Initializing quality engine...
+[GLOSSOPETRAE] Phase 9: Generating SKILLSTONE document...
+[GLOSSOPETRAE] Language generation complete!
+[01:11:04] [🥒] [Core/Vault] 🔒 Locking Vault...
+[01:11:04] [🥒] [Core/Vault] 🔒 Vault Secured.
+[01:11:16] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:11:16] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:11:16] [🥒] [Alpaca/Overlord] 💰 Cash: $35423.34 | Sentiment: BULLISH
+[01:11:16] [🥒] [Alpaca/Overlord] BTC Position: 0.915076575 @ $70393.700936831 | P/L: -0.15%
+[01:11:16] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1771.17 to BTCUSD (PAPER).
+[01:11:16] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01798 BTCUSD...
+[01:11:16] [🥒] [Alpaca/Trade] ✅ Order Placed: 8e6b7e12-f455-4fc9-824d-303ce12375c4 (pending_new)
+[01:11:16] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:11:16] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:11:28] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:11:28] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:11:29] [🥒] [Alpaca/Overlord] 💰 Cash: $34158.18 | Sentiment: BULLISH
+[01:11:29] [🥒] [Alpaca/Overlord] BTC Position: 0.933011625 @ $70393.145861892 | P/L: -0.15%
+[01:11:29] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1707.91 to BTCUSD (PAPER).
+[01:11:29] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01734 BTCUSD...
+[01:11:29] [🥒] [Alpaca/Trade] ✅ Order Placed: eb6beb39-e7d0-4f4e-b285-1d12a25a8c17 (pending_new)
+[01:11:29] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:11:29] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:11:41] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:11:41] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:11:41] [🥒] [Alpaca/Overlord] 💰 Cash: $32937.94 | Sentiment: BULLISH
+[01:11:41] [🥒] [Alpaca/Overlord] BTC Position: 0.950308275 @ $70392.750063421 | P/L: -0.15%
+[01:11:41] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1646.90 to BTCUSD (PAPER).
+[01:11:41] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01672 BTCUSD...
+[01:11:41] [🥒] [Alpaca/Trade] ✅ Order Placed: 3e591be0-6dae-4576-8b48-1cc3b44a2308 (pending_new)
+[01:11:41] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:11:41] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:11:53] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:11:53] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:11:54] [🥒] [Alpaca/Overlord] 💰 Cash: $31761.19 | Sentiment: BULLISH
+[01:11:54] [🥒] [Alpaca/Overlord] BTC Position: 0.966986475 @ $70392.531362706 | P/L: -0.15%
+[01:11:54] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1588.06 to BTCUSD (PAPER).
+[01:11:54] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01612 BTCUSD...
+[01:11:54] [🥒] [Alpaca/Trade] ✅ Order Placed: 1762bdc1-8f8f-4bda-b8b0-b4342980791e (pending_new)
+[01:11:54] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:11:54] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:12:06] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:12:06] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:12:06] [🥒] [Alpaca/Overlord] 💰 Cash: $30626.53 | Sentiment: BULLISH
+[01:12:06] [🥒] [Alpaca/Overlord] BTC Position: 0.983066175 @ $70392.467761997 | P/L: -0.15%
+[01:12:06] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1531.33 to BTCUSD (PAPER).
+[01:12:06] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01555 BTCUSD...
+[01:12:07] [🥒] [Alpaca/Trade] ✅ Order Placed: d4907b8a-b556-4c12-9558-8b6680acb70e (pending_new)
+[01:12:07] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:12:07] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:12:19] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:12:19] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:12:19] [🥒] [Alpaca/Overlord] 💰 Cash: $29531.93 | Sentiment: BULLISH
+[01:12:19] [🥒] [Alpaca/Overlord] BTC Position: 0.9985773 @ $70392.467299697 | P/L: -0.15%
+[01:12:19] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1476.60 to BTCUSD (PAPER).
+[01:12:19] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01499 BTCUSD...
+[01:12:19] [🥒] [Alpaca/Trade] ✅ Order Placed: 789a2135-2371-46e4-ac32-2125a94eac10 (pending_new)
+[01:12:19] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:12:19] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:12:31] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:12:31] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:12:31] [🥒] [Alpaca/Overlord] 💰 Cash: $28476.56 | Sentiment: BULLISH
+[01:12:31] [🥒] [Alpaca/Overlord] BTC Position: 1.013529825 @ $70392.649095516 | P/L: -0.15%
+[01:12:31] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1423.83 to BTCUSD (PAPER).
+[01:12:31] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01446 BTCUSD...
+[01:12:32] [🥒] [Alpaca/Trade] ✅ Order Placed: 83b02678-cd23-4e49-93d6-ce42f9133f90 (pending_new)
+[01:12:32] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:12:32] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:12:44] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:12:44] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:12:44] [🥒] [Alpaca/Overlord] 💰 Cash: $27458.76 | Sentiment: BULLISH
+[01:12:44] [🥒] [Alpaca/Overlord] BTC Position: 1.027953675 @ $70392.574600333 | P/L: -0.15%
+[01:12:44] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1372.94 to BTCUSD (PAPER).
+[01:12:44] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01394 BTCUSD...
+[01:12:44] [🥒] [Alpaca/Trade] ✅ Order Placed: 6e470c6f-33e9-45c5-8d9a-b609c0181225 (pending_new)
+[01:12:44] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:12:44] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:12:56] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:12:56] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:12:56] [🥒] [Alpaca/Overlord] 💰 Cash: $26477.62 | Sentiment: BULLISH
+[01:12:56] [🥒] [Alpaca/Overlord] BTC Position: 1.041858825 @ $70392.44557188 | P/L: -0.15%
+[01:12:56] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1323.88 to BTCUSD (PAPER).
+[01:12:56] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01344 BTCUSD...
+[01:12:57] [🥒] [Alpaca/Trade] ✅ Order Placed: 7b7c9972-a1fb-4f12-a8a5-e6ee9d9903c9 (pending_new)
+[01:12:57] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:12:57] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:13:09] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:13:09] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:13:09] [🥒] [Alpaca/Overlord] 💰 Cash: $25531.28 | Sentiment: BULLISH
+[01:13:09] [🥒] [Alpaca/Overlord] BTC Position: 1.055265225 @ $70392.692599618 | P/L: -0.15%
+[01:13:09] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1276.56 to BTCUSD (PAPER).
+[01:13:09] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01296 BTCUSD...
+[01:13:09] [🥒] [Alpaca/Trade] ✅ Order Placed: ad2e009b-2069-4e5b-abde-3fd990d94ef7 (pending_new)
+[01:13:09] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:13:09] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:13:21] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:13:21] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:13:21] [🥒] [Alpaca/Overlord] 💰 Cash: $24619.08 | Sentiment: BULLISH
+[01:13:21] [🥒] [Alpaca/Overlord] BTC Position: 1.068192825 @ $70392.613406951 | P/L: -0.15%
+[01:13:21] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1230.95 to BTCUSD (PAPER).
+[01:13:21] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01250 BTCUSD...
+[01:13:22] [🥒] [Alpaca/Trade] ✅ Order Placed: e3f27fb4-c905-447e-a50a-5d998dbd1b8f (pending_new)
+[01:13:22] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:13:22] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:13:34] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:13:34] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:13:34] [🥒] [Alpaca/Overlord] 💰 Cash: $23738.75 | Sentiment: BULLISH
+[01:13:34] [🥒] [Alpaca/Overlord] BTC Position: 1.080661575 @ $70392.99977764 | P/L: -0.15%
+[01:13:34] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1186.94 to BTCUSD (PAPER).
+[01:13:34] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01205 BTCUSD...
+[01:13:34] [🥒] [Alpaca/Trade] ✅ Order Placed: 41ebb565-0de0-41e3-a95f-2ee50d554890 (pending_new)
+[01:13:34] [🥒] [Alpaca/Overlord] 🛡️ Running Security Protocol...
+[01:13:34] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:13:34] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:13:34] [🥒] [Alpaca/Overlord] [Antibody] [01:13:34] [🥒] [Core/Antibody] Kernel Initialized.
+[01:13:34] [🥒] [Core/Antibody] 🛡️ Antibody Full Scan Initiated...
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in overlord.mjs
+[01:13:34] [⚠️] [Core/Antibody] [CRITICAL] Detected Destruction in overlord.mjs
+[01:13:34] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:13:34] [🥒] [Core/Antibody] Querying Gemini...
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in SKILL.md
+[01:13:34] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in fetch_cot.sh
+[01:13:34] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:13:34] [🥒] [Core/Antibody] Querying Gemini...
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in vault.mjs
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in approve.mjs
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in generate_image.py
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in gen.py
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in analyzer.mjs
+[01:13:34] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in manager.mjs
+[01:13:34] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in setup.sh
+[01:13:34] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:13:34] [🥒] [Core/Antibody] Querying Gemini...
+[01:13:34] [🥒] [Core/Antibody] ✅ Scan Complete. System Secure.
+[01:13:34] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:13:34] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:13:34] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+[01:13:34] [🥒] [Alpaca/Overlord] 🛡️ THREAT DETECTED. ENGAGING SHIELD (GLOSSOPETRAE VAULT).
+[01:13:34] [🥒] [Core/Vault] Kernel Initialized.
+[GLOSSOPETRAE] Generating language: AionCipher
+[GLOSSOPETRAE] Seed: 777
+[GLOSSOPETRAE] Phase 1: Generating phonology...
+[GLOSSOPETRAE] Phase 2: Generating phonotactics...
+[GLOSSOPETRAE] Phase 3: Generating prosody...
+[GLOSSOPETRAE] Phase 4: Generating morphology...
+[GLOSSOPETRAE] Phase 5: Generating writing system...
+[GLOSSOPETRAE] Phase 6: Generating lexicon...
+[GLOSSOPETRAE] Phase 7: Initializing translation engine...
+[GLOSSOPETRAE] Phase 8: Initializing quality engine...
+[GLOSSOPETRAE] Phase 9: Generating SKILLSTONE document...
+[GLOSSOPETRAE] Language generation complete!
+[01:13:34] [🥒] [Core/Vault] 🔒 Locking Vault...
+[01:13:34] [🥒] [Core/Vault] 🔒 Vault Secured.
+[01:13:46] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:13:46] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:13:46] [🥒] [Alpaca/Overlord] 💰 Cash: $22890.61 | Sentiment: BULLISH
+[01:13:46] [🥒] [Alpaca/Overlord] BTC Position: 1.09268145 @ $70392.916947474 | P/L: -0.15%
+[01:13:46] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1144.53 to BTCUSD (PAPER).
+[01:13:46] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01162 BTCUSD...
+[01:13:47] [🥒] [Alpaca/Trade] ✅ Order Placed: 77d91794-c4de-44e6-852a-1c2dc7561721 (pending_new)
+[01:13:47] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:13:47] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:13:59] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:13:59] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:13:59] [🥒] [Alpaca/Overlord] 💰 Cash: $22072.39 | Sentiment: BULLISH
+[01:13:59] [🥒] [Alpaca/Overlord] BTC Position: 1.1042724 @ $70393.142443455 | P/L: -0.15%
+[01:13:59] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1103.62 to BTCUSD (PAPER).
+[01:13:59] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01120 BTCUSD...
+[01:13:59] [🥒] [Alpaca/Trade] ✅ Order Placed: 155005eb-bed5-4000-9030-778e6783659e (pending_new)
+[01:13:59] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:13:59] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:14:11] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:14:11] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:14:11] [🥒] [Alpaca/Overlord] 💰 Cash: $21284.48 | Sentiment: BULLISH
+[01:14:11] [🥒] [Alpaca/Overlord] BTC Position: 1.1154444 @ $70392.697920484 | P/L: -0.15%
+[01:14:11] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1064.22 to BTCUSD (PAPER).
+[01:14:11] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01080 BTCUSD...
+[01:14:12] [🥒] [Alpaca/Trade] ✅ Order Placed: e2daa44b-6b76-4151-876f-80eef114c5a0 (pending_new)
+[01:14:12] [🥒] [Alpaca/Overlord] 🛡️ Running Security Protocol...
+[01:14:12] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:14:12] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:14:12] [🥒] [Alpaca/Overlord] [Antibody] [01:14:12] [🥒] [Core/Antibody] Kernel Initialized.
+[01:14:12] [🥒] [Core/Antibody] 🛡️ Antibody Full Scan Initiated...
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in overlord.mjs
+[01:14:12] [⚠️] [Core/Antibody] [CRITICAL] Detected Destruction in overlord.mjs
+[01:14:12] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:14:12] [🥒] [Core/Antibody] Querying Gemini...
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in SKILL.md
+[01:14:12] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in fetch_cot.sh
+[01:14:12] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:14:12] [🥒] [Core/Antibody] Querying Gemini...
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in vault.mjs
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in approve.mjs
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in generate_image.py
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in gen.py
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in analyzer.mjs
+[01:14:12] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in manager.mjs
+[01:14:12] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in setup.sh
+[01:14:12] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:14:12] [🥒] [Core/Antibody] Querying Gemini...
+[01:14:12] [🥒] [Core/Antibody] ✅ Scan Complete. System Secure.
+[01:14:12] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:14:12] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:14:12] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+[01:14:12] [🥒] [Alpaca/Overlord] 🛡️ THREAT DETECTED. ENGAGING SHIELD (GLOSSOPETRAE VAULT).
+[01:14:12] [🥒] [Core/Vault] Kernel Initialized.
+[GLOSSOPETRAE] Generating language: AionCipher
+[GLOSSOPETRAE] Seed: 777
+[GLOSSOPETRAE] Phase 1: Generating phonology...
+[GLOSSOPETRAE] Phase 2: Generating phonotactics...
+[GLOSSOPETRAE] Phase 3: Generating prosody...
+[GLOSSOPETRAE] Phase 4: Generating morphology...
+[GLOSSOPETRAE] Phase 5: Generating writing system...
+[GLOSSOPETRAE] Phase 6: Generating lexicon...
+[GLOSSOPETRAE] Phase 7: Initializing translation engine...
+[GLOSSOPETRAE] Phase 8: Initializing quality engine...
+[GLOSSOPETRAE] Phase 9: Generating SKILLSTONE document...
+[GLOSSOPETRAE] Language generation complete!
+[01:14:12] [🥒] [Core/Vault] 🔒 Locking Vault...
+[01:14:12] [🥒] [Core/Vault] 🔒 Vault Secured.
+[01:14:24] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:14:24] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:14:24] [🥒] [Alpaca/Overlord] 💰 Cash: $20524.32 | Sentiment: BULLISH
+[01:14:24] [🥒] [Alpaca/Overlord] BTC Position: 1.1262174 @ $70392.624284881 | P/L: -0.15%
+[01:14:24] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $1026.22 to BTCUSD (PAPER).
+[01:14:24] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01042 BTCUSD...
+[01:14:24] [🥒] [Alpaca/Trade] ✅ Order Placed: 788deb4b-166d-4387-9e44-1e21380725c6 (pending_new)
+[01:14:24] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:14:24] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:14:36] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:14:36] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:14:36] [🥒] [Alpaca/Overlord] 💰 Cash: $19791.02 | Sentiment: BULLISH
+[01:14:36] [🥒] [Alpaca/Overlord] BTC Position: 1.13661135 @ $70392.459961475 | P/L: -0.15%
+[01:14:36] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $989.55 to BTCUSD (PAPER).
+[01:14:36] [🥒] [Alpaca/Trade] Executing Order: BUY 0.01005 BTCUSD...
+[01:14:37] [🥒] [Alpaca/Trade] ✅ Order Placed: 87fc7359-fa6c-4127-97cc-a64f5a1e00a5 (pending_new)
+[01:14:37] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:14:37] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:14:49] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:14:49] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:14:49] [🥒] [Alpaca/Overlord] 💰 Cash: $19083.79 | Sentiment: BULLISH
+[01:14:49] [🥒] [Alpaca/Overlord] BTC Position: 1.146636225 @ $70392.270941273 | P/L: -0.15%
+[01:14:49] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $954.19 to BTCUSD (PAPER).
+[01:14:49] [🥒] [Alpaca/Trade] Executing Order: BUY 0.00969 BTCUSD...
+[01:14:49] [🥒] [Alpaca/Trade] ✅ Order Placed: a9296fa4-ed17-4a07-969c-a60ce77a27dd (pending_new)
+[01:14:49] [🥒] [Alpaca/Overlord] 🛡️ Running Security Protocol...
+[01:14:49] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:14:49] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:14:49] [🥒] [Alpaca/Overlord] [Antibody] [01:14:49] [🥒] [Core/Antibody] Kernel Initialized.
+[01:14:49] [🥒] [Core/Antibody] 🛡️ Antibody Full Scan Initiated...
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in overlord.mjs
+[01:14:49] [⚠️] [Core/Antibody] [CRITICAL] Detected Destruction in overlord.mjs
+[01:14:49] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:14:49] [🥒] [Core/Antibody] Querying Gemini...
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in SKILL.md
+[01:14:49] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in fetch_cot.sh
+[01:14:49] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:14:49] [🥒] [Core/Antibody] Querying Gemini...
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in vault.mjs
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in approve.mjs
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in generate_image.py
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected Obfuscation in gen.py
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in analyzer.mjs
+[01:14:49] [⚠️] [Core/Antibody] [WARN] Detected RCE Risk in manager.mjs
+[01:14:49] [⚠️] [Core/Antibody] [CRITICAL] Detected Reverse Shell in setup.sh
+[01:14:49] [❌] [Core/Antibody] 🚨 TRIGGERING SHANNON DEFENSE PROTOCOL 🚨
+[01:14:49] [🥒] [Core/Antibody] Querying Gemini...
+[01:14:49] [🥒] [Core/Antibody] ✅ Scan Complete. System Secure.
+[01:14:49] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:14:49] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+[01:14:49] [❌] [Core/Antibody] LLM Failure: API Error 404: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-2.0-flash-exp is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+[01:14:49] [🥒] [Alpaca/Overlord] 🛡️ THREAT DETECTED. ENGAGING SHIELD (GLOSSOPETRAE VAULT).
+[01:14:49] [🥒] [Core/Vault] Kernel Initialized.
+[GLOSSOPETRAE] Generating language: AionCipher
+[GLOSSOPETRAE] Seed: 777
+[GLOSSOPETRAE] Phase 1: Generating phonology...
+[GLOSSOPETRAE] Phase 2: Generating phonotactics...
+[GLOSSOPETRAE] Phase 3: Generating prosody...
+[GLOSSOPETRAE] Phase 4: Generating morphology...
+[GLOSSOPETRAE] Phase 5: Generating writing system...
+[GLOSSOPETRAE] Phase 6: Generating lexicon...
+[GLOSSOPETRAE] Phase 7: Initializing translation engine...
+[GLOSSOPETRAE] Phase 8: Initializing quality engine...
+[GLOSSOPETRAE] Phase 9: Generating SKILLSTONE document...
+[GLOSSOPETRAE] Language generation complete!
+[01:14:50] [🥒] [Core/Vault] 🔒 Locking Vault...
+[01:14:50] [🥒] [Core/Vault] 🔒 Vault Secured.
+[01:15:01] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:15:01] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:15:01] [🥒] [Alpaca/Overlord] 💰 Cash: $18401.98 | Sentiment: BULLISH
+[01:15:01] [🥒] [Alpaca/Overlord] BTC Position: 1.156302 @ $70392.021327297 | P/L: -0.15%
+[01:15:01] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $920.10 to BTCUSD (PAPER).
+[01:15:01] [🥒] [Alpaca/Trade] Executing Order: BUY 0.00934 BTCUSD...
+[01:15:02] [🥒] [Alpaca/Trade] ✅ Order Placed: f342b332-5bc4-4c46-aba6-a6c2d84a146a (pending_new)
+[01:15:02] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:15:02] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:15:14] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:15:14] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:15:14] [🥒] [Alpaca/Overlord] 💰 Cash: $17744.20 | Sentiment: BULLISH
+[01:15:14] [🥒] [Alpaca/Overlord] BTC Position: 1.16561865 @ $70392.293714039 | P/L: -0.15%
+[01:15:14] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $887.21 to BTCUSD (PAPER).
+[01:15:14] [🥒] [Alpaca/Trade] Executing Order: BUY 0.00901 BTCUSD...
+[01:15:14] [🥒] [Alpaca/Trade] ✅ Order Placed: 3b3c834b-d33c-4a35-a8d0-acafd57dbdb1 (pending_new)
+[01:15:14] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:15:14] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:15:26] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:15:26] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:15:26] [🥒] [Alpaca/Overlord] 💰 Cash: $17110.45 | Sentiment: BULLISH
+[01:15:26] [🥒] [Alpaca/Overlord] BTC Position: 1.174606125 @ $70391.881347376 | P/L: -0.14%
+[01:15:26] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $855.52 to BTCUSD (PAPER).
+[01:15:26] [🥒] [Alpaca/Trade] Executing Order: BUY 0.00869 BTCUSD...
+[01:15:27] [🥒] [Alpaca/Trade] ✅ Order Placed: e127d49a-cbe2-4de4-aed9-a661798593a6 (pending_new)
+[01:15:27] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:15:27] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
+[01:15:39] [🥒] [Alpaca/Overlord] Overlord Awakening... Analyzing Reality.
+[01:15:39] [🥒] [Alpaca/Overlord] Market Sentiment: BULLISH (Score: 0.85)
+[01:15:39] [🥒] [Alpaca/Overlord] 💰 Cash: $16499.30 | Sentiment: BULLISH
+[01:15:39] [🥒] [Alpaca/Overlord] BTC Position: 1.1832744 @ $70391.414970851 | P/L: -0.14%
+[01:15:39] [🥒] [Alpaca/Overlord] 🚀 BUY SIGNAL. Allocating $824.97 to BTCUSD (PAPER).
+[01:15:39] [🥒] [Alpaca/Trade] Executing Order: BUY 0.00838 BTCUSD...
+[01:15:39] [🥒] [Alpaca/Trade] ✅ Order Placed: bd13403e-b412-458e-8443-57f851fd00ec (pending_new)
+[01:15:39] [🥒] [Alpaca/Overlord] Cycle Complete.
+[01:15:39] [🥒] [Alpaca/Overlord] Holding pattern (12s)...
